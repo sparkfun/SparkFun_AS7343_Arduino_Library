@@ -103,15 +103,15 @@ class SfeAS7343ArdI2C : public sfDevAS7343
         if (_theI2CBus.init(wirePort, address) != ksfTkErrOk)
             return false;
 
-        // Device supports repeat starts, enable it.
-        _theI2CBus.setStop(false);
+        // // Device supports repeat starts, enable it.
+        // _theI2CBus.setStop(false);
 
         setCommunicationBus(&_theI2CBus);
 
         if (!isConnected())
             return false;
-
-        return sfDevAS7343::begin();
+        return true;
+        //return sfDevAS7343::begin();
     }
 
     /**
@@ -138,8 +138,9 @@ class SfeAS7343ArdI2C : public sfDevAS7343
     {
         if (_theI2CBus.ping() != ksfTkErrOk)
             return false;
-
-        return (kDefaultAS7343DeviceID == getDeviceID());
+        
+        return true;
+        //return (kDefaultAS7343DeviceID == getDeviceID());
     }
 
     /**

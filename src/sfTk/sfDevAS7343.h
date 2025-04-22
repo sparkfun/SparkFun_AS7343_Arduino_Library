@@ -399,7 +399,7 @@ typedef union {
     {
         uint8_t reserved: 4;
         uint8_t again : 1;
-        uint8_t reserved: 3;
+        uint8_t reserved2: 3;
     };
     uint8_t word;
 } sfe_as7343_reg_cfg3_t;
@@ -654,3 +654,31 @@ typedef union {
     };
     uint16_t word;
 } sfe_as7343_reg_fifo_data_t;
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+class sfDevAS7343
+{
+  public:
+    sfDevAS7343()
+    {
+    }
+
+    /// @brief This method is called to initialize the AS7343 device through the
+    /// specified bus.
+    /// @param theBus Pointer to the bus object.
+    /// @return True if successful, false if it fails.
+    bool begin(sfTkIBus *theBus = nullptr);
+
+    /// @brief Requests the device ID from the sensor.
+    /// @return The device ID of the sensor.
+    uint8_t getDeviceID(void);
+
+    /// @brief Sets the communication bus to the specified bus.
+    /// @param theBus Bus to set as the communication device.
+    void setCommunicationBus(sfTkIBus *theBus);
+
+  private:
+    sfTkIBus *_theBus; // Pointer to bus device.
+};
