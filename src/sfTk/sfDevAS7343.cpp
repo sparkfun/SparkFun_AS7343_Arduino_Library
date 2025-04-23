@@ -257,3 +257,89 @@ bool sfDevAS7343::setAutoSmux(as7343_auto_smux_channel_t auto_smux)
 
     return true;
 }
+
+bool sfDevAS7343::ledOn(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the LED register (0xCD).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_led_t ledReg; // Create a register structure for the LED register
+
+    // Read the LED register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegLed, ledReg.word))
+        return false;
+
+    // Set the LED_ACT bit to 1 to turn on the LED
+    ledReg.led_act = 1;
+
+    // Write the LED register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegLed, ledReg.word))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::ledOff(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the LED register (0xCD).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_led_t ledReg; // Create a register structure for the LED register
+
+    // Read the LED register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegLed, ledReg.word))
+        return false;
+
+    // Set the LED_ACT bit to 0 to turn off the LED
+    ledReg.led_act = 0;
+
+    // Write the LED register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegLed, ledReg.word))
+        return false;
+
+    return true;
+}
+
+
+bool sfDevAS7343::setLedDrive(uint8_t drive)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Check if the drive current is within the valid range (0-127).
+    if (drive > 127)
+        return false;
+
+    // Set the register bank to 0, needed to access the LED register (0xCD).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_led_t ledReg; // Create a register structure for the LED register
+
+    // Read the LED register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegLed, ledReg.word))
+        return false;
+
+    // Set the LED drive current according to the incoming argument
+    ledReg.led_drive = drive;
+
+    // Write the LED register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegLed, ledReg.word))
+        return false;
+
+    return true;
+}

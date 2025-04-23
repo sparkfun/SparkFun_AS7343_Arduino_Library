@@ -79,21 +79,47 @@ void setup()
 
 void loop()
 {
+    // turn on the LED
+    mySensor.ledOn();
+    // Wait for 100ms
+    delay(100);
+
     // Read all data registers
-    // if it fails, print a failure message and continue
-    if (mySensor.readAllSpectralData() == false)
-    {
-        Serial.println("Failed to read spectral data.");
-        return;
-    }
+      // if it fails, print a failure message and continue
+      if (mySensor.readAllSpectralData() == false)
+      {
+          Serial.println("Failed to read spectral data.");
+          return;
+      }
+
+    // turn off the LED
+    mySensor.ledOff();
+
     // Print the data from all the channels
-    for(int channel = 0; channel <17; channel++)
-    {
-        Serial.print(mySensor.getData(channel));
-        Serial.print(",");
-    }
+    // for(int channel = 0; channel <17; channel++)
+    // {
+    //     Serial.print(mySensor.getData(channel));
+    //     Serial.print(",");
+    // }
+
+    // print blue red, green... for testing
+    // note, serial plotter in arduino draws lines and the incoming data gets plotted to lines in this order (blue,red,green).
+
+    // FZ (blue) data array position 0
+    Serial.print(mySensor.getData(0)); // FZ (blue) data array position 0
+    Serial.print(",");
+
+    // F7 (red) data array position 13
+    Serial.print(mySensor.getData(13)); // F7 (red) data array position 13
+    Serial.print(",");
+
+    // FY (green) data array position 1
+    Serial.print(mySensor.getData(1)); // FY (green) data array position 1
+    Serial.print(",");
+
+
 
     Serial.println();
 
-    delay(1000);
+    delay(500);
 }

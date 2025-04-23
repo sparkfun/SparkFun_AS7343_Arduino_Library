@@ -740,6 +740,31 @@ class sfDevAS7343
     /// @return True if successful, false if it fails.
     bool setAutoSmux(as7343_auto_smux_channel_t auto_smux);
 
+    /// @brief Turn on the LED.
+    /// @details This method turns on the LED by setting the LED_ACT bit in the
+    /// LED register (kSfeAS7343RegLed).
+    /// @return True if successful, false if it fails.
+    bool ledOn(void);
+
+    /// @brief Turn off the LED.
+    /// @details This method turns off the LED by clearing the LED_ACT bit in the
+    /// LED register (kSfeAS7343RegLed).
+    /// @return True if successful, false if it fails.
+    bool ledOff(void);
+
+    /// @brief Set the LED drive current.
+    /// @details This method sets the LED drive current by writing to the LED
+    /// register (kSfeAS7343RegLed). The LED drive current is set by writing to
+    /// the LED_DRIVE bits in the LED register.
+    /// @param ledDrive The LED drive current to set.
+    /// @details Options: 0-127. (4-258mA)
+    /// The drive current can be set to values of 0-127 (0-258 mA).
+    /// 0 = 4mA, 1 = 6mA, 2 = 8mA, ...  127 = 258mA.
+    /// default is 12mA.
+    /// @return True if successful, false if it fails.
+    bool setLedDrive(uint8_t ledDrive);
+
+
   private:
     sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.
 
