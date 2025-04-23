@@ -230,3 +230,30 @@ uint16_t sfDevAS7343::getData(uint8_t channel)
     // Return the data for the specified channel.
     return _data[channel].word;
 }
+
+bool sfDevAS7343::setAutoSmux(as7343_auto_smux_channel_t auto_smux)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the CFG20 register (0xD6).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_cfg20_t cfg20; // Create a register structure for the CFG20 register
+
+    // Read the CFG20 register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegCfg20, cfg20.word))
+        return false;
+
+    // Set the auto_smux bits according to the incoming argument
+    cfg20.auto_smux = auto_smux;
+
+    // Write the CFG20 register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegCfg20, cfg20.word))
+        return false;
+
+    return true;
+}

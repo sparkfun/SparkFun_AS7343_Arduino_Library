@@ -1,6 +1,9 @@
 /*
   Using the AMS AS7343 Sensor.
 
+  This example shows how to setup the AS7343 sensor with default settings and
+  print out all the spectral data from the sensor.
+
   By: Pete Lewis
   SparkFun Electronics
   Date: 2025/04/22
@@ -52,6 +55,16 @@ void setup()
             ;
     }
     Serial.println("Device powered on.");
+
+    // Set the AutoSmux to output all 18 channels
+    if (mySensor.setAutoSmux(AUTOSMUX_18_CHANNELS) == false)
+    {
+        Serial.println("Failed to set AutoSmux.");
+        Serial.println("Halting...");
+        while (1)
+            ;
+    }
+    Serial.println("AutoSmux set to 18 channels.");
 
     // Enable Spectral Measurement
     if (mySensor.spectralMeasurementEnable() == false)

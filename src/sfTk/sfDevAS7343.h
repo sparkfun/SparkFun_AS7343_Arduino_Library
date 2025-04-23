@@ -730,6 +730,16 @@ class sfDevAS7343
     /// @return The data from the specified channel.
     uint16_t getData(uint8_t channel);
 
+    /// @brief Set automatic channel read-out.
+    /// @details This method sets the automatic channel read-out mode. The
+    /// auto_smux setting in the CFG20 register (0xD6) can be set to 6, 12, or 18
+    /// channels. The default is 6 channels.
+    /// @param auto_smux The automatic channel read-out setting.
+    /// @details Options: AUTOSMUX_6_CH (default), AUTOSMUX_12_CH,
+    /// AUTOSMUX_18_CHANNELS.
+    /// @return True if successful, false if it fails.
+    bool setAutoSmux(as7343_auto_smux_channel_t auto_smux);
+
   private:
     sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.
 
