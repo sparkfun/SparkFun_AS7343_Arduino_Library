@@ -56,6 +56,13 @@ const uint8_t kDefaultAS7343DeviceID = 0x81;  // When polling the ID register, t
 // Enum Definitions
 ///////////////////////////////////////////////////////////////////////////////
 
+// Sensor Register Bank settings
+typedef enum
+{
+    REG_BANK_0 = 0x00, // Register bank 0 (default)
+    REG_BANK_1 = 0x01, // Register bank 1
+} as7343_reg_bank_t;
+
 // Sensor gain settings.
 typedef enum
 {
@@ -678,6 +685,15 @@ class sfDevAS7343
     /// @brief Sets the communication bus to the specified bus.
     /// @param theBus Bus to set as the communication device.
     void setCommunicationBus(sfTkIBus *theBus);
+
+    /// @brief Set the register bank.
+    /// In order to access registers from 0x58 to 0x66, bit REG_BANK in register 
+    /// CFG0 (0xBF) needs to be set to “1”. For register access of registers 
+    /// 0x80 and above bit REG_BANK needs to be set to “0”
+    /// @param regBank The register bank to set. 
+    /// @details Options: REG_BANK_0 (default), REG_BANK_1.
+    /// @return True if successful, false if it fails.
+    bool setRegisterBank(as7343_reg_bank_t regBank);
 
   private:
     sfTkIBus *_theBus; // Pointer to bus device.

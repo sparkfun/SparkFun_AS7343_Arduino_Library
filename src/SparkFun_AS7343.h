@@ -138,9 +138,9 @@ class SfeAS7343ArdI2C : public sfDevAS7343
     {
         if (_theI2CBus.ping() != ksfTkErrOk)
             return false;
-        
-        return true;
-        //return (kDefaultAS7343DeviceID == getDeviceID());
+
+        // Check the device ID
+        return (kDefaultAS7343DeviceID == getDeviceID());
     }
 
     /**

@@ -46,7 +46,17 @@ uint8_t sfDevAS7343::getDeviceID(void)
     if (!_theBus)
         return 0;
 
-    uint8_t devID;
+    // Set the register bank to 1, needed to read the device ID register (0x5A)
+    // If it fails, return 0.
+
+    if (setRegisterBank(REG_BANK_1) == false)
+        return 0;
+
+    uint8_t devID; // Create a variable to hold the device ID.
+
+    // Read the device ID register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegID, devID))
+        return 0;
 
     return devID;
 }
@@ -54,4 +64,26 @@ uint8_t sfDevAS7343::getDeviceID(void)
 void sfDevAS7343::setCommunicationBus(sfTkIBus *theBus)
 {
     _theBus = theBus;
+}
+
+bool sfDevAS7343::setRegisterBank(as7343_reg_bank_t regBank)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return 0;
+
+    sfe_as7343_reg_cfg0_t cfg0; // Create a register structure for CFG0
+    cfg0.word = 0; // Initialize the register structure to 0
+
+    // set the reg_bank bit as set by the incoming argument
+    if(regBank == REG_BANK_1)
+        cfg0.reg_bank = 1;
+    else
+        cfg0.reg_bank = 0;
+
+    // Write the cfg0 register to the device. If it errors, then return 0.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegCfg0, cfg0.word))
+        return 0;
+
+    return true; // Return true to indicate success
 }
