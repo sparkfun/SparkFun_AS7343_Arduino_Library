@@ -42,9 +42,45 @@ void setup()
     }
 
     Serial.println("Sensor began.");
+
+    // Power on the device
+    if (mySensor.powerOn() == false)
+    {
+        Serial.println("Failed to power on the device.");
+        Serial.println("Halting...");
+        while (1)
+            ;
+    }
+    Serial.println("Device powered on.");
+
+    // Enable Spectral Measurement
+    if (mySensor.spectralMeasurementEnable() == false)
+    {
+        Serial.println("Failed to enable spectral measurement.");
+        Serial.println("Halting...");
+        while (1)
+            ;
+    }
+    Serial.println("Spectral measurement enabled.");
 }
 
 void loop()
 {
+    // Read all data registers
+    // if it fails, print a failure message and continue
+    if (mySensor.readAllSpectralData() == false)
+    {
+        Serial.println("Failed to read spectral data.");
+        return;
+    }
+    // Print the data from all the channels
+    for(int channel = 0; channel <17; channel++)
+    {
+        Serial.print(mySensor.getData(channel));
+        Serial.print(",");
+    }
+
+    Serial.println();
+
     delay(1000);
 }

@@ -695,6 +695,43 @@ class sfDevAS7343
     /// @return True if successful, false if it fails.
     bool setRegisterBank(as7343_reg_bank_t regBank);
 
+    /// @brief Power on the device.
+    /// @details This method powers on the device by setting the PON bit in the
+    /// Enable register (kSfeAS7343RegEnable).
+    /// @return True if successful, false if it fails.
+    bool powerOn(void);
+
+    /// @brief Power off the device.
+    /// @details This method powers off the device by clearing the PON bit in the
+    /// Enable register (kSfeAS7343RegEnable).
+    /// @return True if successful, false if it fails.
+    bool powerOff(void);
+
+    /// @brief Spectral Measurement Enable
+    /// @details This method enables the spectral measurement by setting the
+    /// SP_EN bit in the Enable register (kSfeAS7343RegEnable).
+    /// @return True if successful, false if it fails.
+    bool spectralMeasurementEnable(void);
+
+    /// @brief Spectral Measurement Disable
+    /// @details This method disables the spectral measurement by clearing the
+    /// SP_EN bit in the Enable register (kSfeAS7343RegEnable).
+    /// @return True if successful, false if it fails.
+    bool spectralMeasurementDisable(void);
+
+    /// @brief Read all Spectral Data Registers
+    /// @details This method reads all the spectral data registers from the
+    /// AS7343 device. The data is stored in this drivers private struct variables.
+    /// @return True if successful, false if it fails.
+    bool readAllSpectralData(void);
+
+    /// @brief Get the data from the specified channel.
+    /// @param channel The channel to get the data from.
+    /// @return The data from the specified channel.
+    uint16_t getData(uint8_t channel);
+
   private:
+    sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.
+
     sfTkIBus *_theBus; // Pointer to bus device.
 };
