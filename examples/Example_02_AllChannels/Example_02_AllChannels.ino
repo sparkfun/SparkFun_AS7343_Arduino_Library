@@ -2,7 +2,7 @@
   Using the AMS AS7343 Sensor.
 
   This example shows how to setup the AS7343 sensor with default settings and
-  print out 4 channels from the sensor (Red, Green, Blue, and NIR).
+  print out all the spectral data from the sensor.
 
   By: Pete Lewis
   SparkFun Electronics
@@ -31,7 +31,7 @@ void setup()
     {
         delay(100);
     };
-    Serial.println("AS7343 Example 01 - Basic Readings");
+    Serial.println("AS7343 Example 02 - All Channels");
 
     Wire.begin();
 
@@ -91,17 +91,12 @@ void loop()
 
     mySensor.ledOff();
 
-    Serial.print(mySensor.getBlue());
-    Serial.print(",");
-
-    Serial.print(mySensor.getRed());
-    Serial.print(",");
-
-    Serial.print(mySensor.getGreen());
-    Serial.print(",");
-
-    Serial.print(mySensor.getNIR());
-    Serial.print(",");
+    // Print the data from all the channels
+    for(int channel = 0; channel <17; channel++)
+    {
+        Serial.print(mySensor.getChannelData(channel));
+        Serial.print(",");
+    }
 
     Serial.println();
 

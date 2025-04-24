@@ -221,7 +221,7 @@ bool sfDevAS7343::readAllSpectralData(void)
     return true;
 }
 
-uint16_t sfDevAS7343::getData(uint8_t channel)
+uint16_t sfDevAS7343::getData(as7343_channel_t channel)
 {
     // Check if the channel is valid (0-17).
     if (channel > 17)
@@ -342,4 +342,38 @@ bool sfDevAS7343::setLedDrive(uint8_t drive)
         return false;
 
     return true;
+}
+
+uint16_t sfDevAS7343::getRed(void)
+{
+    // Return the data for the red channel (F7).
+    return getData(CH_RED_F7_690NM);
+}
+
+uint16_t sfDevAS7343::getGreen(void)
+{
+    // Return the data for the green channel (F5).
+    return getData(CH_GREEN_F5_550NM);
+}
+
+uint16_t sfDevAS7343::getBlue(void)
+{
+    // Return the data for the blue channel (FZ).
+    return getData(CH_BLUE_FZ_450NM);
+}
+
+uint16_t sfDevAS7343::getNIR(void)
+{
+    // Return the data for the NIR channel (NIR).
+    return getData(CH_NIR_855NM);
+}
+
+uint16_t sfDevAS7343::getChannelData(uint8_t channel)
+{
+    // Check if the channel is valid (0-17).
+    if (channel > 17)
+        return 0;
+
+    // Return the data for the specified channel.
+    return getData((as7343_channel_t)channel);
 }

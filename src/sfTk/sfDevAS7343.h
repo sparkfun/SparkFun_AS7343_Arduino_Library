@@ -63,6 +63,35 @@ typedef enum
     REG_BANK_1 = 0x01, // Register bank 1
 } as7343_reg_bank_t;
 
+// Sensor Channels
+// Use these to access each channel individually from the _data array in the class.
+// The channels are defined in the datasheet as FZ, FY, FXL, NIR, 2xVIS, FD, F1-F8.
+// When AutoSmux is set to 18 channels, the channels are in this order:
+// Cycle 1: FZ, FY, FXL, NIR, 2xVIS, FD
+// Cycle 2: F2, F3, F4, F6, 2xVIS, FD
+// Cycle 3: F1, F7, F8, F5, 2xVIS, FD
+typedef enum
+{
+    CH_BLUE_FZ_450NM = 0x00, // Blue peak wavelength 450 nanometers (cycle 1)
+    CH_GREEN_FY_555NM, // Green (wide bandwidth) peak wavelength 555 nanometers (cycle 1)
+    CH_ORANGE_FXL_600NM, // Orange peak wavelength 600 nanometers (cycle 1)
+    CH_NIR_855NM, // NIR peak wavelength 855 nanometers (cycle 1)
+    CH_VIS_1, // VIS (cycle 1)
+    CH_FD_1, // Flicker Detection (cycle 1)
+    CH_DARK_BLUE_F2_425NM, // Dark Blue peak wavelength 425 nanometers (cycle 2)
+    CH_LIGHT_BLUE_F3_475NM, // Light Blue peak wavelength 475 nanometers (cycle 2)
+    CH_BLUE_F4_515NM, // Blue peak wavelength 515 nanometers (cycle 2)
+    CH_BROWN_F6_640NM, // Brown peak wavelength 640 nanometers (cycle 2)
+    CH_VIS_2, // VIS (cycle 2)
+    CH_FD_2, // Flicker Detection (cycle 2)
+    CH_PURPLE_F1_405NM, // Purple peak wavelength 405 nanometers (cycle 3)
+    CH_RED_F7_690NM, // Red peak wavelength 690 nanometers (cycle 3)
+    CH_DARK_RED_F8_745NM, // Dark Red peak wavelength 745 nanometers (cycle 3)
+    CH_GREEN_F5_550NM, // Green (Narrow bandwidth) peak wavelength 550 nanometers (cycle 3)
+    CH_VIS_3, // VIS (cycle 3)
+    CH_FD_3, // Flicker Detection (cycle 3)
+} as7343_channel_t;
+
 // Sensor gain settings.
 typedef enum
 {
@@ -728,7 +757,7 @@ class sfDevAS7343
     /// @brief Get the data from the specified channel.
     /// @param channel The channel to get the data from.
     /// @return The data from the specified channel.
-    uint16_t getData(uint8_t channel);
+    uint16_t getData(as7343_channel_t channel);
 
     /// @brief Set automatic channel read-out.
     /// @details This method sets the automatic channel read-out mode. The
@@ -764,6 +793,26 @@ class sfDevAS7343
     /// @return True if successful, false if it fails.
     bool setLedDrive(uint8_t ledDrive);
 
+    /// @brief Get Red spectrum data. (aka channel F7, 690nm)
+    /// @return The red spectrum data.
+    uint16_t getRed(void);
+
+    /// @brief Get Green spectrum data. (aka channel F5, 550nm)
+    /// @return The green spectrum data.
+    uint16_t getGreen(void);
+
+    /// @brief Get Blue spectrum data. (aka channel FZ, 450nm)
+    /// @return The blue spectrum data.
+    uint16_t getBlue(void);
+
+    /// @brief Get NIR spectrum data. (aka channel NIR, 855nm)
+    /// @return The NIR spectrum data.  
+    uint16_t getNIR(void);
+
+    /// @brief Get Specific Channel of Spectrum Data
+    /// @param channel The channel to get the data from. (uint8_t)
+    /// @return The data from the specified channel.
+    uint16_t getChannelData(uint8_t channel);
 
   private:
     sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.
