@@ -377,3 +377,93 @@ uint16_t sfDevAS7343::getChannelData(uint8_t channel)
     // Return the data for the specified channel.
     return getData((as7343_channel_t)channel);
 }
+
+bool sfDevAS7343::setSpectralIntThresholdHigh(uint16_t spThH)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the SP_TH_H register (0xD8).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    // Write both LSB and MSB in the same I2C write. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegSpThH, (uint8_t*)spThH, 2))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::setSpectralIntThresholdLow(uint16_t spThL)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the SP_TH_L register (0xD9).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    // Write both LSB and MSB in the same I2C write. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegSpThL, (uint8_t*)spThL, 2))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::enableSpectralInt()
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the SP_TH_L register (0xD9).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_intenab_t intEnabReg; // Create a register structure for the INT_ENAB register
+
+    // Read the INT_ENAB register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegIntEnab, intEnabReg.word))
+        return false;
+    
+    // Set the SP_IEN bit to 1 to enable the spectral interrupt
+    intEnabReg.sp_ien = 1;
+
+    // Write the INT_ENAB register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegIntEnab, intEnabReg.word))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::disableSpectralInt()
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the SP_TH_L register (0xD9).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_intenab_t intEnabReg; // Create a register structure for the INT_ENAB register
+
+    // Read the INT_ENAB register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegIntEnab, intEnabReg.word))
+        return false;
+    
+    // Set the SP_IEN bit to 0 to disable the spectral interrupt
+    intEnabReg.sp_ien = 0;
+
+    // Write the INT_ENAB register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegIntEnab, intEnabReg.word))
+        return false;
+
+    return true;
+}

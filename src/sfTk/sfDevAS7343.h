@@ -814,6 +814,34 @@ class sfDevAS7343
     /// @return The data from the specified channel.
     uint16_t getChannelData(uint8_t channel);
 
+    /// @brief Set the spectral interrupt threshold high.
+    /// @details This method sets the spectral threshold high by writing to the
+    /// SP_TH_H register (kSfeAS7343RegSpThH). The spectral threshold high is set
+    /// by writing to the SP_TH_H_LSB Register and SP_TH_H_MSB Register.
+    /// @param spThH The spectral threshold high to set.
+    /// @return True if successful, false if it fails.
+    bool setSpectralIntThresholdHigh(uint16_t spThH);
+
+    /// @brief Set the spectral interrupt threshold low.
+    /// @details This method sets the spectral threshold low by writing to the
+    /// SP_TH_L register (kSfeAS7343RegSpThL). The spectral threshold low is set
+    /// by writing to the SP_TH_L_LSB Register and SP_TH_L_MSB Register.
+    /// @param spThL The spectral threshold low to set.
+    /// @return True if successful, false if it fails.
+    bool setSpectralIntThresholdLow(uint16_t spThL);
+
+    /// @brief Enable the spectral interrupt.
+    /// @details This method enables the spectral interrupt by setting the SP_IEN
+    /// bit in the INT_ENAB register (kSfeAS7343RegIntEnab).
+    /// @return True if successful, false if it fails.
+    bool enableSpectralInt(void);
+
+    /// @brief Disable the spectral interrupt.
+    /// @details This method disables the spectral interrupt by clearing the SP_IEN
+    /// bit in the INT_ENAB register (kSfeAS7343RegIntEnab).
+    /// @return True if successful, false if it fails.
+    bool disableSpectralInt(void);
+
   private:
     sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.
 
