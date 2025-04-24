@@ -113,11 +113,13 @@ void loop()
     Serial.print(mySensor.getData(13)); // F7 (red) data array position 13
     Serial.print(",");
 
-    // FY (green) data array position 1
-    Serial.print(mySensor.getData(1)); // FY (green) data array position 1
+    // F5 (green) data array position 15
+    Serial.print(mySensor.getData(15)); // F5 (green) data array position 15
     Serial.print(",");
 
-
+    // NIR (NIR) data array position 3
+    Serial.print(mySensor.getData(3)); // NIR (NIR) data array position 3
+    Serial.print(",");
 
     Serial.println();
 
