@@ -79,6 +79,7 @@ void setup()
 
 void loop()
 {
+    mySensor.setLedDrive(0); // Set LED drive to min (0 = 4mA)
     mySensor.ledOn();
     delay(100);
 

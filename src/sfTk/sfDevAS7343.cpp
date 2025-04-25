@@ -467,3 +467,336 @@ bool sfDevAS7343::disableSpectralInt()
 
     return true;
 }
+
+bool sfDevAS7343::setSpectralThresholdChannel(as7343_spectral_threshold_channel_t spThCh)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 1, needed to access the CFG12 register (0x66).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_1) == false)
+        return false;
+
+    sfe_as7343_reg_cfg12_t cfg12; // Create a register structure for the CFG12 register
+
+    // Read the CFG12 register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegCfg12, cfg12.word))
+        return false;
+
+    // Set the SP_TH_CH bits according to the incoming argument
+    cfg12.sp_th_ch = spThCh;
+
+    // Write the CFG12 register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegCfg12, cfg12.word))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::getSystemInterruptStatus(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the STATUS register (0x93).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_status_t statusReg; // Create a register structure for the STATUS register
+
+    // Read the STATUS register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegStatus, statusReg.word))
+        return false;
+
+    // Return the SINT bit from the STATUS register
+    return statusReg.sint;
+}
+
+bool sfDevAS7343::getSpectralChannelInterruptStatus(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the STATUS register (0x93).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_status_t statusReg; // Create a register structure for the STATUS register
+
+    // Read the STATUS register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegStatus, statusReg.word))
+        return false;
+
+    // Return the AINT bit from the STATUS register
+    return statusReg.aint;
+}
+
+bool sfDevAS7343::getSpectralInterruptHighStatus(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the STATUS3 register (0x91).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_status3_t statusReg; // Create a register structure for the STATUS3 register
+
+    // Read the STATUS3 register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegStatus3, statusReg.word))
+        return false;
+
+    // Return the INT_SP_H bit from the STATUS3 register
+    return statusReg.int_sp_h;
+}
+
+bool sfDevAS7343::getSpectralTriggerErrorStatus(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the STATUS4 register (0xBC).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_status4_t statusReg; // Create a register structure for the STATUS4 register
+
+    // Read the STATUS4 register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegStatus4, statusReg.word))
+        return false;
+
+    // Return the SP_TRIG bit from the STATUS4 register
+    return statusReg.sp_trig;
+}
+
+bool sfDevAS7343::setWaitTime(uint8_t waitTime)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the WTIME register (0x83).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    // Write the wait time to the WTIME register. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegWTime, waitTime))
+        return false;
+
+    return true;
+}
+
+uint8_t sfDevAS7343::getWaitTime()
+{
+    // Nullptr check.
+    if (!_theBus)
+        return 0;
+
+    // Set the register bank to 0, needed to access the WTIME register (0x83).
+    // If it fails, return 0.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return 0;
+
+    uint8_t waitTime; // Create a variable to hold the wait time.
+
+    // Read the WTIME register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegWTime, waitTime))
+        return 0;
+
+    return waitTime;
+}
+
+bool sfDevAS7343::enableWaitTime(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the Enable register (0x80).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
+
+    // Read the Enable register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegEnable, enableReg.word))
+        return false;
+
+    // Set the WEN bit to 1 to enable wait time
+    enableReg.wen = 1;
+
+    // Write the Enable register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.word))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::disableWaitTime(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the Enable register (0x80).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
+
+    // Read the Enable register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegEnable, enableReg.word))
+        return false;
+
+    // Set the WEN bit to 0 to disable wait time
+    enableReg.wen = 0;
+
+    // Write the Enable register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.word))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::getSpectralValidStatus(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the STATUS2 register (0x90).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_status2_t statusReg; // Create a register structure for the STATUS2 register
+
+    // Read the STATUS2 register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegStatus2, statusReg.word))
+        return false;
+
+    // Return the AVALID bit from the STATUS2 register
+    return statusReg.avalid;
+}
+
+uint8_t sfDevAS7343::readIntEnableReg(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return 0;
+
+    // Set the register bank to 0, needed to access the INT_ENAB register (0xA0).
+    // If it fails, return 0.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return 0;
+
+    uint8_t intEnabReg; // Create a variable to hold the INT_ENAB register value.
+
+    // Read the INT_ENAB register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegIntEnab, intEnabReg))
+        return 0;
+
+    return intEnabReg;
+}
+
+bool sfDevAS7343::setGpioMode(as7343_gpio_mode_t gpioMode)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the GPIO register (0xA1).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_gpio_t gpioReg; // Create a register structure for the GPIO register
+
+    // Read the GPIO register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegGpio, gpioReg.word))
+        return false;
+
+    // Set the GPIO_IN_EN and GPIO_OUT bits according to the incoming argument
+    // gpioMode = GPIO_MODE_INPUT or GPIO_MODE_OUTPUT
+    if (gpioMode == GPIO_MODE_INPUT)
+    {
+        gpioReg.gpio_in_en = 1; // Set GPIO_IN_EN bit to 1 for input mode
+        gpioReg.gpio_out = 0; // Set GPIO_OUT bit to 0 for input mode
+    }
+    else if (gpioMode == GPIO_MODE_OUTPUT)
+    {
+        gpioReg.gpio_in_en = 0; // Set GPIO_IN_EN bit to 0 for output mode
+        gpioReg.gpio_out = 1; // Set GPIO_OUT bit to 1 for output mode
+    }
+    else
+    {
+        return false; // Invalid GPIO mode, return false
+    }
+
+    // Write the GPIO register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegGpio, gpioReg.word))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::getGpioInputStatus(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the GPIO register (0xA1).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_gpio_t gpioReg; // Create a register structure for the GPIO register
+
+    // Read the GPIO register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegGpio, gpioReg.word))
+        return false;
+
+    // Return the GPIO_IN bit from the GPIO register
+    return gpioReg.gpio_in;
+}
+
+bool sfDevAS7343::reset(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the CONTROL register (0x80).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_control_t controlReg; // Create a register structure for the CONTROL register
+
+    // Read the CONTROL register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegControl, controlReg.word))
+        return false;
+
+    // Set the SW_RESET bit to 1 to reset the device
+    controlReg.sw_reset = 1;
+
+    // Write the CONTROL register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegControl, controlReg.word))
+        return false;
+
+    return true;
+}

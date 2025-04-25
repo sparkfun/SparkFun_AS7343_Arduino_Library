@@ -156,8 +156,8 @@ typedef enum
 // Automatic Channel Read-out (auto_smux setting)
 typedef enum
 {
-    AUTOSMUX_6_CH = 0x00, // 6 channel readout: FZ, FY, FXL, NIR, 2xVIS, FD
-    AUTOSMUX_12_CH = 0x02, // 12 channel readout
+    AUTOSMUX_6_CHANNELS = 0x00, // 6 channel readout: FZ, FY, FXL, NIR, 2xVIS, FD
+    AUTOSMUX_12_CHANNELS = 0x02, // 12 channel readout
                            // Cycle 1: FZ, FY, FXL, NIR, 2xVIS, FD
                             // Cycle 2: FZ, F3, F4, F6, 2xVIS, FD
     AUTOSMUX_18_CHANNELS = 0x03, // 18 channel readout
@@ -165,6 +165,13 @@ typedef enum
                             // Cycle 2: F2, F3, F4, F6, 2xVIS, FD
                             // Cycle 3: F1, F7, F8, F5, 2xVIS, FD 
 } as7343_auto_smux_channel_t;
+
+// GPIO mode settings
+typedef enum
+{
+    GPIO_MODE_INPUT = 0x00, // GPIO set to input mode
+    GPIO_MODE_OUTPUT, // GPIO set to output mode
+} as7343_gpio_mode_t;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Register Definitions
@@ -841,6 +848,105 @@ class sfDevAS7343
     /// bit in the INT_ENAB register (kSfeAS7343RegIntEnab).
     /// @return True if successful, false if it fails.
     bool disableSpectralInt(void);
+
+    /// @brief Set the spectral threshold channel.
+    /// @details This method sets the spectral threshold channel by writing to
+    /// the SP_TH_CH bits [2:0] in the CFG12 register, kSfeAS7343RegCfg12 (0x66).
+    /// @param spThCh The spectral threshold channel to set.
+    /// @details Options: SPECTRAL_THRESHOLD_CHANNEL_0 (default),
+    /// SPECTRAL_THRESHOLD_CHANNEL_1, SPECTRAL_THRESHOLD_CHANNEL_2,
+    /// SPECTRAL_THRESHOLD_CHANNEL_3, SPECTRAL_THRESHOLD_CHANNEL_4, 
+    /// SPECTRAL_THRESHOLD_CHANNEL_5.
+    /// @return True if successful, false if it fails.
+    bool setSpectralThresholdChannel(as7343_spectral_threshold_channel_t spThCh);
+
+    /// @brief Get the System Interrupt Status.
+    /// @details This method gets the system interrupt status by reading the
+    /// SINT bit in the STATUS register (kSfeAS7343RegStatus).
+    /// @return True if the system interrupt is set, false if it is not set.
+    bool getSystemInterruptStatus(void);
+
+    /// @brief Get the Spectral Channel Interrupt Status.
+    /// @details This method gets the spectral channel interrupt status by reading
+    /// the AINT bit in the STATUS register (kSfeAS7343RegStatus).
+    /// @return True if the spectral channel interrupt is set, false if it is not set.
+    bool getSpectralChannelInterruptStatus(void);
+
+    /// @brief Get the Spectral Interrupt High Status.
+    /// @details This method gets the spectral interrupt high status by reading
+    /// the INT_PS_H bit in the STATUS3 register (kSfeAS7343RegStatus3).
+    /// @return True if the spectral interrupt high is set, false if it is not set.
+    bool getSpectralInterruptHighStatus(void);
+
+    /// @brief Get the Spectral Trigger Error Status.
+    /// @details This method gets the spectral trigger error status by reading
+    /// the SP_TRIG bit in the STATUS4 register (kSfeAS7343RegStatus4).
+    /// @return True if the spectral trigger error is set, false if it is not set.
+    bool getSpectralTriggerErrorStatus(void);
+
+    /// @brief Set the Spectral Measurement Wait Time.
+    /// @details This method sets the spectral measurement wait time by writing
+    /// to the WTIME register (kSfeAS7343RegWTime).
+    /// @param wTime The spectral measurement wait time to set.
+    /// @details 8-bit value to specify the delay between two
+    /// consecutive spectral measurements.
+    /// The value is in units of 2.78ms. The default value is 0x00.
+    /// @return True if successful, false if it fails.
+    bool setWaitTime(uint8_t wTime);
+
+    /// @brief Get the Spectral Measurement Wait Time.
+    /// @details This method gets the spectral measurement wait time by reading
+    /// the WTIME register (kSfeAS7343RegWTime).
+    /// @return The spectral measurement wait time.
+    /// @details The value is in units of 2.78ms.
+    /// The default value is 0x00.
+    uint8_t getWaitTime(void);
+
+    /// @brief Enable Wait Time.
+    /// @details This method enables the wait time by setting the WEN bit in the
+    /// Enable register (kSfeAS7343RegEnable).
+    /// @return True if successful, false if it fails.
+    bool enableWaitTime(void);
+
+    /// @brief Disable Wait Time.
+    /// @details This method disables the wait time by clearing the WEN bit in the
+    /// Enable register (kSfeAS7343RegEnable).
+    /// @return True if successful, false if it fails.
+    bool disableWaitTime(void);
+
+    /// @brief Get the Spectral Valid Status.
+    /// @details This method gets the spectral valid status by reading the AVALID
+    /// bit in the STATUS2 register (kSfeAS7343RegStatus2).
+    /// @return True if the spectral valid status is set, false if it is not set.
+    bool getSpectralValidStatus(void);
+
+    /// @brief Read the register INT Enable
+    /// @details This method reads the INT Enable register (kSfeAS7343RegIntEnab).
+    /// @return The INT Enable register value.
+    /// @details The INT Enable register is a bit field that enables or disables
+    /// the spectral interrupt, FIFO interrupt, and AGC interrupt.
+    /// @return The INT Enable register value.
+    uint8_t readIntEnableReg(void);
+
+    /// @brief Set the GPIO pin mode.
+    /// @details This method sets the GPIO pin mode by writing to the GPIO_IN_EN 
+    /// and GPIO_OUT bits in the GPIO register (kSfeAS7343RegGpio).
+    /// @param gpioMode The GPIO pin mode to set.
+    /// @details Options: GPIO_MODE_INPUT (default), GPIO_MODE_OUTPUT.
+    /// @return True if successful, false if it fails.
+    bool setGpioMode(as7343_gpio_mode_t gpioMode);
+
+    /// @brief Get the GPIO input status.
+    /// @details This method gets the GPIO input status by reading the GPIO_IN bit
+    /// in the GPIO register (kSfeAS7343RegGpio).
+    /// @return True if the GPIO input is reading HIGH, false if it is reading LOW.
+    bool getGpioInputStatus(void);
+
+    /// @brief Reset the device.
+    /// @details This method resets the device by writing to the SW_RESET bit in
+    /// the CONTROL register (kSfeAS7343RegControl).
+    /// @return True if successful, false if it fails.
+    bool reset(void);
 
   private:
     sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.
