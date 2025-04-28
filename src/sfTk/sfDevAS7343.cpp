@@ -730,13 +730,13 @@ bool sfDevAS7343::setGpioMode(as7343_gpio_mode_t gpioMode)
         return false;
 
     // Set the GPIO_IN_EN and GPIO_OUT bits according to the incoming argument
-    // gpioMode = GPIO_MODE_INPUT or GPIO_MODE_OUTPUT
-    if (gpioMode == GPIO_MODE_INPUT)
+    // gpioMode = AS7343_GPIO_MODE_INPUT or AS7343_GPIO_MODE_OUTPUT
+    if (gpioMode == AS7343_GPIO_MODE_INPUT)
     {
         gpioReg.gpio_in_en = 1; // Set GPIO_IN_EN bit to 1 for input mode
         gpioReg.gpio_out = 0; // Set GPIO_OUT bit to 0 for input mode
     }
-    else if (gpioMode == GPIO_MODE_OUTPUT)
+    else if (gpioMode == AS7343_GPIO_MODE_OUTPUT)
     {
         gpioReg.gpio_in_en = 0; // Set GPIO_IN_EN bit to 0 for output mode
         gpioReg.gpio_out = 1; // Set GPIO_OUT bit to 1 for output mode

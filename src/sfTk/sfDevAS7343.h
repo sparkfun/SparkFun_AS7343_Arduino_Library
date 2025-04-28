@@ -169,8 +169,8 @@ typedef enum
 // GPIO mode settings
 typedef enum
 {
-    GPIO_MODE_INPUT = 0x00, // GPIO set to input mode
-    GPIO_MODE_OUTPUT, // GPIO set to output mode
+    AS7343_GPIO_MODE_INPUT = 0x00, // GPIO set to input mode
+    AS7343_GPIO_MODE_OUTPUT, // GPIO set to output mode
 } as7343_gpio_mode_t;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -932,7 +932,7 @@ class sfDevAS7343
     /// @details This method sets the GPIO pin mode by writing to the GPIO_IN_EN 
     /// and GPIO_OUT bits in the GPIO register (kSfeAS7343RegGpio).
     /// @param gpioMode The GPIO pin mode to set.
-    /// @details Options: GPIO_MODE_INPUT (default), GPIO_MODE_OUTPUT.
+    /// @details Options: AS7343_GPIO_MODE_INPUT (default), AS7343_GPIO_MODE_OUTPUT.
     /// @return True if successful, false if it fails.
     bool setGpioMode(as7343_gpio_mode_t gpioMode);
 

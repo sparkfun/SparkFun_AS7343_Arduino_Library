@@ -72,7 +72,7 @@ void setup()
     Serial.println("AutoSmux set to 6 channels.");
 
     // Set the GPIO mode to input
-    if (mySensor.setGpioMode(GPIO_MODE_INPUT) == false)
+    if (mySensor.setGpioMode(AS7343_GPIO_MODE_INPUT) == false)
     {
         Serial.println("Failed to set GPIO mode.");
         Serial.println("Halting...");
