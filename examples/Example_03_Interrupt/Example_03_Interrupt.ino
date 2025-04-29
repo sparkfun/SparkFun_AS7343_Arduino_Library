@@ -27,8 +27,14 @@
 
 SfeAS7343ArdI2C mySensor;
 
+#define INT_HW_READ_PIN 7 // Pin to read the interrupt pin from the AS7343
+
 void setup()
 {
+
+    // Set the pin mode for the interrupt pin
+    pinMode(INT_HW_READ_PIN, INPUT); // Set the pin to input, the qwiic bob has a pullup resistor
+
     Serial.begin(115200);
     while (!Serial)
     {
@@ -102,15 +108,20 @@ void setup()
     }
     Serial.println("Wait time enabled.");
     
-    // Set the wait time to 711ms (value of "255" in the WTIME register)
-    if (mySensor.setWaitTime(255) == false)
+    // Set the wait time to 5.56ms (value of "2" in the WTIME register)
+    // It is necessary for WTIME to be sufficiently long for spectral integration 
+    // and any other functions to be completed within the period. The device will 
+    // warn the user if the timing is configured incorrectly. If WTIME is too 
+    // short, then SP_TRIG in register STATUS4 (ADDR: 0xBC) will be set to “1”.
+    // default integration time is 2.78ms.
+    if (mySensor.setWaitTime(2) == false)
     {
         Serial.println("Failed to set wait time.");
         Serial.println("Halting...");
         while (1)
             ;
     }
-    Serial.println("Wait time set to 711ms (MAX).");
+    Serial.println("Wait time set to 5.56ms.");
 
     // Verify Wait time was written correctly by printing it to terminal
     Serial.print("Wait time set to: ");
@@ -126,15 +137,27 @@ void setup()
     }
     Serial.println("Spectral threshold channel set to channel 0.");
 
-    // Set the spectral interrupt threshold high to 100
-    if (mySensor.setSpectralIntThresholdHigh(100) == false)
+    // Set the spectral interrupt threshold high to 10
+    if (mySensor.setSpectralIntThresholdHigh(10) == false)
     {
         Serial.println("Failed to set spectral interrupt threshold high.");
         Serial.println("Halting...");
         while (1)
             ;
     }
-    Serial.println("Spectral interrupt threshold high set to 100.");
+    Serial.println("Spectral interrupt threshold high set to 10.");
+
+    // Set Spectral Interrupt Persistence to 1
+    // This means that the interrupt will be triggered if the spectral data is 
+    // outside the thresholds (above H or below L) for 1 cycle.
+    if (mySensor.setSpectralIntPersistence(1) == false)
+    {
+        Serial.println("Failed to set spectral interrupt persistence.");
+        Serial.println("Halting...");
+        while (1)
+            ;
+    }
+    Serial.println("Spectral interrupt persistence set to 1.");
 
     // Enable the spectral interrupt
     if (mySensor.enableSpectralInt() == false)
@@ -195,6 +218,17 @@ void loop()
         Serial.print(",");
     }
 
+    // Print the spectral channel interrupt status
+    Serial.print("\tSpectralIntStat: ");
+    if (mySensor.getSpectralChannelInterruptStatus() == true)
+    {
+        Serial.print("True");
+    }
+    else
+    {
+        Serial.print("False");
+    }
+
     // Print the spectral interrupt high status
     Serial.print("\t\tIntHighStat: ");
     if (mySensor.getSpectralInterruptHighStatus() == true)
@@ -215,6 +249,31 @@ void loop()
     else
     {
         Serial.print("False");
+    }
+
+    // Print the status of the interrupt pin read
+    Serial.print("\tINT Pin: ");
+    bool intPinStatus = digitalRead(INT_HW_READ_PIN);
+    if (intPinStatus == HIGH)
+    {
+        Serial.print("HIGH");
+    }
+    else
+    {
+        Serial.print("LOW");
+    }
+
+    // If an interrupt is detected (active LOW), print a message to the serial 
+    // monitor, and clear the interrupt in the register by writing to the STATUS register
+    if (intPinStatus == LOW)
+    {
+        Serial.println("\tInterrupt detected!");
+        delay(3000);
+        // Clear the interrupt by writing a 1 to the SINT bit in the STATUS register
+        mySensor.clearSpectralChannelInterrupt();
+        Serial.println("Interrupt cleared.");
+        Serial.println("Move your sensor to lower light levels again to avoid immediate re-triggering.");
+        delay(3000);
     }
 
     Serial.println();

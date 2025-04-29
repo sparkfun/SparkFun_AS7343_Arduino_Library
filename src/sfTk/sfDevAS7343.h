@@ -510,7 +510,7 @@ const uint8_t kSfeAS7343RegPers = 0xCF; // Register Address
 typedef union {
     struct
     {
-        uint8_t PERS : 4;
+        uint8_t apers : 4;
         uint8_t reserved : 4;
     };
     uint8_t word;
@@ -872,6 +872,12 @@ class sfDevAS7343
     /// @return True if the spectral channel interrupt is set, false if it is not set.
     bool getSpectralChannelInterruptStatus(void);
 
+    /// @brief Clear Spectral Channel Interrupt bit (AINT).
+    /// @details This method clears the spectral channel interrupt bit by writing
+    /// a 1 to the AINT bit in the STATUS register (kSfeAS7343RegStatus).
+    /// @return True if successful, false if it fails.
+    bool clearSpectralChannelInterrupt(void);
+
     /// @brief Get the Spectral Interrupt High Status.
     /// @details This method gets the spectral interrupt high status by reading
     /// the INT_PS_H bit in the STATUS3 register (kSfeAS7343RegStatus3).
@@ -947,6 +953,24 @@ class sfDevAS7343
     /// the CONTROL register (kSfeAS7343RegControl).
     /// @return True if successful, false if it fails.
     bool reset(void);
+
+    /// @brief Set the Spectral Interrupt Persistence
+    /// @details This method sets the spectral interrupt persistence by writing to
+    /// the PERS bits in the PERS register (kSfeAS7343RegPers).
+    /// @param apers The spectral interrupt persistence to set.
+    /// @details Options:
+    /// 0 = Every spectral cycle generates an interrupt.
+    /// 1 = 1
+    /// 2 = 2
+    /// 3 = 3
+    /// 4 = 5
+    /// 5 = 10
+    /// ... 5*(APERS - 3)
+    /// 14 = 55
+    /// 15 = 60
+    /// @details The default value is 0x00.
+    /// @return True if successful, false if it fails.
+    bool setSpectralIntPersistence(uint8_t apers);
 
   private:
     sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.

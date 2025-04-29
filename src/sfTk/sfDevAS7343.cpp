@@ -800,3 +800,57 @@ bool sfDevAS7343::reset(void)
 
     return true;
 }
+
+bool sfDevAS7343::setSpectralIntPersistence(uint8_t apers)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the PERS register (0xA2).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_pers_t persReg; // Create a register structure for the PERS register
+
+    // Read the PERS register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegPers, persReg.word))
+        return false;
+
+    // Set the PERS bits according to the incoming argument
+    persReg.apers = apers;
+
+    // Write the PERS register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegPers, persReg.word))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::clearSpectralChannelInterrupt(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the STATUS register (0x93).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_status_t statusReg; // Create a register structure for the STATUS register
+
+    // Read the STATUS register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegStatus, statusReg.word))
+        return false;
+
+    // Clear the AINT bit by writing a 1 to it
+    statusReg.aint = 1;
+
+    // Write the STATUS register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegStatus, statusReg.word))
+        return false;
+
+    return true;
+}
