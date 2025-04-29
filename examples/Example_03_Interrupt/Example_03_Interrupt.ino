@@ -208,7 +208,7 @@ void loop()
 
     // Print the spectral trigger error status
     Serial.print("\tTrigErrStat: ");
-    if (mySensor.getSpectralInterruptHighStatus() == true)
+    if (mySensor.getSpectralTriggerErrorStatus() == true)
     {
         Serial.print("True");
     }
