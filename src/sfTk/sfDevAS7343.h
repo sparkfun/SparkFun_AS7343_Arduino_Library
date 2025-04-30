@@ -173,6 +173,13 @@ typedef enum
     AS7343_GPIO_MODE_OUTPUT, // GPIO set to output mode
 } as7343_gpio_mode_t;
 
+// GPIO output settings
+typedef enum
+{
+    AS7343_GPIO_OUTPUT_LOW = 0x00, // GPIO set to low
+    AS7343_GPIO_OUTPUT_HIGH, // GPIO set to high
+} sfe_as7343_gpio_output_t;
+
 ///////////////////////////////////////////////////////////////////////////////
 // Register Definitions
 ///////////////////////////////////////////////////////////////////////////////
@@ -948,6 +955,14 @@ class sfDevAS7343
     /// @return True if the GPIO input is reading HIGH, false if it is reading LOW.
     bool getGpioInputStatus(void);
 
+    /// @brief Set the GPIO output
+    /// @details This method sets the GPIO output by writing to the GPIO_OUT bit
+    /// in the GPIO register (kSfeAS7343RegGpio).
+    /// @param gpioOut The GPIO output to set.
+    /// @details Options: AS7343_GPIO_OUTPUT_LOW (default), AS7343_GPIO_OUTPUT_HIGH.
+    /// @return True if successful, false if it fails.
+    bool setGpioOutput(sfe_as7343_gpio_output_t gpioOut);
+
     /// @brief Reset the device.
     /// @details This method resets the device by writing to the SW_RESET bit in
     /// the CONTROL register (kSfeAS7343RegControl).
@@ -971,6 +986,13 @@ class sfDevAS7343
     /// @details The default value is 0x00.
     /// @return True if successful, false if it fails.
     bool setSpectralIntPersistence(uint8_t apers);
+
+    /// @brief Read a register from the device.
+    /// @details This method reads a register from the device
+    /// @param reg The register to read.
+    /// @param data Pointer to the register data to read into.
+    /// @return True if successful, false if it fails.
+    bool readRegister(uint8_t reg, uint8_t &data);
 
   private:
     sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.

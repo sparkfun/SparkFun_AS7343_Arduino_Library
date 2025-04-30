@@ -49,6 +49,20 @@ void setup()
 
     Serial.println("Sensor began.");
 
+    // Reset the device
+    // This is not required, but if the device was previously used, then we need
+    // to reset it to ensure it's powered down before we adjust the settings.
+    if (mySensor.reset() == false)
+    {
+        Serial.println("Failed to reset the device.");
+        Serial.println("Halting...");
+        while (1)
+            ;
+    }
+    Serial.println("Device reset.");
+
+    delay(10);
+
     // Power on the device
     if (mySensor.powerOn() == false)
     {
@@ -59,132 +73,239 @@ void setup()
     }
     Serial.println("Device powered on.");
 
-    // Set the AutoSmux to output 6 channels
-    // Using the AutoSmux set to 6 channels, and the interrupt channel set to 0,
-    // the spectral band FZ (450nm, aka BLUE) will be used for the interrupt.
-    if (mySensor.setAutoSmux(AUTOSMUX_6_CHANNELS) == false)
+        // Enable Spectral Measurement
+        if (mySensor.spectralMeasurementEnable() == false)
+        {
+            Serial.println("Failed to enable spectral measurement.");
+            Serial.println("Halting...");
+            while (1)
+                ;
+        }
+        Serial.println("Spectral measurement enabled.");
+
+    // // Set the AutoSmux to output 6 channels
+    // // Using the AutoSmux set to 6 channels, and the interrupt channel set to 0,
+    // // the spectral band FZ (450nm, aka BLUE) will be used for the interrupt.
+    // if (mySensor.setAutoSmux(AUTOSMUX_6_CHANNELS) == false)
+    // {
+    //     Serial.println("Failed to set AutoSmux.");
+    //     Serial.println("Halting...");
+    //     while (1)
+    //         ;
+    // }
+    // Serial.println("AutoSmux set to 6 channels.");
+
+    // // Set the GPIO mode to input
+    // if (mySensor.setGpioMode(AS7343_GPIO_MODE_INPUT) == false)
+    // {
+    //     Serial.println("Failed to set GPIO mode.");
+    //     Serial.println("Halting...");
+    //     while (1)
+    //         ;
+    // }
+    // Serial.println("GPIO mode set to input.");
+
+        // Set the GPIO mode to output
+        if (mySensor.setGpioMode(AS7343_GPIO_MODE_OUTPUT) == false)
+        {
+            Serial.println("Failed to set GPIO mode.");
+            Serial.println("Halting...");
+            while (1)
+                ;
+        }
+        Serial.println("GPIO mode set to output.");
+
+        // // Enable wait time
+        // if (mySensor.enableWaitTime() == false)
+        // {
+        //     Serial.println("Failed to enable wait time.");
+        //     Serial.println("Halting...");
+        //     while (1)
+        //         ;
+        // }
+        // Serial.println("Wait time enabled.");
+
+
+
+    //     // Set the wait time to 5.56ms (value of "2" in the WTIME register)
+    // // It is necessary for WTIME to be sufficiently long for spectral integration 
+    // // and any other functions to be completed within the period. The device will 
+    // // warn the user if the timing is configured incorrectly. If WTIME is too 
+    // // short, then SP_TRIG in register STATUS4 (ADDR: 0xBC) will be set to “1”.
+    // // default integration time is 2.78ms.
+    // if (mySensor.setWaitTime(255) == false)
+    // {
+    //     Serial.println("Failed to set wait time.");
+    //     Serial.println("Halting...");
+    //     while (1)
+    //         ;
+    // }
+    // Serial.println("Wait time set to 5.56ms.");
+
+    // // Verify Wait time was written correctly by printing it to terminal
+    // Serial.print("Wait time set to: ");
+    // Serial.println(mySensor.getWaitTime());
+
+
+
+    // // Enable Spectral Measurement
+    // if (mySensor.spectralMeasurementEnable() == false)
+    // {
+    //     Serial.println("Failed to enable spectral measurement.");
+    //     Serial.println("Halting...");
+    //     while (1)
+    //         ;
+    // }
+    // Serial.println("Spectral measurement enabled.");
+
+    // mySensor.ledOff();
+
+    // read the GPIO register and print it to terminal
+    uint8_t registerValue; // Create a variable to hold the register value
+    if (mySensor.readRegister(0x6B, registerValue) == false)
     {
-        Serial.println("Failed to set AutoSmux.");
+        Serial.println("Failed to read GPIO register.");
         Serial.println("Halting...");
         while (1)
             ;
     }
-    Serial.println("AutoSmux set to 6 channels.");
-
-    // Set the GPIO mode to input
-    if (mySensor.setGpioMode(AS7343_GPIO_MODE_INPUT) == false)
-    {
-        Serial.println("Failed to set GPIO mode.");
-        Serial.println("Halting...");
-        while (1)
-            ;
-    }
-    Serial.println("GPIO mode set to input.");
-
-    // Enable Spectral Measurement
-    if (mySensor.spectralMeasurementEnable() == false)
-    {
-        Serial.println("Failed to enable spectral measurement.");
-        Serial.println("Halting...");
-        while (1)
-            ;
-    }
-    Serial.println("Spectral measurement enabled.");
-
-    // read and print int enable reg to verify settings
-    Serial.print("Int Enable Reg: 0x");
-    Serial.println(mySensor.readIntEnableReg(), HEX);
-    Serial.print("Int Enable Reg: 0b");
-    Serial.println(mySensor.readIntEnableReg(), BIN);
-
-    mySensor.ledOff();
-
+    Serial.print("GPIO register value: 0x");
+    Serial.print(registerValue, HEX);
+    Serial.print(" (0b");
+    Serial.print(registerValue, BIN);
+    Serial.print(")\n");
 }
 
 void loop()
 {
     //mySensor.ledOn();
 
-    // Arduino digital pin 7 is connected to GPIO
-    pinMode(7, OUTPUT);
-    digitalWrite(7, HIGH);
+    // Set the GPIO to LOW
+    if (mySensor.setGpioOutput(AS7343_GPIO_OUTPUT_LOW) == false)
+    {
+        Serial.println("Failed to set GPIO output to LOW.");
+        Serial.println("Halting...");
+        while (1)
+            ;
+    }
+    Serial.println("GPIO output set to LOW.");
     delay(1000);
 
-    // print the GPIO input status
-    Serial.print("GPIO Input Status: ");
-    if (mySensor.getGpioInputStatus() == true)
+        // read the GPIO register and print it to terminal
+        uint8_t registerValue; // Create a variable to hold the register value
+        if (mySensor.readRegister(0x6B, registerValue) == false)
+        {
+            Serial.println("Failed to read GPIO register.");
+            Serial.println("Halting...");
+            while (1)
+                ;
+        }
+        Serial.print("GPIO register value: 0x");
+        Serial.print(registerValue, HEX);
+        Serial.print(" (0b");
+        Serial.print(registerValue, BIN);
+        Serial.print(")\n");
+
+    // Arduino digital pin 7 is connected to GPIO
+    pinMode(7, INPUT_PULLUP);
+    int gpioStatus = digitalRead(7);
+    Serial.print("D7 Status: ");
+    if (gpioStatus == HIGH)
     {
-        Serial.print("HIGH");
+        Serial.println("HIGH");
     }
     else
     {
-        Serial.print("LOW");
+        Serial.println("LOW");
     }
+    delay(1000);
 
-
-    // Get spectral valid status to ensure the data is valid
-    // if it fails, print a failure message and continue
-    if (mySensor.getSpectralValidStatus() == false)
+    // Set the GPIO to HIGH
+    if (mySensor.setGpioOutput(AS7343_GPIO_OUTPUT_HIGH) == false)
     {
-        Serial.println("Spectral data is not valid.");
+        Serial.println("Failed to set GPIO output to HIGH.");
+        Serial.println("Halting...");
+        while (1)
+            ;
     }
+    Serial.println("GPIO output set to HIGH.");
+    delay(1000);
 
-    // Read all data registers
-    // if it fails, print a failure message and continue
-    if (mySensor.readAllSpectralData() == false)
+        // read the GPIO register and print it to terminal
+        //uint8_t registerValue; // Create a variable to hold the register value
+        if (mySensor.readRegister(0x6B, registerValue) == false)
+        {
+            Serial.println("Failed to read GPIO register.");
+            Serial.println("Halting...");
+            while (1)
+                ;
+        }
+        Serial.print("GPIO register value: 0x");
+        Serial.print(registerValue, HEX);
+        Serial.print(" (0b");
+        Serial.print(registerValue, BIN);
+        Serial.print(")\n");
+
+    // Read Arduino pin D7 and print the status
+    gpioStatus = digitalRead(7);
+    Serial.print("D7 Status: ");
+    if (gpioStatus == HIGH)
     {
-        Serial.println("Failed to read spectral data.");
-    }
-
-    //mySensor.ledOff();
-
-    // Print the data from the 6 channels (note, we are using AutoSmux set to 6 channels)
-    // The channels are defined in the datasheet as FZ, FY, FXL, NIR, 2xVIS, FD
-    for(int channel = 0; channel <6; channel++)
-    {
-        Serial.print(mySensor.getChannelData(channel));
-        Serial.print(",");
-    }
-
-    // Print the spectral interrupt high status
-    Serial.print("\t\tIntHighStat: ");
-    if (mySensor.getSpectralInterruptHighStatus() == true)
-    {
-        Serial.print("True");
+        Serial.println("HIGH");
     }
     else
     {
-        Serial.print("False");
+        Serial.println("LOW");
     }
 
-    // Print the spectral trigger error status
-    Serial.print("\tTrigErrStat: ");
-    if (mySensor.getSpectralInterruptHighStatus() == true)
-    {
-        Serial.print("True");
-    }
-    else
-    {
-        Serial.print("False");
-    }
+    delay(10000); // Wait 10 seconds
+
+    // while(mySensor.getSpectralValidStatus() == false)
+    // {
+    //     Serial.print(".");
+    //     delay(1);
+    // }
+    // Serial.println("valid data ready ");
+
+    // // print the GPIO input status
+    // Serial.print("GPIO Input Status: ");
+    // if (mySensor.getGpioInputStatus() == true)
+    // {
+    //     Serial.print("HIGH ");
+    // }
+    // else
+    // {
+    //     Serial.print("LOW ");
+    // }
 
 
+    // // Get spectral valid status to ensure the data is valid
+    // // if it fails, print a failure message and continue
+    // if (mySensor.getSpectralValidStatus() == false)
+    // {
+    //     Serial.println("Spectral data is not valid.");
+    // }
+    // else
+    // {
+    //     // Read all data registers
+    //     // if it fails, print a failure message and continue
+    //     if (mySensor.readAllSpectralData() == false)
+    //     {
+    //         Serial.println("Failed to read spectral data.");
+    //     }
 
-    pinMode(7, OUTPUT);
-    digitalWrite(7, LOW);
+    //     //mySensor.ledOff();
 
-    delay(2000);
+    //     // Print the data from the 6 channels (note, we are using AutoSmux set to 6 channels)
+    //     // The channels are defined in the datasheet as FZ, FY, FXL, NIR, 2xVIS, FD
+    //     for(int channel = 0; channel <6; channel++)
+    //     {
+    //         Serial.print(mySensor.getChannelData(channel));
+    //         Serial.print(",");
+    //     }
+    // }
 
-    // print the GPIO input status
-    Serial.print("GPIO Input Status: ");
-    if (mySensor.getGpioInputStatus() == true)
-    {
-        Serial.print("HIGH");
-    }
-    else
-    {
-        Serial.print("LOW");
-    }
+
 
     Serial.println();
 

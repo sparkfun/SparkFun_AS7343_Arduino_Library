@@ -27,7 +27,7 @@
 
 SfeAS7343ArdI2C mySensor;
 
-#define INT_HW_READ_PIN 7 // Pin to read the interrupt pin from the AS7343
+#define INT_HW_READ_PIN 4 // Pin to read the interrupt pin from the AS7343
 
 void setup()
 {
@@ -179,20 +179,16 @@ void setup()
     }
     Serial.println("Spectral measurement enabled.");
 
-    // read and print int enable reg to verify settings
-    Serial.print("Int Enable Reg: 0x");
-    Serial.println(mySensor.readIntEnableReg(), HEX);
-    Serial.print("Int Enable Reg: 0b");
-    Serial.println(mySensor.readIntEnableReg(), BIN);
-
-    
-
+    // // read and print int enable reg to verify settings
+    // Serial.print("Int Enable Reg: 0x");
+    // Serial.println(mySensor.readIntEnableReg(), HEX);
+    // Serial.print("Int Enable Reg: 0b");
+    // Serial.println(mySensor.readIntEnableReg(), BIN);
 }
 
 void loop()
 {
-    mySensor.ledOn();
-
+    //mySensor.ledOn();
 
     // Get spectral valid status to ensure the data is valid
     // if it fails, print a failure message and continue

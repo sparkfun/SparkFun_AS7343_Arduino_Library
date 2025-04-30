@@ -390,7 +390,7 @@ bool sfDevAS7343::setSpectralIntThresholdHigh(uint16_t spThH)
         return false;
 
     // Write both LSB and MSB in the same I2C write. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegSpThH, (uint8_t*)spThH, 2))
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegSpThH, (uint8_t*)&spThH, 2))
         return false;
 
     return true;
@@ -408,7 +408,7 @@ bool sfDevAS7343::setSpectralIntThresholdLow(uint16_t spThL)
         return false;
 
     // Write both LSB and MSB in the same I2C write. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegSpThL, (uint8_t*)spThL, 2))
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegSpThL, (uint8_t*)&spThL, 2))
         return false;
 
     return true;
@@ -718,7 +718,7 @@ bool sfDevAS7343::setGpioMode(as7343_gpio_mode_t gpioMode)
     if (!_theBus)
         return false;
 
-    // Set the register bank to 0, needed to access the GPIO register (0xA1).
+    // Set the register bank to 0, needed to access the GPIO register (0x6B).
     // If it fails, return false.
     if (setRegisterBank(REG_BANK_0) == false)
         return false;
@@ -734,12 +734,10 @@ bool sfDevAS7343::setGpioMode(as7343_gpio_mode_t gpioMode)
     if (gpioMode == AS7343_GPIO_MODE_INPUT)
     {
         gpioReg.gpio_in_en = 1; // Set GPIO_IN_EN bit to 1 for input mode
-        gpioReg.gpio_out = 0; // Set GPIO_OUT bit to 0 for input mode
     }
     else if (gpioMode == AS7343_GPIO_MODE_OUTPUT)
     {
         gpioReg.gpio_in_en = 0; // Set GPIO_IN_EN bit to 0 for output mode
-        gpioReg.gpio_out = 1; // Set GPIO_OUT bit to 1 for output mode
     }
     else
     {
@@ -772,6 +770,33 @@ bool sfDevAS7343::getGpioInputStatus(void)
 
     // Return the GPIO_IN bit from the GPIO register
     return gpioReg.gpio_in;
+}
+
+bool sfDevAS7343::setGpioOutput(sfe_as7343_gpio_output_t gpioOut)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the GPIO register (0xA1).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_gpio_t gpioReg; // Create a register structure for the GPIO register
+
+    // Read the GPIO register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegGpio, gpioReg.word))
+        return false;
+
+    // Set the GPIO_OUT bit according to the incoming argument
+    gpioReg.gpio_out = gpioOut;
+
+    // Write the GPIO register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegGpio, gpioReg.word))
+        return false;
+
+    return true;
 }
 
 bool sfDevAS7343::reset(void)
@@ -850,6 +875,33 @@ bool sfDevAS7343::clearSpectralChannelInterrupt(void)
 
     // Write the STATUS register to the device. If it errors, then return false.
     if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegStatus, statusReg.word))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::readRegister(uint8_t reg, uint8_t &data)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank as needed to access the specified register.
+    // if the desired register is equal to or greater than 0x80, set bank 0.
+    // Otherwise, set bank 1.
+    if (reg >= 0x80)
+    {
+        if (setRegisterBank(REG_BANK_0) == false)
+            return false;
+    }
+    else
+    {
+        if (setRegisterBank(REG_BANK_1) == false)
+            return false;
+    }
+
+    // Read the specified register. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->readRegister(reg, data))
         return false;
 
     return true;
