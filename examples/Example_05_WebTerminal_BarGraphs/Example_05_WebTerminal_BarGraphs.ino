@@ -1,8 +1,12 @@
 /*
   Using the AMS AS7343 Sensor.
 
-  This example shows how to setup the AS7343 sensor with default settings and
-  print out all the spectral data from the sensor.
+  This example shows how to setup the AS7343 sensor with the SparkFun Web Serial
+  Bar Graphs Demo. It will print out the spectral data from the sensor in a format
+    that can be read by the web terminal and displayed as bar graphs.
+
+    Find the web terminal demo code here:
+    https://github.com/sparkfunX/WebTerminalDemo/tree/bar-graph-meters
 
   By: Pete Lewis
   SparkFun Electronics
@@ -31,7 +35,7 @@ void setup()
     {
         delay(100);
     };
-    Serial.println("AS7343 Example 02 - All Channels");
+    Serial.println("AS7343 Example 05 - Web Terminal Bar Graphs");
 
     Wire.begin();
 
