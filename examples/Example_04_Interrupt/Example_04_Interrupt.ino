@@ -40,7 +40,7 @@ void setup()
     {
         delay(100);
     };
-    Serial.println("AS7343 Example 03 - Interrupt");
+    Serial.println("AS7343 Example 04 - Interrupt");
 
     Wire.begin();
 
