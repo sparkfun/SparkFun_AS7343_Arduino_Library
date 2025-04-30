@@ -95,21 +95,21 @@ typedef enum
 // Sensor gain settings.
 typedef enum
 {
-    GAIN_0_5 = 0x00, // 0.5x gain
-    GAIN_1,
-    GAIN_2,
-    GAIN_4,
-    GAIN_8,
-    GAIN_16,
-    GAIN_32,
-    GAIN_64,
-    GAIN_128,
-    GAIN_256,
-    GAIN_512,
-    GAIN_1024,
-    GAIN_2048,
+    AGAIN_0_5 = 0x00, // 0.5x gain
+    AGAIN_1,
+    AGAIN_2,
+    AGAIN_4,
+    AGAIN_8,
+    AGAIN_16,
+    AGAIN_32,
+    AGAIN_64,
+    AGAIN_128,
+    AGAIN_256,
+    AGAIN_512,
+    AGAIN_1024,
+    AGAIN_2048,
 
-} as7343_gain_t;
+} as7343_again_t;
 
 // Flicker Detection Gain Settings (ADC5)
 typedef enum
@@ -448,7 +448,7 @@ typedef union {
     struct
     {
         uint8_t reserved: 4;
-        uint8_t again : 1;
+        uint8_t sai : 1;
         uint8_t reserved2: 3;
     };
     uint8_t word;
@@ -993,6 +993,16 @@ class sfDevAS7343
     /// @param data Pointer to the register data to read into.
     /// @return True if successful, false if it fails.
     bool readRegister(uint8_t reg, uint8_t &data);
+
+    /// Brief Set AGAIN value
+    /// @details This method sets the AGAIN value by writing to the AGAIN bits in
+    /// the CFG1 register (kSfeAS7343RegCfg1).
+    /// @param again The AGAIN value to set.
+    /// @details Options:
+    /// AGAIN_0_5X (default), AGAIN_1X, AGAIN_2X, AGAIN_4X, AGAIN_8X, AGAIN_16X,
+    /// AGAIN_32X, AGAIN_64X.
+    /// @return True if successful, false if it fails.
+    bool setAgain(as7343_again_t again);
 
   private:
     sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.

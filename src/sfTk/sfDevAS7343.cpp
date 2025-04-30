@@ -906,3 +906,30 @@ bool sfDevAS7343::readRegister(uint8_t reg, uint8_t &data)
 
     return true;
 }
+
+bool sfDevAS7343::setAgain(as7343_again_t again)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the CFG1 register (0xC6).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_cfg1_t cfg1; // Create a register structure for the CFG0 register
+
+    // Read the CFG0 register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegCfg1, cfg1.word))
+        return false;
+
+    // Set the AGC bits according to the incoming argument
+    cfg1.again = again;
+
+    // Write the CFG0 register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegCfg1, cfg1.word))
+        return false;
+
+    return true;
+}
