@@ -35,7 +35,7 @@ void setup()
     {
         delay(100);
     };
-    Serial.println("AS7343 Example 05 - Web Terminal Bar Graphs");
+    Serial.println("AS7343 Example 06 - Web Terminal Bar Graphs");
 
     Wire.begin();
 
@@ -83,7 +83,7 @@ void setup()
 
 void loop()
 {
-    //mySensor.ledOn();
+    mySensor.ledOn();
     delay(100);
 
     // Read all data registers
@@ -93,7 +93,7 @@ void loop()
         Serial.println("Failed to read spectral data.");
     }
 
-    mySensor.ledOff();
+    //mySensor.ledOff();
 
 
     char buffer[100];

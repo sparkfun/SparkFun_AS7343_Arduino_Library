@@ -34,7 +34,7 @@ void setup()
     {
         delay(100);
     };
-    Serial.println("AS7343 Example 06 - GPIO");
+    Serial.println("AS7343 Example 07 - GPIO");
 
     Wire.begin();
 
@@ -73,15 +73,15 @@ void setup()
     }
     Serial.println("Device powered on.");
 
-        // Enable Spectral Measurement
-        if (mySensor.spectralMeasurementEnable() == false)
-        {
-            Serial.println("Failed to enable spectral measurement.");
-            Serial.println("Halting...");
-            while (1)
-                ;
-        }
-        Serial.println("Spectral measurement enabled.");
+        // // Enable Spectral Measurement
+        // if (mySensor.spectralMeasurementEnable() == false)
+        // {
+        //     Serial.println("Failed to enable spectral measurement.");
+        //     Serial.println("Halting...");
+        //     while (1)
+        //         ;
+        // }
+        // Serial.println("Spectral measurement enabled.");
 
     // // Set the AutoSmux to output 6 channels
     // // Using the AutoSmux set to 6 channels, and the interrupt channel set to 0,
@@ -207,7 +207,7 @@ void loop()
         Serial.print(")\n");
 
     // Arduino digital pin 7 is connected to GPIO
-    pinMode(7, INPUT_PULLUP);
+    pinMode(7, INPUT);
     int gpioStatus = digitalRead(7);
     Serial.print("D7 Status: ");
     if (gpioStatus == HIGH)
