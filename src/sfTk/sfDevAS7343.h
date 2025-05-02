@@ -395,6 +395,24 @@ typedef union {
     uint8_t word;
 } sfe_as7343_reg_status4_t;
 
+const uint8_t kSfeAS7343RegFdStatus = 0xE3; // Register Address
+
+// A union is used here so that individual values from the register can be
+// accessed or the whole register can be accessed.
+typedef union {
+    struct
+    {
+        uint8_t fd_100hz_det : 1;
+        uint8_t fd_120hz_det : 1;
+        uint8_t fd_100hz_valid : 1;
+        uint8_t fd_120hz_valid : 1;
+        uint8_t fd_saturation : 1;
+        uint8_t fd_meas_valid : 1;
+        uint8_t reserved : 2;
+    };
+    uint8_t word;
+} sfe_as7343_reg_fd_status_t;
+
 const uint8_t kSfeAS7343RegStatus5 = 0x93; // Register Address
 
 // A union is used here so that individual values from the register can be
@@ -623,24 +641,6 @@ typedef union {
     };
     uint8_t word;
 } sfe_as7343_reg_fd_cfg0_t;
-
-const uint8_t kSfeAS7343RegFdStatus = 0xE3; // Register Address
-
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
-typedef union {
-    struct
-    {
-        uint8_t fd_100Hz : 1;
-        uint8_t fd_120Hz : 1;
-        uint8_t fd_100Hz_valid : 1;
-        uint8_t fd_120Hz_valid : 1;
-        uint8_t fd_sat : 1;
-        uint8_t fd_valid : 1;
-        uint8_t fd_reserved : 2;
-    };
-    uint8_t word;
-} sfe_as7343_reg_fd_status_t;
 
 const uint8_t kSfeAS7343RegIntEnab = 0xF9; // Register Address
 
@@ -1003,6 +1003,40 @@ class sfDevAS7343
     /// AGAIN_32X, AGAIN_64X.
     /// @return True if successful, false if it fails.
     bool setAgain(as7343_again_t again);
+
+    /// @brief Enable Flicker Detection
+    /// @details This method enables flicker detection by setting the FD_EN bit in
+    /// the ENABLE register (kSfeAS7343RegEnable).
+    /// @return True if successful, false if it fails.
+    bool enableFlickerDetection(void);
+
+    /// @brief Disable Flicker Detection
+    /// @details This method disables flicker detection by clearing the FD_EN bit
+    /// in the ENABLE register (kSfeAS7343RegEnable).
+    /// @return True if successful, false if it fails.
+    bool disableFlickerDetection(void);
+
+    /// @brief Get the Flicker Detection Measurement Valid Status
+    /// @details This method gets the flicker detection measurement valid status by
+    /// reading the FD_MEAS_VALID bit in the FD_STATUS register
+    /// (kSfeAS7343RegFdStatus).
+    /// @return True if the flicker detection measurement is valid, false if it is not valid.
+    bool getFdValidStatus(void);
+
+    /// @brief Get the Flicker Detection Saturation Detected Status
+    /// @details This method gets the flicker detection saturation detected status by
+    /// reading the FD_SATURATION bit in the FD_STATUS register
+    /// (kSfeAS7343RegFdStatus).
+    /// @return True if the flicker detection saturation is detected, false if it is not detected.
+    bool getFdSaturationStatus(void);
+
+    /// @brief Get the Flicker Detection Frequency Detected
+    /// @details This method gets the flicker detection frequency detected by reading
+    /// the FD_100HZ_DET and FD_120HZ_DET bits in the FD_STATUS register
+    /// (kSfeAS7343RegFdStatus).
+    /// @return The flicker detection frequency detected (100 or 120) 
+    /// or 0 if no frequency is detected.
+    uint8_t getFdFrequency(void);
 
   private:
     sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.

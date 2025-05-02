@@ -933,3 +933,129 @@ bool sfDevAS7343::setAgain(as7343_again_t again)
 
     return true;
 }
+
+bool sfDevAS7343::enableFlickerDetection(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+    
+    // Set the register bank to 0, needed to access the ENABLE Register (0x80).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
+
+    // Read the Enable register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegEnable, enableReg.word))
+        return false;
+
+    // Set the FLICKER_EN bit to 1 to enable flicker detection
+    enableReg.fden = 1;
+
+    // Write the Enable register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.word))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::disableFlickerDetection(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the ENABLE Register (0x80).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
+
+    // Read the Enable register (to retain other bit settings), if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegEnable, enableReg.word))
+        return false;
+
+    // Set the FLICKER_EN bit to 0 to disable flicker detection
+    enableReg.fden = 0;
+
+    // Write the Enable register to the device. If it errors, then return false.
+    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.word))
+        return false;
+
+    return true;
+}
+
+bool sfDevAS7343::getFdValidStatus(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the FD_STATUS register (0xE3).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_fd_status_t fdStatusReg; // Create a register structure for the FD_STATUS register
+
+    // Read the FD_STATUS register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegFdStatus, fdStatusReg.word))
+        return false;   
+
+    // Return the FD_VALID bit from the FD_STATUS register
+    return fdStatusReg.fd_meas_valid;
+}
+
+// get flicker detection saturation status
+bool sfDevAS7343::getFdSaturationStatus(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return false;
+
+    // Set the register bank to 0, needed to access the FD_STATUS register (0xE3).
+    // If it fails, return false.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return false;
+
+    sfe_as7343_reg_fd_status_t fdStatusReg; // Create a register structure for the FD_STATUS register
+
+    // Read the FD_STATUS register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegFdStatus, fdStatusReg.word))
+        return false;   
+
+    // Return the FD_SAT bit from the FD_STATUS register
+    return fdStatusReg.fd_saturation;
+}
+
+uint8_t sfDevAS7343::getFdFrequency(void)
+{
+    // Nullptr check.
+    if (!_theBus)
+        return 0;
+
+    // Set the register bank to 0, needed to access the FD_STATUS register (0xE3).
+    // If it fails, return 0.
+    if (setRegisterBank(REG_BANK_0) == false)
+        return 0;
+
+    sfe_as7343_reg_fd_status_t fdStatusReg; // Create a register structure for the FD_STATUS register
+
+    // Read the FD_STATUS register, if it errors then return 0.
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegFdStatus, fdStatusReg.word))
+        return 0;
+
+    // See which frequency bit is set (fd_100hz_det or fd_120hz_det) and check
+    // its corresponding valid bit (fd_100hz_valid or fd_120hz_valid) to determine the frequency
+    // return the frequency value
+    if (fdStatusReg.fd_100hz_det && fdStatusReg.fd_100hz_valid)
+        return 100;
+    else if (fdStatusReg.fd_120hz_det && fdStatusReg.fd_120hz_valid)
+        return 120;
+    else
+        return 0; // No valid frequency detected
+}
+
