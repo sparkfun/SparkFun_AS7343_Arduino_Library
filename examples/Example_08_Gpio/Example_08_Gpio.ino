@@ -34,7 +34,7 @@ void setup()
     {
         delay(100);
     };
-    Serial.println("AS7343 Example 07 - GPIO");
+    Serial.println("AS7343 Example 08 - GPIO");
 
     Wire.begin();
 

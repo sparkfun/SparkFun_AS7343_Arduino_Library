@@ -35,7 +35,7 @@ void setup()
     {
         delay(100);
     };
-    Serial.println("AS7343 Example 06 - Web Terminal Bar Graphs");
+    Serial.println("AS7343 Example 07 - Web Terminal Bar Graphs");
 
     Wire.begin();
 

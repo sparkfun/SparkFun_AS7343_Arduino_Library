@@ -37,7 +37,7 @@ void setup()
     {
         delay(100);
     };
-    Serial.println("AS7343 Example 02 - Sleep");
+    Serial.println("AS7343 Example 06 - Sleep");
 
     Wire.begin();
 
