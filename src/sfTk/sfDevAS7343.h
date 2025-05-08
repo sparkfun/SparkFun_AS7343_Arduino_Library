@@ -199,8 +199,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegRevID = 0x59; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -215,8 +213,6 @@ typedef uint8_t sfe_as7343_reg_id_t;
 
 const uint8_t kSfeAS7343RegCfg12 = 0x66; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -228,8 +224,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegEnable = 0x80; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -254,8 +248,6 @@ typedef uint8_t sfe_as7343_reg_wtime_t;
 
 const uint8_t kSfeAS7343RegSpThL = 0x84; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -268,8 +260,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegSpThH = 0x86; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -281,8 +271,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegStatus = 0x93; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -298,8 +286,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegAStatus = 0x94; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -340,8 +326,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegStatus2 = 0x90; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -359,8 +343,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegStatus3 = 0x91; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -374,8 +356,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegStatus4 = 0xBC; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -393,8 +373,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegFdStatus = 0xE3; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -411,8 +389,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegStatus5 = 0x93; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -426,8 +402,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegCfg0 = 0xBF; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -443,8 +417,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegCfg1 = 0xC6; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -456,8 +428,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegCfg3 = 0xC7; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -470,8 +440,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegCfg6 = 0xF5; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -484,8 +452,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegCfg8 = 0xC9; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -497,8 +463,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegCfg9 = 0xCA; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -513,8 +477,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegCfg10 = 0x65; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -526,8 +488,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegPers = 0xCF; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -539,8 +499,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegGpio = 0x6B; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -555,8 +513,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegAStep = 0xD4; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -568,8 +524,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegCfg20 = 0xD6; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -582,8 +536,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegLed = 0xCD; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -595,8 +547,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegAgcGainMax = 0xD7; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -614,8 +564,6 @@ typedef uint8_t sfe_as7343_reg_fd_time_1_t;
 
 const uint8_t kSfeAS7343RegFdTime2 = 0xE2; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -627,8 +575,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegFdTimeCfg0 = 0xDF; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -640,8 +586,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegIntEnab = 0xF9; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -657,8 +601,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegControl = 0xFA; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -673,8 +615,6 @@ typedef union {
 
 const uint8_t kSfeAS7343RegFifoMap = 0xFC; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
@@ -695,8 +635,6 @@ typedef uint8_t sfe_as7343_reg_fifo_lvl_t;
 
 const uint8_t kSfeAS7343RegFData = 0xFE; // Register Address
 
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
 typedef union {
     struct
     {
