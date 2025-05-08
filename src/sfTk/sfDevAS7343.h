@@ -310,19 +310,6 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_astatus_t;
 
-// typedef for data registers
-// Note, we are using the same typedef here for all data from the sensor.
-// A union is used here so that individual values from the register can be
-// accessed or the whole register can be accessed.
-typedef union {
-    struct
-    {
-        uint8_t data_l : 8;
-        uint8_t data_h : 8;
-    };
-    uint16_t word;
-} sfe_as7343_reg_data_t;
-
 const uint8_t kSfeAS7343RegData0 = 0x95; // Register Address
 const uint8_t kSfeAS7343RegData1 = 0x97; // Register Address
 const uint8_t kSfeAS7343RegData2 = 0x99; // Register Address
@@ -341,6 +328,15 @@ const uint8_t kSfeAS7343RegData14 = 0xB1; // Register Address
 const uint8_t kSfeAS7343RegData15 = 0xB3; // Register Address
 const uint8_t kSfeAS7343RegData16 = 0xB5; // Register Address
 const uint8_t kSfeAS7343RegData17 = 0xB7; // Register Address
+
+typedef union {
+    struct
+    {
+        uint8_t data_l : 8;
+        uint8_t data_h : 8;
+    };
+    uint16_t word;
+} sfe_as7343_reg_data_t;
 
 const uint8_t kSfeAS7343RegStatus2 = 0x90; // Register Address
 
