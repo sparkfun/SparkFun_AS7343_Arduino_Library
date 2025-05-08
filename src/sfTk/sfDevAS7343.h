@@ -61,7 +61,7 @@ typedef enum
 {
     REG_BANK_0 = 0x00, // Register bank 0 (default)
     REG_BANK_1 = 0x01, // Register bank 1
-} as7343_reg_bank_t;
+} sfe_as7343_reg_bank_t;
 
 // Sensor Channels
 // Use these to access each channel individually from the _data array in the class.
@@ -90,7 +90,7 @@ typedef enum
     CH_GREEN_F5_550NM, // Green (Narrow bandwidth) peak wavelength 550 nanometers (cycle 3)
     CH_VIS_3, // VIS (cycle 3)
     CH_FD_3, // Flicker Detection (cycle 3)
-} as7343_channel_t;
+} sfe_as7343_channel_t;
 
 // Sensor gain settings.
 typedef enum
@@ -109,7 +109,7 @@ typedef enum
     AGAIN_1024,
     AGAIN_2048,
 
-} as7343_again_t;
+} sfe_as7343_again_t;
 
 // Flicker Detection Gain Settings (ADC5)
 typedef enum
@@ -127,7 +127,7 @@ typedef enum
     FD_GAIN_512,
     FD_GAIN_1024,
     FD_GAIN_2048,
-} as7343_fd_gain_t;
+} sfe_as7343_fd_gain_t;
 
 // FIFO Threshold settings
 // Sets a threshold on the FIFO level that triggers the first FIFO buffer 
@@ -138,7 +138,7 @@ typedef enum
     FIFO_THRESHOLD_LVL_4,
     FIFO_THRESHOLD_LVL_8,
     FIFO_THRESHOLD_LVL_16,
-} as7343_fifo_threshold_t;
+} sfe_as7343_fifo_threshold_t;
 
 // Spectral Threshold Channel
 // Sets the channel used for interrupts and persistence, if enabled, to 
@@ -151,7 +151,7 @@ typedef enum
     SPECTRAL_THRESHOLD_CHANNEL_3,
     SPECTRAL_THRESHOLD_CHANNEL_4,
     SPECTRAL_THRESHOLD_CHANNEL_5,
-} as7343_spectral_threshold_channel_t;
+} sfe_as7343_spectral_threshold_channel_t;
 
 // Automatic Channel Read-out (auto_smux setting)
 typedef enum
@@ -164,14 +164,14 @@ typedef enum
                             // Cycle 1: FZ, FY, FXL, NIR, 2xVIS, FD
                             // Cycle 2: F2, F3, F4, F6, 2xVIS, FD
                             // Cycle 3: F1, F7, F8, F5, 2xVIS, FD 
-} as7343_auto_smux_channel_t;
+} sfe_as7343_auto_smux_channel_t;
 
 // GPIO mode settings
 typedef enum
 {
     AS7343_GPIO_MODE_INPUT = 0x00, // GPIO set to input mode
     AS7343_GPIO_MODE_OUTPUT, // GPIO set to output mode
-} as7343_gpio_mode_t;
+} sfe_as7343_gpio_mode_t;
 
 // GPIO output settings
 typedef enum
@@ -741,7 +741,7 @@ class sfDevAS7343
     /// @param regBank The register bank to set. 
     /// @details Options: REG_BANK_0 (default), REG_BANK_1.
     /// @return True if successful, false if it fails.
-    bool setRegisterBank(as7343_reg_bank_t regBank);
+    bool setRegisterBank(sfe_as7343_reg_bank_t regBank);
 
     /// @brief Power on the device.
     /// @details This method powers on the device by setting the PON bit in the
@@ -776,7 +776,7 @@ class sfDevAS7343
     /// @brief Get the data from the specified channel.
     /// @param channel The channel to get the data from.
     /// @return The data from the specified channel.
-    uint16_t getData(as7343_channel_t channel);
+    uint16_t getData(sfe_as7343_channel_t channel);
 
     /// @brief Set automatic channel read-out.
     /// @details This method sets the automatic channel read-out mode. The
@@ -786,7 +786,7 @@ class sfDevAS7343
     /// @details Options: AUTOSMUX_6_CH (default), AUTOSMUX_12_CH,
     /// AUTOSMUX_18_CHANNELS.
     /// @return True if successful, false if it fails.
-    bool setAutoSmux(as7343_auto_smux_channel_t auto_smux);
+    bool setAutoSmux(sfe_as7343_auto_smux_channel_t auto_smux);
 
     /// @brief Turn on the LED.
     /// @details This method turns on the LED by setting the LED_ACT bit in the
@@ -870,7 +870,7 @@ class sfDevAS7343
     /// SPECTRAL_THRESHOLD_CHANNEL_3, SPECTRAL_THRESHOLD_CHANNEL_4, 
     /// SPECTRAL_THRESHOLD_CHANNEL_5.
     /// @return True if successful, false if it fails.
-    bool setSpectralThresholdChannel(as7343_spectral_threshold_channel_t spThCh);
+    bool setSpectralThresholdChannel(sfe_as7343_spectral_threshold_channel_t spThCh);
 
     /// @brief Get the System Interrupt Status.
     /// @details This method gets the system interrupt status by reading the
@@ -952,7 +952,7 @@ class sfDevAS7343
     /// @param gpioMode The GPIO pin mode to set.
     /// @details Options: AS7343_GPIO_MODE_INPUT (default), AS7343_GPIO_MODE_OUTPUT.
     /// @return True if successful, false if it fails.
-    bool setGpioMode(as7343_gpio_mode_t gpioMode);
+    bool setGpioMode(sfe_as7343_gpio_mode_t gpioMode);
 
     /// @brief Get the GPIO input status.
     /// @details This method gets the GPIO input status by reading the GPIO_IN bit
@@ -1007,7 +1007,7 @@ class sfDevAS7343
     /// AGAIN_0_5X (default), AGAIN_1X, AGAIN_2X, AGAIN_4X, AGAIN_8X, AGAIN_16X,
     /// AGAIN_32X, AGAIN_64X.
     /// @return True if successful, false if it fails.
-    bool setAgain(as7343_again_t again);
+    bool setAgain(sfe_as7343_again_t again);
 
     /// @brief Enable Flicker Detection
     /// @details This method enables flicker detection by setting the FD_EN bit in

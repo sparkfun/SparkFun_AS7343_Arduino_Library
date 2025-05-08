@@ -34,7 +34,7 @@ SfeAS7343ArdI2C mySensor;
 char userInput;
 
 // array of gain settings using the enum typedef in sfDevAS7343.h
-as7343_again_t gainSettings[] = {
+sfe_as7343_again_t gainSettings[] = {
     AGAIN_0_5,
     AGAIN_1,
     AGAIN_2,
@@ -199,7 +199,7 @@ void updateGainSetting(char input)
 }
 
 // Print "human readable" gain value to the serial monitor
-void printGainSetting(as7343_again_t gainSetting)
+void printGainSetting(sfe_as7343_again_t gainSetting)
 {
     Serial.print("Gain Setting: ");
 

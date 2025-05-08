@@ -63,7 +63,7 @@ void sfDevAS7343::setCommunicationBus(sfTkIBus *theBus)
     _theBus = theBus;
 }
 
-bool sfDevAS7343::setRegisterBank(as7343_reg_bank_t regBank)
+bool sfDevAS7343::setRegisterBank(sfe_as7343_reg_bank_t regBank)
 {
     // Nullptr check.
     if (!_theBus)
@@ -218,7 +218,7 @@ bool sfDevAS7343::readAllSpectralData(void)
     return true;
 }
 
-uint16_t sfDevAS7343::getData(as7343_channel_t channel)
+uint16_t sfDevAS7343::getData(sfe_as7343_channel_t channel)
 {
     // Check if the channel is valid (0-17).
     if (channel > 17)
@@ -228,7 +228,7 @@ uint16_t sfDevAS7343::getData(as7343_channel_t channel)
     return _data[channel].word;
 }
 
-bool sfDevAS7343::setAutoSmux(as7343_auto_smux_channel_t auto_smux)
+bool sfDevAS7343::setAutoSmux(sfe_as7343_auto_smux_channel_t auto_smux)
 {
     // Nullptr check.
     if (!_theBus)
@@ -372,7 +372,7 @@ uint16_t sfDevAS7343::getChannelData(uint8_t channel)
         return 0;
 
     // Return the data for the specified channel.
-    return getData((as7343_channel_t)channel);
+    return getData((sfe_as7343_channel_t)channel);
 }
 
 bool sfDevAS7343::setSpectralIntThresholdHigh(uint16_t spThH)
@@ -465,7 +465,7 @@ bool sfDevAS7343::disableSpectralInt()
     return true;
 }
 
-bool sfDevAS7343::setSpectralThresholdChannel(as7343_spectral_threshold_channel_t spThCh)
+bool sfDevAS7343::setSpectralThresholdChannel(sfe_as7343_spectral_threshold_channel_t spThCh)
 {
     // Nullptr check.
     if (!_theBus)
@@ -709,7 +709,7 @@ uint8_t sfDevAS7343::readIntEnableReg(void)
     return intEnabReg;
 }
 
-bool sfDevAS7343::setGpioMode(as7343_gpio_mode_t gpioMode)
+bool sfDevAS7343::setGpioMode(sfe_as7343_gpio_mode_t gpioMode)
 {
     // Nullptr check.
     if (!_theBus)
@@ -904,7 +904,7 @@ bool sfDevAS7343::readRegister(uint8_t reg, uint8_t &data)
     return true;
 }
 
-bool sfDevAS7343::setAgain(as7343_again_t again)
+bool sfDevAS7343::setAgain(sfe_as7343_again_t again)
 {
     // Nullptr check.
     if (!_theBus)

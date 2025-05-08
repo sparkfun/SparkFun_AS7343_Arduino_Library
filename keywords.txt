@@ -55,22 +55,22 @@ getFdFrequency		KEYWORD2
 SfeAS7343ArdI2C KEYWORD2
 
 # Structures (KEYWORD3)
-as7343_reg_bank_t		KEYWORD3
-as7343_channel_t		KEYWORD3
-as7343_again_t		KEYWORD3
-as7343_fd_gain_t		KEYWORD3
-as7343_fifo_threshold_t		KEYWORD3
-as7343_spectral_threshold_channel_t		KEYWORD3
-as7343_auto_smux_channel_t		KEYWORD3
-as7343_gpio_mode_t		KEYWORD3
+sfe_as7343_reg_bank_t		KEYWORD3
+sfe_as7343_channel_t		KEYWORD3
+sfe_as7343_again_t		KEYWORD3
+sfe_as7343_fd_gain_t		KEYWORD3
+sfe_as7343_fifo_threshold_t		KEYWORD3
+sfe_as7343_spectral_threshold_channel_t		KEYWORD3
+sfe_as7343_auto_smux_channel_t		KEYWORD3
+sfe_as7343_gpio_mode_t		KEYWORD3
 sfe_as7343_gpio_output_t		KEYWORD3
 sfe_as7343_reg_auxid_t		KEYWORD3
 sfe_as7343_reg_revid_t		KEYWORD3
-uint8_t sfe_as7343_reg_id_t		KEYWORD3
+sfe_as7343_reg_id_t		KEYWORD3
 sfe_as7343_reg_cfg12_t		KEYWORD3
 sfe_as7343_reg_enable_t		KEYWORD3
-uint8_t sfe_as7343_reg_atime_t		KEYWORD3
-uint8_t sfe_as7343_reg_wtime_t		KEYWORD3
+sfe_as7343_reg_atime_t		KEYWORD3
+sfe_as7343_reg_wtime_t		KEYWORD3
 sfe_as7343_reg_sp_th_l_t		KEYWORD3
 sfe_as7343_reg_sp_th_h_t		KEYWORD3
 sfe_as7343_reg_status_t		KEYWORD3
@@ -94,14 +94,14 @@ sfe_as7343_reg_astep_t		KEYWORD3
 sfe_as7343_reg_cfg20_t		KEYWORD3
 sfe_as7343_reg_led_t		KEYWORD3
 sfe_as7343_reg_agc_gain_max_t		KEYWORD3
-uint8_t sfe_as7343_reg_az_config_t		KEYWORD3
-uint8_t sfe_as7343_reg_fd_time_1_t		KEYWORD3
+sfe_as7343_reg_az_config_t		KEYWORD3
+sfe_as7343_reg_fd_time_1_t		KEYWORD3
 sfe_as7343_reg_fd_time_2_t		KEYWORD3
 sfe_as7343_reg_fd_cfg0_t		KEYWORD3
 sfe_as7343_reg_intenab_t		KEYWORD3
 sfe_as7343_reg_control_t		KEYWORD3
 sfe_as7343_reg_fifo_map_t		KEYWORD3
-uint8_t sfe_as7343_reg_fifo_lvl_t		KEYWORD3
+sfe_as7343_reg_fifo_lvl_t		KEYWORD3
 sfe_as7343_reg_fifo_data_t		KEYWORD3
 
 
