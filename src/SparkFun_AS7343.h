@@ -103,15 +103,11 @@ class SfeAS7343ArdI2C : public sfDevAS7343
         if (_theI2CBus.init(wirePort, address) != ksfTkErrOk)
             return false;
 
-        // // Device supports repeat starts, enable it.
-        // _theI2CBus.setStop(false);
-
         setCommunicationBus(&_theI2CBus);
 
         if (!isConnected())
             return false;
         return true;
-        //return sfDevAS7343::begin();
     }
 
     /**
