@@ -67,13 +67,13 @@ bool sfDevAS7343::setRegisterBank(sfe_as7343_reg_bank_t regBank)
 {
     // Nullptr check.
     if (!_theBus)
-        return 0;
+        return false;
 
     sfe_as7343_reg_cfg0_t cfg0; // Create a register structure for CFG0
 
     // Read the cfg0 register (to retain other bits), if it errors then return 0.
     if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegCfg0, cfg0.byte))
-        return 0;
+        return false;
 
     // set the reg_bank bit as set by the incoming argument
     if(regBank == REG_BANK_1)
@@ -83,7 +83,7 @@ bool sfDevAS7343::setRegisterBank(sfe_as7343_reg_bank_t regBank)
 
     // Write the cfg0 register to the device. If it errors, then return 0.
     if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegCfg0, cfg0.byte))
-        return 0;
+        return false;
 
     return true; // Return true to indicate success
 }
