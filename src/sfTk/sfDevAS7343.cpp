@@ -367,10 +367,6 @@ uint16_t sfDevAS7343::getNIR(void)
 
 uint16_t sfDevAS7343::getChannelData(uint8_t channel)
 {
-    // Check if the channel is valid (0-17).
-    if (channel > 17)
-        return 0;
-
     // Return the data for the specified channel.
     return getData((sfe_as7343_channel_t)channel);
 }
