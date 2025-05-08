@@ -103,7 +103,7 @@ bool sfDevAS7343::powerOn(void)
 
     // Read the enable register, if it errors then return 0.
     if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegID, enableReg.byte))
-    return false;
+        return false;
 
     // Set the PON bit to 1 to power on the device
     enableReg.pon = 1;
