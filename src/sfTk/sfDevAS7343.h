@@ -709,6 +709,11 @@ class sfDevAS7343
 
     /// @brief Get the data from the specified channel.
     /// @param channel The channel to get the data from.
+    /// @details Options: There are 17 total channels:
+    /// CH_BLUE_FZ_450NM, CH_GREEN_FY_555NM, CH_ORANGE_FXL_600NM,
+    /// CH_NIR_855NM, CH_VIS_1, CH_FD_1, CH_DARK_BLUE_F2_425NM, CH_LIGHT_BLUE_F3_475NM,
+    /// CH_BLUE_F4_515NM, CH_BROWN_F6_640NM, CH_VIS_2, CH_FD_2, CH_PURPLE_F1_405NM,
+    /// CH_RED_F7_690NM, CH_DARK_RED_F8_745NM, CH_GREEN_F5_550NM, CH_VIS_3, CH_FD_3.
     /// @return The data from the specified channel.
     uint16_t getData(sfe_as7343_channel_t channel);
 
@@ -764,7 +769,9 @@ class sfDevAS7343
 
     /// @brief Get Specific Channel of Spectrum Data
     /// @param channel The channel to get the data from. (uint8_t)
-    /// @return The data from the specified channel.
+    /// @details Options: 0-17
+    /// @return The data from the specified channel. Returns 0 on error or if the
+    /// channel is invalid.
     uint16_t getChannelData(uint8_t channel);
 
     /// @brief Set the spectral interrupt threshold high.
