@@ -35,9 +35,6 @@ bool sfDevAS7343::begin(sfTkIBus *theBus)
     // Set the internal bus pointer, overriding current bus if it exists.
     if (theBus != nullptr)
         setCommunicationBus(theBus);
-
-    // Get the device setup and ready.
-    //return runDefaultSetup();
 }
 
 uint8_t sfDevAS7343::getDeviceID(void)
