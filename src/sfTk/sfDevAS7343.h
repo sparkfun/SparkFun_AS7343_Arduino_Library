@@ -724,17 +724,24 @@ class sfDevAS7343
     /// @brief Read all Spectral Data Registers
     /// @details This method reads all the spectral data registers from the
     /// AS7343 device. The data is stored in this drivers private struct variables.
+    /// @details The data is stored in the _data array in the class. You can
+    /// access the data using the getData() method, which returns the data from
+    /// the specified channel. Another option is to use the getRed(), getGreen(),
+    /// getBlue(), and getNIR() methods to get only those channels.
     /// @return True if successful, false if it fails.
     bool readAllSpectralData(void);
 
     /// @brief Get the data from the specified channel.
+    /// @details You must call the readAllSpectralData() method before calling this
+    /// method to get the most recent data from the specified channel.
     /// @param channel The channel to get the data from.
     /// @details Options: There are 17 total channels:
     /// CH_BLUE_FZ_450NM, CH_GREEN_FY_555NM, CH_ORANGE_FXL_600NM,
     /// CH_NIR_855NM, CH_VIS_1, CH_FD_1, CH_DARK_BLUE_F2_425NM, CH_LIGHT_BLUE_F3_475NM,
     /// CH_BLUE_F4_515NM, CH_BROWN_F6_640NM, CH_VIS_2, CH_FD_2, CH_PURPLE_F1_405NM,
     /// CH_RED_F7_690NM, CH_DARK_RED_F8_745NM, CH_GREEN_F5_550NM, CH_VIS_3, CH_FD_3.
-    /// @return The data from the specified channel.
+    /// @see readAllSpectralData()
+    /// @return The most recently read data from the specified channel.
     uint16_t getData(sfe_as7343_channel_t channel);
 
     /// @brief Set automatic channel read-out.
