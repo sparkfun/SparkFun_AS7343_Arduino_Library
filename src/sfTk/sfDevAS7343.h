@@ -92,6 +92,11 @@ typedef enum
     CH_FD_3, // Flicker Detection (cycle 3)
 } sfe_as7343_channel_t;
 
+// Sensor number of channels constant, used to determine the number of bytes
+// read from the device when using the readAllSpectralData() function, and also
+// to determine the size of the _data array in the class.
+const uint8_t kSfeAS7343NumChannels = 18; // Number of channels in the AS7343 sensor
+
 // Sensor gain settings.
 typedef enum
 {
@@ -1029,7 +1034,7 @@ class sfDevAS7343
     uint8_t getFdFrequency(void);
 
   private:
-    sfe_as7343_reg_data_t _data[18]; // Array of data structs, to hold data from the sensor.
+    sfe_as7343_reg_data_t _data[kSfeAS7343NumChannels]; // Array of data structs, to hold data from the sensor.
 
     sfTkIBus *_theBus; // Pointer to bus device.
 };

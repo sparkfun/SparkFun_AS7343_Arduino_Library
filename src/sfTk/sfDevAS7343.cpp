@@ -173,12 +173,14 @@ bool sfDevAS7343::readAllSpectralData(void)
     if (setRegisterBank(REG_BANK_0) == false)
         return false;
 
+    uint8_t numOfDataBytes = kSfeAS7343NumChannels * sizeof(sfe_as7343_reg_data_t); // Calculate the number of data bytes to read.
+
     size_t nRead = 0; // Create a variable to hold the number of bytes read.
-    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegData0, (uint8_t*)_data, 36, nRead))
+    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegData0, (uint8_t*)_data, numOfDataBytes, nRead))
         return false;
 
     // Check if the number of bytes read is correct.
-    if (nRead != 36)
+    if (nRead != numOfDataBytes)
         return false;
 
     return true;
