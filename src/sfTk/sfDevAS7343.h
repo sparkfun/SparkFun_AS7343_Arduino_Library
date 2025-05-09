@@ -980,15 +980,22 @@ class sfDevAS7343
     /// @return True if successful, false if it fails.
     bool setAgain(sfe_as7343_again_t again);
 
+    /// @brief Enable or Disable the Flicker Detection
+    /// @details This method enables or disables the flicker detection by setting
+    /// or clearing the FD_EN bit in the ENABLE register (kSfeAS7343RegEnable).
+    /// @param enable True to enable the flicker detection, false to disable.
+    /// @return True if successful, false if it fails.
+    bool flickerDetectionEnableDisable(bool enable);
+
     /// @brief Enable Flicker Detection
-    /// @details This method enables flicker detection by setting the FD_EN bit in
-    /// the ENABLE register (kSfeAS7343RegEnable).
+    /// @details This method enables flicker detection by calling the
+    /// flickerDetectionEnableDisable method with true.
     /// @return True if successful, false if it fails.
     bool enableFlickerDetection(void);
 
     /// @brief Disable Flicker Detection
-    /// @details This method disables flicker detection by clearing the FD_EN bit
-    /// in the ENABLE register (kSfeAS7343RegEnable).
+    /// @details This method disables flicker detection by calling the
+    /// flickerDetectionEnableDisable method with false.
     /// @return True if successful, false if it fails.
     bool disableFlickerDetection(void);
 

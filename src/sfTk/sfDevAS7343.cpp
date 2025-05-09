@@ -859,12 +859,12 @@ bool sfDevAS7343::setAgain(sfe_as7343_again_t again)
     return true;
 }
 
-bool sfDevAS7343::enableFlickerDetection(void)
+bool sfDevAS7343::flickerDetectionEnableDisable(bool enable)
 {
     // Nullptr check.
     if (!_theBus)
         return false;
-    
+
     // Set the register bank to 0, needed to access the ENABLE Register (0x80).
     // If it fails, return false.
     if (setRegisterBank(REG_BANK_0) == false)
@@ -876,8 +876,8 @@ bool sfDevAS7343::enableFlickerDetection(void)
     if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegEnable, enableReg.byte))
         return false;
 
-    // Set the FLICKER_EN bit to 1 to enable flicker detection
-    enableReg.fden = 1;
+    // Set the FLICKER_EN bit according to the incoming argument
+    enableReg.fden = enable ? 1 : 0;
 
     // Write the Enable register to the device. If it errors, then return false.
     if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
@@ -886,31 +886,14 @@ bool sfDevAS7343::enableFlickerDetection(void)
     return true;
 }
 
+bool sfDevAS7343::enableFlickerDetection(void)
+{
+    return flickerDetectionEnableDisable(true);
+}
+
 bool sfDevAS7343::disableFlickerDetection(void)
 {
-    // Nullptr check.
-    if (!_theBus)
-        return false;
-
-    // Set the register bank to 0, needed to access the ENABLE Register (0x80).
-    // If it fails, return false.
-    if (setRegisterBank(REG_BANK_0) == false)
-        return false;
-
-    sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
-
-    // Read the Enable register (to retain other bit settings), if it errors then return 0.
-    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegEnable, enableReg.byte))
-        return false;
-
-    // Set the FLICKER_EN bit to 0 to disable flicker detection
-    enableReg.fden = 0;
-
-    // Write the Enable register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
-        return false;
-
-    return true;
+    return flickerDetectionEnableDisable(false);
 }
 
 bool sfDevAS7343::getFdValidStatus(void)
