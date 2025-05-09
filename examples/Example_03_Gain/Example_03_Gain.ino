@@ -27,6 +27,7 @@
 */
 
 #include <SparkFun_AS7343.h>
+#include <math.h> // used for calculating gain values (when printing to serial)
 
 SfeAS7343ArdI2C mySensor;
 
@@ -195,54 +196,16 @@ void updateGainSetting(char input)
         return;
     }
 
-    printGainSetting(gainSettings[gainSettingIndex]);
+    printGainValue(gainSettings[gainSettingIndex]);
 }
 
-// Print "human readable" gain value to the serial monitor
-void printGainSetting(sfe_as7343_again_t gainSetting)
+// Print gain value to the serial monitor
+void printGainValue(sfe_as7343_again_t gainSetting)
 {
-    Serial.print("Gain Setting: ");
-
-    switch (gainSetting)
-    {
-    case AGAIN_0_5:
-        Serial.println("0.5x");
-        break;
-    case AGAIN_1:
-        Serial.println("1x");
-        break;
-    case AGAIN_2:
-        Serial.println("2x");
-        break;
-    case AGAIN_4:
-        Serial.println("4x");
-        break;
-    case AGAIN_8:
-        Serial.println("8x");
-        break;
-    case AGAIN_16:
-        Serial.println("16x");
-        break;
-    case AGAIN_32:
-        Serial.println("32x");
-        break;
-    case AGAIN_64:
-        Serial.println("64x");
-        break;
-    case AGAIN_128:
-        Serial.println("128x");
-        break;
-    case AGAIN_256:
-        Serial.println("256x");
-        break;
-    case AGAIN_512:
-        Serial.println("512x");
-        break;  
-    case AGAIN_1024:
-        Serial.println("1024x");
-        break;
-    case AGAIN_2048:
-        Serial.println("2048x");
-        break;
-    }
+    // To convert from gainSetting to gain value, we use the formula:
+    // gainValue = 2^(gainSetting - 1)
+    float gainValue = pow(2, (gainSetting-1));
+    
+    Serial.print("Gain Value: ");
+    Serial.println(gainValue);
 }
