@@ -696,15 +696,23 @@ class sfDevAS7343
     /// @return True if successful, false if it fails.
     bool powerOff(void);
 
+    /// @brief Enable or Disable the Spectral Measurement.
+    /// @details This method enables or disables the spectral measurement by
+    /// setting or clearing the SP_EN bit in the Enable register
+    /// (kSfeAS7343RegEnable).
+    /// @param enable True to enable the spectral measurement, false to disable.
+    /// @return True if successful, false if it fails.
+    bool spectralMeasurementEnableDisable(bool enable);
+
     /// @brief Spectral Measurement Enable
-    /// @details This method enables the spectral measurement by setting the
-    /// SP_EN bit in the Enable register (kSfeAS7343RegEnable).
+    /// @details This method enables the spectral measurement by calling the
+    /// spectralMeasurementEnableDisable method with true.
     /// @return True if successful, false if it fails.
     bool spectralMeasurementEnable(void);
 
     /// @brief Spectral Measurement Disable
-    /// @details This method disables the spectral measurement by clearing the
-    /// SP_EN bit in the Enable register (kSfeAS7343RegEnable).
+    /// @details This method disables the spectral measurement by calling the
+    /// spectralMeasurementEnableDisable method with false.
     /// @return True if successful, false if it fails.
     bool spectralMeasurementDisable(void);
 

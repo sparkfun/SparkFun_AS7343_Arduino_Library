@@ -125,7 +125,7 @@ bool sfDevAS7343::powerOff(void)
     return powerOnOff(false);
 }
 
-bool sfDevAS7343::spectralMeasurementEnable(void)
+bool sfDevAS7343::spectralMeasurementEnableDisable(bool enable)
 {
     // Nullptr check.
     if (!_theBus)
@@ -142,8 +142,8 @@ bool sfDevAS7343::spectralMeasurementEnable(void)
     if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegEnable, enableReg.byte))
         return false;
 
-    // Set the SP_EN bit to 1 to enable spectral measurement
-    enableReg.sp_en = 1;
+    // Set the SP_EN bit according to the incoming argument
+    enableReg.sp_en = enable ? 1 : 0;
 
     // Write the Enable register to the device. If it errors, then return false.
     if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
@@ -152,31 +152,14 @@ bool sfDevAS7343::spectralMeasurementEnable(void)
     return true;
 }
 
+bool sfDevAS7343::spectralMeasurementEnable(void)
+{
+    return spectralMeasurementEnableDisable(true);
+}
+
 bool sfDevAS7343::spectralMeasurementDisable(void)
 {
-    // Nullptr check.
-    if (!_theBus)
-        return false;
-
-    // Set the register bank to 1, needed to access the Enable register (0x80).
-    // If it fails, return false.
-    if (setRegisterBank(REG_BANK_1) == false)
-        return false;
-
-    sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
-
-    // Read the enable register (to retain other bit settings), if it errors then return 0.
-    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegEnable, enableReg.byte))
-        return false;
-
-    // Set the SP_EN bit to 0 to disable spectral measurement
-    enableReg.sp_en = 0;
-
-    // Write the Enable register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
-        return false;
-
-    return true;
+    return spectralMeasurementEnableDisable(false);
 }
 
 bool sfDevAS7343::readAllSpectralData(void)
