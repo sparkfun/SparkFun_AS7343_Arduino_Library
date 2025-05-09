@@ -884,15 +884,22 @@ class sfDevAS7343
     /// The default value is 0x00.
     uint8_t getWaitTime(void);
 
+    /// @brief Enable or Disable Wait Time.
+    /// @details This method enables or disables the wait time by setting or
+    /// clearing the WEN bit in the Enable register (kSfeAS7343RegEnable).
+    /// @param enable True to enable the wait time, false to disable.
+    /// @return True if successful, false if it fails.
+    bool waitTimeEnableDisable(bool enable);
+
     /// @brief Enable Wait Time.
-    /// @details This method enables the wait time by setting the WEN bit in the
-    /// Enable register (kSfeAS7343RegEnable).
+    /// @details This method enables the wait time by calling the
+    /// waitTimeEnableDisable method with true.
     /// @return True if successful, false if it fails.
     bool enableWaitTime(void);
 
     /// @brief Disable Wait Time.
-    /// @details This method disables the wait time by clearing the WEN bit in the
-    /// Enable register (kSfeAS7343RegEnable).
+    /// @details This method disables the wait time by calling the
+    /// waitTimeEnableDisable method with false.
     /// @return True if successful, false if it fails.
     bool disableWaitTime(void);
 

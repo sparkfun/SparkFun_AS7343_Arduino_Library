@@ -559,7 +559,7 @@ uint8_t sfDevAS7343::getWaitTime()
     return waitTime;
 }
 
-bool sfDevAS7343::enableWaitTime(void)
+bool sfDevAS7343::waitTimeEnableDisable(bool enable)
 {
     // Nullptr check.
     if (!_theBus)
@@ -576,8 +576,8 @@ bool sfDevAS7343::enableWaitTime(void)
     if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegEnable, enableReg.byte))
         return false;
 
-    // Set the WEN bit to 1 to enable wait time
-    enableReg.wen = 1;
+    // Set the WEN bit according to the incoming argument
+    enableReg.wen = enable ? 1 : 0;
 
     // Write the Enable register to the device. If it errors, then return false.
     if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
@@ -586,31 +586,14 @@ bool sfDevAS7343::enableWaitTime(void)
     return true;
 }
 
+bool sfDevAS7343::enableWaitTime(void)
+{
+    return waitTimeEnableDisable(true);
+}
+
 bool sfDevAS7343::disableWaitTime(void)
 {
-    // Nullptr check.
-    if (!_theBus)
-        return false;
-
-    // Set the register bank to 0, needed to access the Enable register (0x80).
-    // If it fails, return false.
-    if (setRegisterBank(REG_BANK_0) == false)
-        return false;
-
-    sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
-
-    // Read the Enable register (to retain other bit settings), if it errors then return 0.
-    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegEnable, enableReg.byte))
-        return false;
-
-    // Set the WEN bit to 0 to disable wait time
-    enableReg.wen = 0;
-
-    // Write the Enable register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
-        return false;
-
-    return true;
+    return waitTimeEnableDisable(false);
 }
 
 bool sfDevAS7343::getSpectralValidStatus(void)
