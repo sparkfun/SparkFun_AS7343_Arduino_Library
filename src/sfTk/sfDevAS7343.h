@@ -805,15 +805,23 @@ class sfDevAS7343
     /// @return True if successful, false if it fails.
     bool setSpectralIntThresholdLow(uint16_t spThL);
 
+    /// @brief Enable or Disable the spectral interrupt.
+    /// @details This method enables or disables the spectral interrupt by
+    /// setting or clearing the SP_IEN bit in the INT_ENAB register
+    /// (kSfeAS7343RegIntEnab).
+    /// @param enable True to enable the spectral interrupt, false to disable.
+    /// @return True if successful, false if it fails.
+    bool spectralIntEnableDisable(bool enable);
+
     /// @brief Enable the spectral interrupt.
-    /// @details This method enables the spectral interrupt by setting the SP_IEN
-    /// bit in the INT_ENAB register (kSfeAS7343RegIntEnab).
+    /// @details This method enables the spectral interrupt by calling the
+    /// spectralIntEnableDisable method with true.
     /// @return True if successful, false if it fails.
     bool enableSpectralInt(void);
 
     /// @brief Disable the spectral interrupt.
-    /// @details This method disables the spectral interrupt by clearing the SP_IEN
-    /// bit in the INT_ENAB register (kSfeAS7343RegIntEnab).
+    /// @details This method disables the spectral interrupt by calling the
+    /// spectralIntEnableDisable method with false.
     /// @return True if successful, false if it fails.
     bool disableSpectralInt(void);
 

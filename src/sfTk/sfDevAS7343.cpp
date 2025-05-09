@@ -373,7 +373,7 @@ bool sfDevAS7343::setSpectralIntThresholdLow(uint16_t spThL)
     return true;
 }
 
-bool sfDevAS7343::enableSpectralInt()
+bool sfDevAS7343::spectralIntEnableDisable(bool enable)
 {
     // Nullptr check.
     if (!_theBus)
@@ -389,9 +389,9 @@ bool sfDevAS7343::enableSpectralInt()
     // Read the INT_ENAB register (to retain other bit settings), if it errors then return 0.
     if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegIntEnab, intEnabReg.byte))
         return false;
-    
-    // Set the SP_IEN bit to 1 to enable the spectral interrupt
-    intEnabReg.sp_ien = 1;
+
+    // Set the SP_IEN bit according to the incoming argument
+    intEnabReg.sp_ien = enable ? 1 : 0;
 
     // Write the INT_ENAB register to the device. If it errors, then return false.
     if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegIntEnab, intEnabReg.byte))
@@ -400,31 +400,14 @@ bool sfDevAS7343::enableSpectralInt()
     return true;
 }
 
+bool sfDevAS7343::enableSpectralInt()
+{
+    return spectralIntEnableDisable(true);
+}
+
 bool sfDevAS7343::disableSpectralInt()
 {
-    // Nullptr check.
-    if (!_theBus)
-        return false;
-
-    // Set the register bank to 0, needed to access the SP_TH_L register (0xD9).
-    // If it fails, return false.
-    if (setRegisterBank(REG_BANK_0) == false)
-        return false;
-
-    sfe_as7343_reg_intenab_t intEnabReg; // Create a register structure for the INT_ENAB register
-
-    // Read the INT_ENAB register (to retain other bit settings), if it errors then return 0.
-    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegIntEnab, intEnabReg.byte))
-        return false;
-    
-    // Set the SP_IEN bit to 0 to disable the spectral interrupt
-    intEnabReg.sp_ien = 0;
-
-    // Write the INT_ENAB register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegIntEnab, intEnabReg.byte))
-        return false;
-
-    return true;
+    return spectralIntEnableDisable(false);
 }
 
 bool sfDevAS7343::setSpectralThresholdChannel(sfe_as7343_spectral_threshold_channel_t spThCh)
