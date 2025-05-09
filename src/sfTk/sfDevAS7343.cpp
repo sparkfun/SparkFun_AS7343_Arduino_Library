@@ -88,7 +88,7 @@ bool sfDevAS7343::setRegisterBank(sfe_as7343_reg_bank_t regBank)
     return true; // Return true to indicate success
 }
 
-bool sfDevAS7343::powerOn(void)
+bool sfDevAS7343::powerOnOff(bool powerOn)
 {
     // Nullptr check.
     if (!_theBus)
@@ -105,8 +105,8 @@ bool sfDevAS7343::powerOn(void)
     if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegID, enableReg.byte))
         return false;
 
-    // Set the PON bit to 1 to power on the device
-    enableReg.pon = 1;
+    // Set the PON bit according to the incoming argument
+    enableReg.pon = powerOn ? 1 : 0;
 
     // Write the Enable register to the device. If it errors, then return false.
     if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
@@ -115,31 +115,14 @@ bool sfDevAS7343::powerOn(void)
     return true;
 }
 
+bool sfDevAS7343::powerOn(void)
+{
+    return powerOnOff(true);
+}
+
 bool sfDevAS7343::powerOff(void)
 {
-    // Nullptr check.
-    if (!_theBus)
-        return false;
-
-    // Set the register bank to 1, needed to access the Enable register (0x80).
-    // If it fails, return false.
-    if (setRegisterBank(REG_BANK_1) == false)
-        return false;
-
-    sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
-
-    // Read the enable register, if it errors then return 0.
-    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegID, enableReg.byte))
-        return false;
-
-    // Set the PON bit to 0 to power off the device
-    enableReg.pon = 0;
-
-    // Write the Enable register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
-        return false;
-
-    return true;
+    return powerOnOff(false);
 }
 
 bool sfDevAS7343::spectralMeasurementEnable(void)

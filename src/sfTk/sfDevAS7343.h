@@ -677,6 +677,13 @@ class sfDevAS7343
     /// @return True if successful, false if it fails.
     bool setRegisterBank(sfe_as7343_reg_bank_t regBank);
 
+    /// @brief Power on or off the device.
+    /// @details This method powers on or off the device by setting or clearing
+    /// the PON bit in the Enable register (kSfeAS7343RegEnable).
+    /// @param powerOn True to power on the device, false to power off.
+    /// @return True if successful, false if it fails.
+    bool powerOnOff(bool powerOn);
+
     /// @brief Power on the device.
     /// @details This method powers on the device by setting the PON bit in the
     /// Enable register (kSfeAS7343RegEnable).
