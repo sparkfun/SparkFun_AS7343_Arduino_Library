@@ -742,15 +742,22 @@ class sfDevAS7343
     /// @return True if successful, false if it fails.
     bool setAutoSmux(sfe_as7343_auto_smux_channel_t auto_smux);
 
+    /// @brief Turn on or off the LED.
+    /// @details This method turns on or off the LED by setting or clearing the
+    /// LED_ACT bit in the LED register (kSfeAS7343RegLed).
+    /// @param ledOn True to turn on the LED, false to turn off.
+    /// @return True if successful, false if it fails.
+    bool ledOnOff(bool ledOn);
+
     /// @brief Turn on the LED.
-    /// @details This method turns on the LED by setting the LED_ACT bit in the
-    /// LED register (kSfeAS7343RegLed).
+    /// @details This method turns on the LED by calling the ledOnOff method
+    /// with true.
     /// @return True if successful, false if it fails.
     bool ledOn(void);
 
     /// @brief Turn off the LED.
-    /// @details This method turns off the LED by clearing the LED_ACT bit in the
-    /// LED register (kSfeAS7343RegLed).
+    /// @details This method turns off the LED by calling the ledOnOff method
+    /// with false.
     /// @return True if successful, false if it fails.
     bool ledOff(void);
 
