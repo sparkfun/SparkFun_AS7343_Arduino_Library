@@ -624,7 +624,7 @@ bool sfDevAS7343::disableFlickerDetection(void)
     return flickerDetectionEnableDisable(false);
 }
 
-bool sfDevAS7343::getFdValidStatus(void)
+bool sfDevAS7343::isFlickerDetectionValid(void)
 {
     sfe_as7343_reg_fd_status_t fdStatusReg; // Create a register structure for the FD_STATUS register
 
@@ -636,7 +636,7 @@ bool sfDevAS7343::getFdValidStatus(void)
     return fdStatusReg.fd_meas_valid;
 }
 
-bool sfDevAS7343::getFdSaturationStatus(void)
+bool sfDevAS7343::isFlickerDetectionSaturated(void)
 {
     sfe_as7343_reg_fd_status_t fdStatusReg; // Create a register structure for the FD_STATUS register
 
@@ -648,7 +648,7 @@ bool sfDevAS7343::getFdSaturationStatus(void)
     return fdStatusReg.fd_saturation;
 }
 
-uint8_t sfDevAS7343::getFdFrequency(void)
+uint8_t sfDevAS7343::getFlickerDetectionFrequency(void)
 {
     sfe_as7343_reg_fd_status_t fdStatusReg; // Create a register structure for the FD_STATUS register
 

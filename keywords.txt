@@ -45,9 +45,9 @@ readRegister		KEYWORD2
 setAgain		KEYWORD2
 enableFlickerDetection		KEYWORD2
 disableFlickerDetection		KEYWORD2
-getFdValidStatus		KEYWORD2
-getFdSaturationStatus		KEYWORD2
-getFdFrequency		KEYWORD2
+isFlickerDetectionValid		KEYWORD2
+isFlickerDetectionSaturated		KEYWORD2
+getFlickerDetectionFrequency		KEYWORD2
 
 
 

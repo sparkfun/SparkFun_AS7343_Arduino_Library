@@ -1011,14 +1011,14 @@ class sfDevAS7343
     /// reading the FD_MEAS_VALID bit in the FD_STATUS register
     /// (ksfAS7343RegFdStatus).
     /// @return True if the flicker detection measurement is valid, false if it is not valid.
-    bool getFdValidStatus(void);
+    bool isFlickerDetectionValid(void);
 
     /// @brief Get the Flicker Detection Saturation Detected Status
     /// @details This method gets the flicker detection saturation detected status by
     /// reading the FD_SATURATION bit in the FD_STATUS register
     /// (ksfAS7343RegFdStatus).
     /// @return True if the flicker detection saturation is detected, false if it is not detected.
-    bool getFdSaturationStatus(void);
+    bool isFlickerDetectionSaturated(void);
 
     /// @brief Get the Flicker Detection Frequency Detected
     /// @details This method gets the flicker detection frequency detected by reading
@@ -1026,7 +1026,7 @@ class sfDevAS7343
     /// (ksfAS7343RegFdStatus).
     /// @return The flicker detection frequency detected (100 or 120) 
     /// or 0 if no frequency is detected.
-    uint8_t getFdFrequency(void);
+    uint8_t getFlickerDetectionFrequency(void);
 
   private:
     sfe_as7343_reg_data_t _data[ksfAS7343NumChannels]; // Array of data structs, to hold data from the sensor.

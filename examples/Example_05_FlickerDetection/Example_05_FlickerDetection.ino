@@ -95,9 +95,9 @@ void setup()
 
 void loop()
 {
-    bool fdValid = mySensor.getFdValidStatus(); // Get the flicker detection valid status
-    bool fdSaturation = mySensor.getFdSaturationStatus(); // Get the flicker detection saturation status
-    uint8_t fdFrequency = mySensor.getFdFrequency(); // Get the flicker detection frequency
+    bool fdValid = mySensor.isFlickerDetectionValid(); // Get the flicker detection valid status
+    bool fdSaturation = mySensor.isFlickerDetectionSaturated(); // Get the flicker detection saturation status
+    uint8_t fdFrequency = mySensor.getFlickerDetectionFrequency(); // Get the flicker detection frequency
 
     // Check if the flicker detection measurement is valid
     // if it is not valid, print a message and return
@@ -124,7 +124,7 @@ void loop()
 
     if(fdValid == true && fdSaturation == false)
     {
-        if (fdFrequency == 0) // if getFdFrequency() returns 0, no frequency detected
+        if (fdFrequency == 0) // if getFlickerDetectionFrequency() returns 0, no frequency detected
             Serial.print("No Flicker Detected");
         else
         {
