@@ -432,7 +432,7 @@ uint8_t sfDevAS7343::readIntEnableReg(void)
     return intEnabReg;
 }
 
-bool sfDevAS7343::setGpioMode(sfe_as7343_gpio_mode_t gpioMode)
+bool sfDevAS7343::setGPIOMode(sfe_as7343_gpio_mode_t gpioMode)
 {
     sfe_as7343_reg_gpio_t gpioReg; // Create a register structure for the GPIO register
 
@@ -462,7 +462,7 @@ bool sfDevAS7343::setGpioMode(sfe_as7343_gpio_mode_t gpioMode)
     return true;
 }
 
-bool sfDevAS7343::getGpioInputStatus(void)
+bool sfDevAS7343::getGPIOInputStatus(void)
 {
     sfe_as7343_reg_gpio_t gpioReg; // Create a register structure for the GPIO register
 
@@ -474,7 +474,7 @@ bool sfDevAS7343::getGpioInputStatus(void)
     return gpioReg.gpio_in;
 }
 
-bool sfDevAS7343::setGpioOutput(sfe_as7343_gpio_output_t gpioOut)
+bool sfDevAS7343::setGPIOOutput(sfe_as7343_gpio_output_t gpioOut)
 {
     sfe_as7343_reg_gpio_t gpioReg; // Create a register structure for the GPIO register
 

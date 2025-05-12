@@ -924,13 +924,13 @@ class sfDevAS7343
     /// @param gpioMode The GPIO pin mode to set.
     /// @details Options: AS7343_GPIO_MODE_INPUT (default), AS7343_GPIO_MODE_OUTPUT.
     /// @return True if successful, false if it fails.
-    bool setGpioMode(sfe_as7343_gpio_mode_t gpioMode);
+    bool setGPIOMode(sfe_as7343_gpio_mode_t gpioMode);
 
     /// @brief Get the GPIO input status.
     /// @details This method gets the GPIO input status by reading the GPIO_IN bit
     /// in the GPIO register (ksfAS7343RegGpio).
     /// @return True if the GPIO input is reading HIGH, false if it is reading LOW.
-    bool getGpioInputStatus(void);
+    bool getGPIOInputStatus(void);
 
     /// @brief Set the GPIO output
     /// @details This method sets the GPIO output by writing to the GPIO_OUT bit
@@ -938,7 +938,7 @@ class sfDevAS7343
     /// @param gpioOut The GPIO output to set.
     /// @details Options: AS7343_GPIO_OUTPUT_LOW (default), AS7343_GPIO_OUTPUT_HIGH.
     /// @return True if successful, false if it fails.
-    bool setGpioOutput(sfe_as7343_gpio_output_t gpioOut);
+    bool setGPIOOutput(sfe_as7343_gpio_output_t gpioOut);
 
     /// @brief Reset the device.
     /// @details This method resets the device by writing to the SW_RESET bit in
