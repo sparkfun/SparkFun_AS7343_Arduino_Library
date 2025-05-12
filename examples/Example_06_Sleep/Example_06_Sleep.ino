@@ -89,7 +89,7 @@ void takeReading()
     Serial.println("AutoSmux set to 18 channels.");
 
     // Enable Spectral Measurement
-    if (mySensor.spectralMeasurementEnable() == false)
+    if (mySensor.enableSpectralMeasurement() == false)
     {
         Serial.println("Failed to enable spectral measurement.");
         Serial.println("Halting...");
@@ -124,7 +124,7 @@ void takeReading()
 void sleepSensor()
 {
     // Disable Spectral Measurement
-    if (mySensor.spectralMeasurementDisable() == false)
+    if (mySensor.disableSpectralMeasurement() == false)
     {
         Serial.println("Failed to disable spectral measurement.");
         Serial.println("Halting...");

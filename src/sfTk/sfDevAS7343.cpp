@@ -98,7 +98,7 @@ bool sfDevAS7343::powerOff(void)
     return powerOn(false);
 }
 
-bool sfDevAS7343::spectralMeasurementEnableDisable(bool enable)
+bool sfDevAS7343::enableSpectralMeasurement(bool enable)
 {
     sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
 
@@ -116,14 +116,9 @@ bool sfDevAS7343::spectralMeasurementEnableDisable(bool enable)
     return true;
 }
 
-bool sfDevAS7343::spectralMeasurementEnable(void)
+bool sfDevAS7343::disableSpectralMeasurement(void)
 {
-    return spectralMeasurementEnableDisable(true);
-}
-
-bool sfDevAS7343::spectralMeasurementDisable(void)
-{
-    return spectralMeasurementEnableDisable(false);
+    return enableSpectralMeasurement(false);
 }
 
 bool sfDevAS7343::readAllSpectralData(void)

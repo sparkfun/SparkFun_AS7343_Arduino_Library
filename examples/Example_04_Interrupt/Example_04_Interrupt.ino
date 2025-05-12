@@ -170,7 +170,7 @@ void setup()
     Serial.println("Spectral interrupt enabled.");
 
     // Enable Spectral Measurement
-    if (mySensor.spectralMeasurementEnable() == false)
+    if (mySensor.enableSpectralMeasurement() == false)
     {
         Serial.println("Failed to enable spectral measurement.");
         Serial.println("Halting...");

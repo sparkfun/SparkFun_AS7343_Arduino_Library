@@ -107,7 +107,7 @@ void setup()
     Serial.println("Gain set to 512x.");
 
     // Enable Spectral Measurement
-    if (mySensor.spectralMeasurementEnable() == false)
+    if (mySensor.enableSpectralMeasurement() == false)
     {
         Serial.println("Failed to enable spectral measurement.");
         Serial.println("Halting...");
@@ -162,7 +162,7 @@ void loop()
 void updateGainSetting(char input)
 {
     // Disable spectral measurement
-    if (mySensor.spectralMeasurementDisable() == false)
+    if (mySensor.disableSpectralMeasurement() == false)
     {
         Serial.println("Failed to disable spectral measurement.");
         return;
@@ -190,7 +190,7 @@ void updateGainSetting(char input)
     }
 
     // Re-enable spectral measurement
-    if (mySensor.spectralMeasurementEnable() == false)
+    if (mySensor.enableSpectralMeasurement() == false)
     {
         Serial.println("Failed to enable spectral measurement.");
         return;

@@ -701,19 +701,13 @@ class sfDevAS7343
     /// (ksfAS7343RegEnable).
     /// @param enable True to enable the spectral measurement, false to disable.
     /// @return True if successful, false if it fails.
-    bool spectralMeasurementEnableDisable(bool enable);
-
-    /// @brief Spectral Measurement Enable
-    /// @details This method enables the spectral measurement by calling the
-    /// spectralMeasurementEnableDisable method with true.
-    /// @return True if successful, false if it fails.
-    bool spectralMeasurementEnable(void);
+    bool enableSpectralMeasurement(bool enable = true);
 
     /// @brief Spectral Measurement Disable
     /// @details This method disables the spectral measurement by calling the
-    /// spectralMeasurementEnableDisable method with false.
+    /// enableSpectralMeasurement method with false.
     /// @return True if successful, false if it fails.
-    bool spectralMeasurementDisable(void);
+    bool disableSpectralMeasurement(void);
 
     /// @brief Read all Spectral Data Registers
     /// @details This method reads all the spectral data registers from the
