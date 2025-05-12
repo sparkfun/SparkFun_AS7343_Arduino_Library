@@ -149,7 +149,7 @@ bool sfDevAS7343::readSpectraDataFromSensor(void)
 uint16_t sfDevAS7343::getData(sfe_as7343_channel_t channel)
 {
     // Check if the channel is valid (0-17).
-    if (channel > 17)
+    if (channel => ksfAS7343NumChannels)
         return 0;
 
     // Return the data for the specified channel.
