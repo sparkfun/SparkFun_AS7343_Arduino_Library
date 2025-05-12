@@ -84,7 +84,7 @@ void loop()
 
     // Read all data registers
     // if it fails, print a failure message and continue
-    if (mySensor.readAllSpectralData() == false)
+    if (mySensor.readSpectraDataFromSensor() == false)
     {
         Serial.println("Failed to read spectral data.");
     }

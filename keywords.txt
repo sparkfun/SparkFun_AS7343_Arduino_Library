@@ -9,7 +9,7 @@ powerOn	KEYWORD2
 powerOff		KEYWORD2
 spectralMeasurementEnable		KEYWORD2
 spectralMeasurementDisable		KEYWORD2
-readAllSpectralData		KEYWORD2
+readSpectraDataFromSensor		KEYWORD2
 getData		KEYWORD2
 setAutoSmux		KEYWORD2
 ledOn		KEYWORD2

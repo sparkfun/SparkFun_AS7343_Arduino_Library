@@ -121,7 +121,7 @@ bool sfDevAS7343::disableSpectralMeasurement(void)
     return enableSpectralMeasurement(false);
 }
 
-bool sfDevAS7343::readAllSpectralData(void)
+bool sfDevAS7343::readSpectraDataFromSensor(void)
 {
     // Nullptr check.
     if (!_theBus)

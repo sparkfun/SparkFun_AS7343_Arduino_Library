@@ -93,7 +93,7 @@ typedef enum
 } sfe_as7343_channel_t;
 
 // Sensor number of channels constant, used to determine the number of bytes
-// read from the device when using the readAllSpectralData() function, and also
+// read from the device when using the readSpectraDataFromSensor() function, and also
 // to determine the size of the _data array in the class.
 const uint8_t ksfAS7343NumChannels = 18; // Number of channels in the AS7343 sensor
 
@@ -717,10 +717,10 @@ class sfDevAS7343
     /// the specified channel. Another option is to use the getRed(), getGreen(),
     /// getBlue(), and getNIR() methods to get only those channels.
     /// @return True if successful, false if it fails.
-    bool readAllSpectralData(void);
+    bool readSpectraDataFromSensor(void);
 
     /// @brief Get the data from the specified channel.
-    /// @details You must call the readAllSpectralData() method before calling this
+    /// @details You must call the readSpectraDataFromSensor() method before calling this
     /// method to get the most recent data from the specified channel.
     /// @param channel The channel to get the data from.
     /// @details Options: There are 17 total channels:
@@ -728,7 +728,7 @@ class sfDevAS7343
     /// CH_NIR_855NM, CH_VIS_1, CH_FD_1, CH_DARK_BLUE_F2_425NM, CH_LIGHT_BLUE_F3_475NM,
     /// CH_BLUE_F4_515NM, CH_BROWN_F6_640NM, CH_VIS_2, CH_FD_2, CH_PURPLE_F1_405NM,
     /// CH_RED_F7_690NM, CH_DARK_RED_F8_745NM, CH_GREEN_F5_550NM, CH_VIS_3, CH_FD_3.
-    /// @see readAllSpectralData()
+    /// @see readSpectraDataFromSensor()
     /// @return The most recently read data from the specified channel.
     uint16_t getData(sfe_as7343_channel_t channel);
 
