@@ -969,7 +969,7 @@ class sfDevAS7343
     /// @param reg The register to read.
     /// @param data Pointer to the register data to read into.
     /// @return True if successful, false if it fails.
-    bool readRegister(uint8_t reg, uint8_t &data);
+    bool readRegisterBank(uint8_t reg, uint8_t &data);
 
     /// Brief Set AGAIN value
     /// @details This method sets the AGAIN value by writing to the AGAIN bits in

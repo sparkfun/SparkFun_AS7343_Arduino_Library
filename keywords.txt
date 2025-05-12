@@ -41,7 +41,7 @@ getGPIOInputStatus		KEYWORD2
 setGPIOOutput		KEYWORD2
 reset		KEYWORD2
 setSpectralIntPersistence		KEYWORD2
-readRegister		KEYWORD2
+readRegisterBank		KEYWORD2
 setAgain		KEYWORD2
 enableFlickerDetection		KEYWORD2
 disableFlickerDetection		KEYWORD2
