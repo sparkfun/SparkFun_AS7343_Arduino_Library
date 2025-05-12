@@ -174,7 +174,7 @@ bool sfDevAS7343::setAutoSmux(sfe_as7343_auto_smux_channel_t auto_smux)
     return true;
 }
 
-bool sfDevAS7343::ledOnOff(bool ledOn)
+bool sfDevAS7343::ledOn(bool ledOn)
 {
     sfe_as7343_reg_led_t ledReg; // Create a register structure for the LED register
 
@@ -192,14 +192,9 @@ bool sfDevAS7343::ledOnOff(bool ledOn)
     return true;
 }
 
-bool sfDevAS7343::ledOn(void)
-{
-    return ledOnOff(true);
-}
-
 bool sfDevAS7343::ledOff(void)
 {
-    return ledOnOff(false);
+    return ledOn(false);
 }
 
 bool sfDevAS7343::setLedDrive(uint8_t drive)

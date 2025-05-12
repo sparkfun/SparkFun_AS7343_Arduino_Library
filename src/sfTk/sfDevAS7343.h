@@ -747,16 +747,10 @@ class sfDevAS7343
     /// LED_ACT bit in the LED register (ksfAS7343RegLed).
     /// @param ledOn True to turn on the LED, false to turn off.
     /// @return True if successful, false if it fails.
-    bool ledOnOff(bool ledOn);
-
-    /// @brief Turn on the LED.
-    /// @details This method turns on the LED by calling the ledOnOff method
-    /// with true.
-    /// @return True if successful, false if it fails.
-    bool ledOn(void);
+    bool ledOn(bool ledOn = true);
 
     /// @brief Turn off the LED.
-    /// @details This method turns off the LED by calling the ledOnOff method
+    /// @details This method turns off the LED by calling the ledOn method
     /// with false.
     /// @return True if successful, false if it fails.
     bool ledOff(void);
