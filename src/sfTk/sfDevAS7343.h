@@ -685,15 +685,9 @@ class sfDevAS7343
     /// @brief Power on or off the device.
     /// @details This method powers on or off the device by setting or clearing
     /// the PON bit in the Enable register (ksfAS7343RegEnable).
-    /// @param powerOn True to power on the device, false to power off.
+    /// @param power True to power on the device, false to power off.
     /// @return True if successful, false if it fails.
-    bool powerOnOff(bool powerOn);
-
-    /// @brief Power on the device.
-    /// @details This method powers on the device by setting the PON bit in the
-    /// Enable register (ksfAS7343RegEnable).
-    /// @return True if successful, false if it fails.
-    bool powerOn(void);
+    bool powerOn(bool power = true);
 
     /// @brief Power off the device.
     /// @details This method powers off the device by clearing the PON bit in the
