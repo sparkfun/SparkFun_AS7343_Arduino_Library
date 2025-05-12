@@ -440,20 +440,12 @@ bool sfDevAS7343::setGPIOMode(sfe_as7343_gpio_mode_t gpioMode)
     if (readRegister(ksfAS7343RegGpio, gpioReg.byte) == false)
         return false;
 
-    // Set the GPIO_IN_EN and GPIO_OUT bits according to the incoming argument
-    // gpioMode = AS7343_GPIO_MODE_INPUT or AS7343_GPIO_MODE_OUTPUT
-    if (gpioMode == AS7343_GPIO_MODE_INPUT)
-    {
-        gpioReg.gpio_in_en = 1; // Set GPIO_IN_EN bit to 1 for input mode
-    }
-    else if (gpioMode == AS7343_GPIO_MODE_OUTPUT)
-    {
-        gpioReg.gpio_in_en = 0; // Set GPIO_IN_EN bit to 0 for output mode
-    }
-    else
-    {
-        return false; // Invalid GPIO mode, return false
-    }
+    // Check if the GPIO mode is valid (input or output).
+     if (gpioMode != AS7343_GPIO_MODE_INPUT && gpioMode != AS7343_GPIO_MODE_OUTPUT)
+          return false;
+
+    // Set the GPIO_IN_EN bit according to the incoming argument
+     gpioReg.gpio_in_en = (uint8_t)gpioMode;
 
     // Write the GPIO register to the device. If it errors, then return false.
     if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegGpio, gpioReg.byte))

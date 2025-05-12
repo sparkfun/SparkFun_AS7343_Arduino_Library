@@ -174,8 +174,8 @@ typedef enum
 // GPIO mode settings
 typedef enum
 {
-    AS7343_GPIO_MODE_INPUT = 0x00, // GPIO set to input mode
-    AS7343_GPIO_MODE_OUTPUT, // GPIO set to output mode
+    AS7343_GPIO_MODE_OUTPUT = 0x00, // GPIO set to output mode
+    AS7343_GPIO_MODE_INPUT, // GPIO set to input mode
 } sfe_as7343_gpio_mode_t;
 
 // GPIO output settings
