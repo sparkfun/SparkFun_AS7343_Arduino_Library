@@ -95,7 +95,7 @@ typedef enum
 // Sensor number of channels constant, used to determine the number of bytes
 // read from the device when using the readAllSpectralData() function, and also
 // to determine the size of the _data array in the class.
-const uint8_t kSfeAS7343NumChannels = 18; // Number of channels in the AS7343 sensor
+const uint8_t ksfAS7343NumChannels = 18; // Number of channels in the AS7343 sensor
 
 // Sensor gain settings.
 typedef enum
@@ -189,7 +189,7 @@ typedef enum
 // Register Definitions
 ///////////////////////////////////////////////////////////////////////////////
 
-const uint8_t kSfeAS7343RegAuxID = 0x58; // Register Address
+const uint8_t ksfAS7343RegAuxID = 0x58; // Register Address
 
 // A union is used here so that individual values from the register can be
 // accessed or the whole register can be accessed.
@@ -202,7 +202,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_auxid_t;
 
-const uint8_t kSfeAS7343RegRevID = 0x59; // Register Address
+const uint8_t ksfAS7343RegRevID = 0x59; // Register Address
 
 typedef union {
     struct
@@ -213,10 +213,10 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_revid_t;
 
-const uint8_t kSfeAS7343RegID = 0x5A; // Register Address, register is a single uint8_t.
+const uint8_t ksfAS7343RegID = 0x5A; // Register Address, register is a single uint8_t.
 typedef uint8_t sfe_as7343_reg_id_t;
 
-const uint8_t kSfeAS7343RegCfg12 = 0x66; // Register Address
+const uint8_t ksfAS7343RegCfg12 = 0x66; // Register Address
 
 typedef union {
     struct
@@ -227,7 +227,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_cfg12_t;
 
-const uint8_t kSfeAS7343RegEnable = 0x80; // Register Address
+const uint8_t ksfAS7343RegEnable = 0x80; // Register Address
 
 typedef union {
     struct
@@ -245,13 +245,13 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_enable_t;
 
-const uint8_t kSfeAS7343RegATime = 0x81; // Register Address, register is a single uint8_t.
+const uint8_t ksfAS7343RegATime = 0x81; // Register Address, register is a single uint8_t.
 typedef uint8_t sfe_as7343_reg_atime_t;
 
-const uint8_t kSfeAS7343RegWTime = 0x83; // Register Address, register is a single uint8_t.
+const uint8_t ksfAS7343RegWTime = 0x83; // Register Address, register is a single uint8_t.
 typedef uint8_t sfe_as7343_reg_wtime_t;
 
-const uint8_t kSfeAS7343RegSpThL = 0x84; // Register Address
+const uint8_t ksfAS7343RegSpThL = 0x84; // Register Address
 
 typedef union {
     struct
@@ -263,7 +263,7 @@ typedef union {
 } sfe_as7343_reg_sp_th_l_t;
 
 
-const uint8_t kSfeAS7343RegSpThH = 0x86; // Register Address
+const uint8_t ksfAS7343RegSpThH = 0x86; // Register Address
 
 typedef union {
     struct
@@ -274,7 +274,7 @@ typedef union {
     uint16_t word;
 } sfe_as7343_reg_sp_th_h_t;
 
-const uint8_t kSfeAS7343RegStatus = 0x93; // Register Address
+const uint8_t ksfAS7343RegStatus = 0x93; // Register Address
 
 typedef union {
     struct
@@ -289,7 +289,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_status_t;
 
-const uint8_t kSfeAS7343RegAStatus = 0x94; // Register Address
+const uint8_t ksfAS7343RegAStatus = 0x94; // Register Address
 
 typedef union {
     struct
@@ -301,24 +301,24 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_astatus_t;
 
-const uint8_t kSfeAS7343RegData0 = 0x95; // Register Address
-const uint8_t kSfeAS7343RegData1 = 0x97; // Register Address
-const uint8_t kSfeAS7343RegData2 = 0x99; // Register Address
-const uint8_t kSfeAS7343RegData3 = 0x9B; // Register Address
-const uint8_t kSfeAS7343RegData4 = 0x9D; // Register Address
-const uint8_t kSfeAS7343RegData5 = 0x9F; // Register Address
-const uint8_t kSfeAS7343RegData6 = 0xA1; // Register Address
-const uint8_t kSfeAS7343RegData7 = 0xA3; // Register Address
-const uint8_t kSfeAS7343RegData8 = 0xA5; // Register Address
-const uint8_t kSfeAS7343RegData9 = 0xA7; // Register Address
-const uint8_t kSfeAS7343RegData10 = 0xA9; // Register Address
-const uint8_t kSfeAS7343RegData11 = 0xAB; // Register Address
-const uint8_t kSfeAS7343RegData12 = 0xAD; // Register Address
-const uint8_t kSfeAS7343RegData13 = 0xAF; // Register Address
-const uint8_t kSfeAS7343RegData14 = 0xB1; // Register Address
-const uint8_t kSfeAS7343RegData15 = 0xB3; // Register Address
-const uint8_t kSfeAS7343RegData16 = 0xB5; // Register Address
-const uint8_t kSfeAS7343RegData17 = 0xB7; // Register Address
+const uint8_t ksfAS7343RegData0 = 0x95; // Register Address
+const uint8_t ksfAS7343RegData1 = 0x97; // Register Address
+const uint8_t ksfAS7343RegData2 = 0x99; // Register Address
+const uint8_t ksfAS7343RegData3 = 0x9B; // Register Address
+const uint8_t ksfAS7343RegData4 = 0x9D; // Register Address
+const uint8_t ksfAS7343RegData5 = 0x9F; // Register Address
+const uint8_t ksfAS7343RegData6 = 0xA1; // Register Address
+const uint8_t ksfAS7343RegData7 = 0xA3; // Register Address
+const uint8_t ksfAS7343RegData8 = 0xA5; // Register Address
+const uint8_t ksfAS7343RegData9 = 0xA7; // Register Address
+const uint8_t ksfAS7343RegData10 = 0xA9; // Register Address
+const uint8_t ksfAS7343RegData11 = 0xAB; // Register Address
+const uint8_t ksfAS7343RegData12 = 0xAD; // Register Address
+const uint8_t ksfAS7343RegData13 = 0xAF; // Register Address
+const uint8_t ksfAS7343RegData14 = 0xB1; // Register Address
+const uint8_t ksfAS7343RegData15 = 0xB3; // Register Address
+const uint8_t ksfAS7343RegData16 = 0xB5; // Register Address
+const uint8_t ksfAS7343RegData17 = 0xB7; // Register Address
 
 typedef union {
     struct
@@ -329,7 +329,7 @@ typedef union {
     uint16_t word;
 } sfe_as7343_reg_data_t;
 
-const uint8_t kSfeAS7343RegStatus2 = 0x90; // Register Address
+const uint8_t ksfAS7343RegStatus2 = 0x90; // Register Address
 
 typedef union {
     struct
@@ -346,7 +346,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_status2_t;
 
-const uint8_t kSfeAS7343RegStatus3 = 0x91; // Register Address
+const uint8_t ksfAS7343RegStatus3 = 0x91; // Register Address
 
 typedef union {
     struct
@@ -359,7 +359,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_status3_t;
 
-const uint8_t kSfeAS7343RegStatus4 = 0xBC; // Register Address
+const uint8_t ksfAS7343RegStatus4 = 0xBC; // Register Address
 
 typedef union {
     struct
@@ -376,7 +376,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_status4_t;
 
-const uint8_t kSfeAS7343RegFdStatus = 0xE3; // Register Address
+const uint8_t ksfAS7343RegFdStatus = 0xE3; // Register Address
 
 typedef union {
     struct
@@ -392,7 +392,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_fd_status_t;
 
-const uint8_t kSfeAS7343RegStatus5 = 0x93; // Register Address
+const uint8_t ksfAS7343RegStatus5 = 0x93; // Register Address
 
 typedef union {
     struct
@@ -405,7 +405,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_data_status5_t;
 
-const uint8_t kSfeAS7343RegCfg0 = 0xBF; // Register Address
+const uint8_t ksfAS7343RegCfg0 = 0xBF; // Register Address
 
 typedef union {
     struct
@@ -420,7 +420,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_cfg0_t;
 
-const uint8_t kSfeAS7343RegCfg1 = 0xC6; // Register Address
+const uint8_t ksfAS7343RegCfg1 = 0xC6; // Register Address
 
 typedef union {
     struct
@@ -431,7 +431,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_cfg1_t;
 
-const uint8_t kSfeAS7343RegCfg3 = 0xC7; // Register Address
+const uint8_t ksfAS7343RegCfg3 = 0xC7; // Register Address
 
 typedef union {
     struct
@@ -443,7 +443,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_cfg3_t;
 
-const uint8_t kSfeAS7343RegCfg6 = 0xF5; // Register Address
+const uint8_t ksfAS7343RegCfg6 = 0xF5; // Register Address
 
 typedef union {
     struct
@@ -455,7 +455,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_cfg6_t;
 
-const uint8_t kSfeAS7343RegCfg8 = 0xC9; // Register Address
+const uint8_t ksfAS7343RegCfg8 = 0xC9; // Register Address
 
 typedef union {
     struct
@@ -466,7 +466,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_cfg8_t;
 
-const uint8_t kSfeAS7343RegCfg9 = 0xCA; // Register Address
+const uint8_t ksfAS7343RegCfg9 = 0xCA; // Register Address
 
 typedef union {
     struct
@@ -480,7 +480,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_cfg9_t;
 
-const uint8_t kSfeAS7343RegCfg10 = 0x65; // Register Address
+const uint8_t ksfAS7343RegCfg10 = 0x65; // Register Address
 
 typedef union {
     struct
@@ -491,7 +491,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_cfg10_t;
 
-const uint8_t kSfeAS7343RegPers = 0xCF; // Register Address
+const uint8_t ksfAS7343RegPers = 0xCF; // Register Address
 
 typedef union {
     struct
@@ -502,7 +502,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_pers_t;
 
-const uint8_t kSfeAS7343RegGpio = 0x6B; // Register Address
+const uint8_t ksfAS7343RegGpio = 0x6B; // Register Address
 
 typedef union {
     struct
@@ -516,7 +516,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_gpio_t;
 
-const uint8_t kSfeAS7343RegAStep = 0xD4; // Register Address
+const uint8_t ksfAS7343RegAStep = 0xD4; // Register Address
 
 typedef union {
     struct
@@ -527,7 +527,7 @@ typedef union {
     uint16_t word;
 } sfe_as7343_reg_astep_t;
 
-const uint8_t kSfeAS7343RegCfg20 = 0xD6; // Register Address
+const uint8_t ksfAS7343RegCfg20 = 0xD6; // Register Address
 
 typedef union {
     struct
@@ -539,7 +539,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_cfg20_t;
 
-const uint8_t kSfeAS7343RegLed = 0xCD; // Register Address
+const uint8_t ksfAS7343RegLed = 0xCD; // Register Address
 
 typedef union {
     struct
@@ -550,7 +550,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_led_t;
 
-const uint8_t kSfeAS7343RegAgcGainMax = 0xD7; // Register Address
+const uint8_t ksfAS7343RegAgcGainMax = 0xD7; // Register Address
 
 typedef union {
     struct
@@ -561,13 +561,13 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_agc_gain_max_t;
 
-const uint8_t kSfeAS7343RegAzConfig = 0xDE; // Register Address, register is a single uint8_t.
+const uint8_t ksfAS7343RegAzConfig = 0xDE; // Register Address, register is a single uint8_t.
 typedef uint8_t sfe_as7343_reg_az_config_t;
 
-const uint8_t kSfeAS7343RegFdTime1 = 0xE0; // Register Address, register is a single uint8_t.
+const uint8_t ksfAS7343RegFdTime1 = 0xE0; // Register Address, register is a single uint8_t.
 typedef uint8_t sfe_as7343_reg_fd_time_1_t;
 
-const uint8_t kSfeAS7343RegFdTime2 = 0xE2; // Register Address
+const uint8_t ksfAS7343RegFdTime2 = 0xE2; // Register Address
 
 typedef union {
     struct
@@ -578,7 +578,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_fd_time_2_t;
 
-const uint8_t kSfeAS7343RegFdTimeCfg0 = 0xDF; // Register Address
+const uint8_t ksfAS7343RegFdTimeCfg0 = 0xDF; // Register Address
 
 typedef union {
     struct
@@ -589,7 +589,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_fd_cfg0_t;
 
-const uint8_t kSfeAS7343RegIntEnab = 0xF9; // Register Address
+const uint8_t ksfAS7343RegIntEnab = 0xF9; // Register Address
 
 typedef union {
     struct
@@ -604,7 +604,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_intenab_t;
 
-const uint8_t kSfeAS7343RegControl = 0xFA; // Register Address
+const uint8_t ksfAS7343RegControl = 0xFA; // Register Address
 
 typedef union {
     struct
@@ -618,7 +618,7 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_control_t;
 
-const uint8_t kSfeAS7343RegFifoMap = 0xFC; // Register Address
+const uint8_t ksfAS7343RegFifoMap = 0xFC; // Register Address
 
 typedef union {
     struct
@@ -635,10 +635,10 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_fifo_map_t;
 
-const uint8_t kSfeAS7343RegFifoLvl = 0xFD; // Register Address, register is a single uint8_t.
+const uint8_t ksfAS7343RegFifoLvl = 0xFD; // Register Address, register is a single uint8_t.
 typedef uint8_t sfe_as7343_reg_fifo_lvl_t;
 
-const uint8_t kSfeAS7343RegFData = 0xFE; // Register Address
+const uint8_t ksfAS7343RegFData = 0xFE; // Register Address
 
 typedef union {
     struct
@@ -684,27 +684,27 @@ class sfDevAS7343
 
     /// @brief Power on or off the device.
     /// @details This method powers on or off the device by setting or clearing
-    /// the PON bit in the Enable register (kSfeAS7343RegEnable).
+    /// the PON bit in the Enable register (ksfAS7343RegEnable).
     /// @param powerOn True to power on the device, false to power off.
     /// @return True if successful, false if it fails.
     bool powerOnOff(bool powerOn);
 
     /// @brief Power on the device.
     /// @details This method powers on the device by setting the PON bit in the
-    /// Enable register (kSfeAS7343RegEnable).
+    /// Enable register (ksfAS7343RegEnable).
     /// @return True if successful, false if it fails.
     bool powerOn(void);
 
     /// @brief Power off the device.
     /// @details This method powers off the device by clearing the PON bit in the
-    /// Enable register (kSfeAS7343RegEnable).
+    /// Enable register (ksfAS7343RegEnable).
     /// @return True if successful, false if it fails.
     bool powerOff(void);
 
     /// @brief Enable or Disable the Spectral Measurement.
     /// @details This method enables or disables the spectral measurement by
     /// setting or clearing the SP_EN bit in the Enable register
-    /// (kSfeAS7343RegEnable).
+    /// (ksfAS7343RegEnable).
     /// @param enable True to enable the spectral measurement, false to disable.
     /// @return True if successful, false if it fails.
     bool spectralMeasurementEnableDisable(bool enable);
@@ -756,7 +756,7 @@ class sfDevAS7343
 
     /// @brief Turn on or off the LED.
     /// @details This method turns on or off the LED by setting or clearing the
-    /// LED_ACT bit in the LED register (kSfeAS7343RegLed).
+    /// LED_ACT bit in the LED register (ksfAS7343RegLed).
     /// @param ledOn True to turn on the LED, false to turn off.
     /// @return True if successful, false if it fails.
     bool ledOnOff(bool ledOn);
@@ -775,7 +775,7 @@ class sfDevAS7343
 
     /// @brief Set the LED drive current.
     /// @details This method sets the LED drive current by writing to the LED
-    /// register (kSfeAS7343RegLed). The LED drive current is set by writing to
+    /// register (ksfAS7343RegLed). The LED drive current is set by writing to
     /// the LED_DRIVE bits in the LED register.
     /// @param ledDrive The LED drive current to set.
     /// @details Options: 0-127. (4-258mA)
@@ -810,7 +810,7 @@ class sfDevAS7343
 
     /// @brief Set the spectral interrupt threshold high.
     /// @details This method sets the spectral threshold high by writing to the
-    /// SP_TH_H register (kSfeAS7343RegSpThH). The spectral threshold high is set
+    /// SP_TH_H register (ksfAS7343RegSpThH). The spectral threshold high is set
     /// by writing to the SP_TH_H_LSB Register and SP_TH_H_MSB Register.
     /// @param spThH The spectral threshold high to set.
     /// @return True if successful, false if it fails.
@@ -818,7 +818,7 @@ class sfDevAS7343
 
     /// @brief Set the spectral interrupt threshold low.
     /// @details This method sets the spectral threshold low by writing to the
-    /// SP_TH_L register (kSfeAS7343RegSpThL). The spectral threshold low is set
+    /// SP_TH_L register (ksfAS7343RegSpThL). The spectral threshold low is set
     /// by writing to the SP_TH_L_LSB Register and SP_TH_L_MSB Register.
     /// @param spThL The spectral threshold low to set.
     /// @return True if successful, false if it fails.
@@ -827,7 +827,7 @@ class sfDevAS7343
     /// @brief Enable or Disable the spectral interrupt.
     /// @details This method enables or disables the spectral interrupt by
     /// setting or clearing the SP_IEN bit in the INT_ENAB register
-    /// (kSfeAS7343RegIntEnab).
+    /// (ksfAS7343RegIntEnab).
     /// @param enable True to enable the spectral interrupt, false to disable.
     /// @return True if successful, false if it fails.
     bool spectralIntEnableDisable(bool enable);
@@ -846,7 +846,7 @@ class sfDevAS7343
 
     /// @brief Set the spectral threshold channel.
     /// @details This method sets the spectral threshold channel by writing to
-    /// the SP_TH_CH bits [2:0] in the CFG12 register, kSfeAS7343RegCfg12 (0x66).
+    /// the SP_TH_CH bits [2:0] in the CFG12 register, ksfAS7343RegCfg12 (0x66).
     /// @param spThCh The spectral threshold channel to set.
     /// @details Options: SPECTRAL_THRESHOLD_CHANNEL_0 (default),
     /// SPECTRAL_THRESHOLD_CHANNEL_1, SPECTRAL_THRESHOLD_CHANNEL_2,
@@ -857,37 +857,37 @@ class sfDevAS7343
 
     /// @brief Get the System Interrupt Status.
     /// @details This method gets the system interrupt status by reading the
-    /// SINT bit in the STATUS register (kSfeAS7343RegStatus).
+    /// SINT bit in the STATUS register (ksfAS7343RegStatus).
     /// @return True if the system interrupt is set, false if it is not set.
     bool getSystemInterruptStatus(void);
 
     /// @brief Get the Spectral Channel Interrupt Status.
     /// @details This method gets the spectral channel interrupt status by reading
-    /// the AINT bit in the STATUS register (kSfeAS7343RegStatus).
+    /// the AINT bit in the STATUS register (ksfAS7343RegStatus).
     /// @return True if the spectral channel interrupt is set, false if it is not set.
     bool getSpectralChannelInterruptStatus(void);
 
     /// @brief Clear Spectral Channel Interrupt bit (AINT).
     /// @details This method clears the spectral channel interrupt bit by writing
-    /// a 1 to the AINT bit in the STATUS register (kSfeAS7343RegStatus).
+    /// a 1 to the AINT bit in the STATUS register (ksfAS7343RegStatus).
     /// @return True if successful, false if it fails.
     bool clearSpectralChannelInterrupt(void);
 
     /// @brief Get the Spectral Interrupt High Status.
     /// @details This method gets the spectral interrupt high status by reading
-    /// the INT_PS_H bit in the STATUS3 register (kSfeAS7343RegStatus3).
+    /// the INT_PS_H bit in the STATUS3 register (ksfAS7343RegStatus3).
     /// @return True if the spectral interrupt high is set, false if it is not set.
     bool getSpectralInterruptHighStatus(void);
 
     /// @brief Get the Spectral Trigger Error Status.
     /// @details This method gets the spectral trigger error status by reading
-    /// the SP_TRIG bit in the STATUS4 register (kSfeAS7343RegStatus4).
+    /// the SP_TRIG bit in the STATUS4 register (ksfAS7343RegStatus4).
     /// @return True if the spectral trigger error is set, false if it is not set.
     bool getSpectralTriggerErrorStatus(void);
 
     /// @brief Set the Spectral Measurement Wait Time.
     /// @details This method sets the spectral measurement wait time by writing
-    /// to the WTIME register (kSfeAS7343RegWTime).
+    /// to the WTIME register (ksfAS7343RegWTime).
     /// @param wTime The spectral measurement wait time to set.
     /// @details 8-bit value to specify the delay between two
     /// consecutive spectral measurements.
@@ -897,7 +897,7 @@ class sfDevAS7343
 
     /// @brief Get the Spectral Measurement Wait Time.
     /// @details This method gets the spectral measurement wait time by reading
-    /// the WTIME register (kSfeAS7343RegWTime).
+    /// the WTIME register (ksfAS7343RegWTime).
     /// @return The spectral measurement wait time.
     /// @details The value is in units of 2.78ms.
     /// The default value is 0x00.
@@ -905,7 +905,7 @@ class sfDevAS7343
 
     /// @brief Enable or Disable Wait Time.
     /// @details This method enables or disables the wait time by setting or
-    /// clearing the WEN bit in the Enable register (kSfeAS7343RegEnable).
+    /// clearing the WEN bit in the Enable register (ksfAS7343RegEnable).
     /// @param enable True to enable the wait time, false to disable.
     /// @return True if successful, false if it fails.
     bool waitTimeEnableDisable(bool enable);
@@ -924,12 +924,12 @@ class sfDevAS7343
 
     /// @brief Get the Spectral Valid Status.
     /// @details This method gets the spectral valid status by reading the AVALID
-    /// bit in the STATUS2 register (kSfeAS7343RegStatus2).
+    /// bit in the STATUS2 register (ksfAS7343RegStatus2).
     /// @return True if the spectral valid status is set, false if it is not set.
     bool getSpectralValidStatus(void);
 
     /// @brief Read the register INT Enable
-    /// @details This method reads the INT Enable register (kSfeAS7343RegIntEnab).
+    /// @details This method reads the INT Enable register (ksfAS7343RegIntEnab).
     /// @return The INT Enable register value.
     /// @details The INT Enable register is a bit field that enables or disables
     /// the spectral interrupt, FIFO interrupt, and AGC interrupt.
@@ -938,7 +938,7 @@ class sfDevAS7343
 
     /// @brief Set the GPIO pin mode.
     /// @details This method sets the GPIO pin mode by writing to the GPIO_IN_EN 
-    /// and GPIO_OUT bits in the GPIO register (kSfeAS7343RegGpio).
+    /// and GPIO_OUT bits in the GPIO register (ksfAS7343RegGpio).
     /// @param gpioMode The GPIO pin mode to set.
     /// @details Options: AS7343_GPIO_MODE_INPUT (default), AS7343_GPIO_MODE_OUTPUT.
     /// @return True if successful, false if it fails.
@@ -946,13 +946,13 @@ class sfDevAS7343
 
     /// @brief Get the GPIO input status.
     /// @details This method gets the GPIO input status by reading the GPIO_IN bit
-    /// in the GPIO register (kSfeAS7343RegGpio).
+    /// in the GPIO register (ksfAS7343RegGpio).
     /// @return True if the GPIO input is reading HIGH, false if it is reading LOW.
     bool getGpioInputStatus(void);
 
     /// @brief Set the GPIO output
     /// @details This method sets the GPIO output by writing to the GPIO_OUT bit
-    /// in the GPIO register (kSfeAS7343RegGpio).
+    /// in the GPIO register (ksfAS7343RegGpio).
     /// @param gpioOut The GPIO output to set.
     /// @details Options: AS7343_GPIO_OUTPUT_LOW (default), AS7343_GPIO_OUTPUT_HIGH.
     /// @return True if successful, false if it fails.
@@ -960,13 +960,13 @@ class sfDevAS7343
 
     /// @brief Reset the device.
     /// @details This method resets the device by writing to the SW_RESET bit in
-    /// the CONTROL register (kSfeAS7343RegControl).
+    /// the CONTROL register (ksfAS7343RegControl).
     /// @return True if successful, false if it fails.
     bool reset(void);
 
     /// @brief Set the Spectral Interrupt Persistence
     /// @details This method sets the spectral interrupt persistence by writing to
-    /// the PERS bits in the PERS register (kSfeAS7343RegPers).
+    /// the PERS bits in the PERS register (ksfAS7343RegPers).
     /// @param apers The spectral interrupt persistence to set.
     /// @details Options:
     /// 0 = Every spectral cycle generates an interrupt.
@@ -991,7 +991,7 @@ class sfDevAS7343
 
     /// Brief Set AGAIN value
     /// @details This method sets the AGAIN value by writing to the AGAIN bits in
-    /// the CFG1 register (kSfeAS7343RegCfg1).
+    /// the CFG1 register (ksfAS7343RegCfg1).
     /// @param again The AGAIN value to set.
     /// @details Options:
     /// AGAIN_0_5X (default), AGAIN_1X, AGAIN_2X, AGAIN_4X, AGAIN_8X, AGAIN_16X,
@@ -1001,7 +1001,7 @@ class sfDevAS7343
 
     /// @brief Enable or Disable the Flicker Detection
     /// @details This method enables or disables the flicker detection by setting
-    /// or clearing the FD_EN bit in the ENABLE register (kSfeAS7343RegEnable).
+    /// or clearing the FD_EN bit in the ENABLE register (ksfAS7343RegEnable).
     /// @param enable True to enable the flicker detection, false to disable.
     /// @return True if successful, false if it fails.
     bool flickerDetectionEnableDisable(bool enable);
@@ -1021,27 +1021,27 @@ class sfDevAS7343
     /// @brief Get the Flicker Detection Measurement Valid Status
     /// @details This method gets the flicker detection measurement valid status by
     /// reading the FD_MEAS_VALID bit in the FD_STATUS register
-    /// (kSfeAS7343RegFdStatus).
+    /// (ksfAS7343RegFdStatus).
     /// @return True if the flicker detection measurement is valid, false if it is not valid.
     bool getFdValidStatus(void);
 
     /// @brief Get the Flicker Detection Saturation Detected Status
     /// @details This method gets the flicker detection saturation detected status by
     /// reading the FD_SATURATION bit in the FD_STATUS register
-    /// (kSfeAS7343RegFdStatus).
+    /// (ksfAS7343RegFdStatus).
     /// @return True if the flicker detection saturation is detected, false if it is not detected.
     bool getFdSaturationStatus(void);
 
     /// @brief Get the Flicker Detection Frequency Detected
     /// @details This method gets the flicker detection frequency detected by reading
     /// the FD_100HZ_DET and FD_120HZ_DET bits in the FD_STATUS register
-    /// (kSfeAS7343RegFdStatus).
+    /// (ksfAS7343RegFdStatus).
     /// @return The flicker detection frequency detected (100 or 120) 
     /// or 0 if no frequency is detected.
     uint8_t getFdFrequency(void);
 
   private:
-    sfe_as7343_reg_data_t _data[kSfeAS7343NumChannels]; // Array of data structs, to hold data from the sensor.
+    sfe_as7343_reg_data_t _data[ksfAS7343NumChannels]; // Array of data structs, to hold data from the sensor.
 
     sfTkIBus *_theBus; // Pointer to bus device.
 };

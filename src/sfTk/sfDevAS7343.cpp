@@ -42,7 +42,7 @@ uint8_t sfDevAS7343::getDeviceID(void)
     uint8_t devID; // Create a variable to hold the device ID.
 
     // Read the device ID register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegID, devID) == false)
+    if (readRegister(ksfAS7343RegID, devID) == false)
         return 0;
 
     return devID;
@@ -59,7 +59,7 @@ bool sfDevAS7343::setRegisterBank(sfe_as7343_reg_bank_t regBank)
     sfe_as7343_reg_cfg0_t cfg0; // Create a register structure for CFG0
 
     // Read the cfg0 register (to retain other bits), if it errors then return 0.
-    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegCfg0, cfg0.byte))
+    if (ksfTkErrOk != _theBus->readRegister(ksfAS7343RegCfg0, cfg0.byte))
         return false;
 
     // set the reg_bank bit as set by the incoming argument
@@ -69,7 +69,7 @@ bool sfDevAS7343::setRegisterBank(sfe_as7343_reg_bank_t regBank)
         cfg0.reg_bank = 0;
 
     // Write the cfg0 register to the device. If it errors, then return 0.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegCfg0, cfg0.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegCfg0, cfg0.byte))
         return false;
 
     return true; // Return true to indicate success
@@ -80,14 +80,14 @@ bool sfDevAS7343::powerOnOff(bool powerOn)
     sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
 
     // Read the enable register, if it errors then return false.
-    if (readRegister(kSfeAS7343RegID, enableReg.byte) == false)
+    if (readRegister(ksfAS7343RegID, enableReg.byte) == false)
         return false;
 
     // Set the PON bit according to the incoming argument
     enableReg.pon = powerOn ? 1 : 0;
 
     // Write the Enable register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegEnable, enableReg.byte))
         return false;
 
     return true;
@@ -108,14 +108,14 @@ bool sfDevAS7343::spectralMeasurementEnableDisable(bool enable)
     sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
 
     // Read the enable register (to retain other bit settings), if it errors then return false.
-    if (readRegister(kSfeAS7343RegEnable, enableReg.byte) == false)
+    if (readRegister(ksfAS7343RegEnable, enableReg.byte) == false)
         return false;
 
     // Set the SP_EN bit according to the incoming argument
     enableReg.sp_en = enable ? 1 : 0;
 
     // Write the Enable register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegEnable, enableReg.byte))
         return false;
 
     return true;
@@ -142,11 +142,11 @@ bool sfDevAS7343::readAllSpectralData(void)
         return false;
 
     // Calculate the number of data bytes to read.
-    uint8_t numOfDataBytes = kSfeAS7343NumChannels * sizeof(sfe_as7343_reg_data_t);
+    uint8_t numOfDataBytes = ksfAS7343NumChannels * sizeof(sfe_as7343_reg_data_t);
 
     size_t nRead = 0; // Create a variable to hold the number of bytes read.
 
-    if (ksfTkErrOk != _theBus->readRegister(kSfeAS7343RegData0, (uint8_t*)_data, numOfDataBytes, nRead))
+    if (ksfTkErrOk != _theBus->readRegister(ksfAS7343RegData0, (uint8_t*)_data, numOfDataBytes, nRead))
         return false;
 
     // Check if the number of bytes read is correct.
@@ -171,14 +171,14 @@ bool sfDevAS7343::setAutoSmux(sfe_as7343_auto_smux_channel_t auto_smux)
     sfe_as7343_reg_cfg20_t cfg20; // Create a register structure for the CFG20 register
 
     // Read the CFG20 register (to retain other bit settings), if it errors then return false.
-    if (readRegister(kSfeAS7343RegCfg20, cfg20.byte) == false)
+    if (readRegister(ksfAS7343RegCfg20, cfg20.byte) == false)
         return false;
 
     // Set the auto_smux bits according to the incoming argument
     cfg20.auto_smux = auto_smux;
 
     // Write the CFG20 register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegCfg20, cfg20.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegCfg20, cfg20.byte))
         return false;
 
     return true;
@@ -189,14 +189,14 @@ bool sfDevAS7343::ledOnOff(bool ledOn)
     sfe_as7343_reg_led_t ledReg; // Create a register structure for the LED register
 
     // Read the LED register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegLed, ledReg.byte) == false)
+    if (readRegister(ksfAS7343RegLed, ledReg.byte) == false)
         return false;
 
     // Set the LED_ACT bit according to the incoming argument
     ledReg.led_act = ledOn ? 1 : 0;
 
     // Write the LED register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegLed, ledReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegLed, ledReg.byte))
         return false;
 
     return true;
@@ -221,14 +221,14 @@ bool sfDevAS7343::setLedDrive(uint8_t drive)
     sfe_as7343_reg_led_t ledReg; // Create a register structure for the LED register
 
     // Read the LED register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegLed, ledReg.byte) == false)
+    if (readRegister(ksfAS7343RegLed, ledReg.byte) == false)
         return false;
 
     // Set the LED drive current according to the incoming argument
     ledReg.led_drive = drive;
 
     // Write the LED register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegLed, ledReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegLed, ledReg.byte))
         return false;
 
     return true;
@@ -267,7 +267,7 @@ uint16_t sfDevAS7343::getChannelData(uint8_t channel)
 bool sfDevAS7343::setSpectralIntThresholdHigh(uint16_t spThH)
 {
     // Write both LSB and MSB in the same I2C write. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegSpThH, (uint8_t*)&spThH, 2))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegSpThH, (uint8_t*)&spThH, 2))
         return false;
 
     return true;
@@ -276,7 +276,7 @@ bool sfDevAS7343::setSpectralIntThresholdHigh(uint16_t spThH)
 bool sfDevAS7343::setSpectralIntThresholdLow(uint16_t spThL)
 {
     // Write both LSB and MSB in the same I2C write. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegSpThL, (uint8_t*)&spThL, 2))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegSpThL, (uint8_t*)&spThL, 2))
         return false;
 
     return true;
@@ -287,14 +287,14 @@ bool sfDevAS7343::spectralIntEnableDisable(bool enable)
     sfe_as7343_reg_intenab_t intEnabReg; // Create a register structure for the INT_ENAB register
 
     // Read the INT_ENAB register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegIntEnab, intEnabReg.byte) == false)
+    if (readRegister(ksfAS7343RegIntEnab, intEnabReg.byte) == false)
         return false;
 
     // Set the SP_IEN bit according to the incoming argument
     intEnabReg.sp_ien = enable ? 1 : 0;
 
     // Write the INT_ENAB register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegIntEnab, intEnabReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegIntEnab, intEnabReg.byte))
         return false;
 
     return true;
@@ -315,14 +315,14 @@ bool sfDevAS7343::setSpectralThresholdChannel(sfe_as7343_spectral_threshold_chan
     sfe_as7343_reg_cfg12_t cfg12; // Create a register structure for the CFG12 register
 
     // Read the CFG12 register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegCfg12, cfg12.byte) == false)
+    if (readRegister(ksfAS7343RegCfg12, cfg12.byte) == false)
         return false;
 
     // Set the SP_TH_CH bits according to the incoming argument
     cfg12.sp_th_ch = spThCh;
 
     // Write the CFG12 register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegCfg12, cfg12.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegCfg12, cfg12.byte))
         return false;
 
     return true;
@@ -333,7 +333,7 @@ bool sfDevAS7343::getSystemInterruptStatus(void)
     sfe_as7343_reg_status_t statusReg; // Create a register structure for the STATUS register
 
     // Read the STATUS register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegStatus, statusReg.byte) == false)
+    if (readRegister(ksfAS7343RegStatus, statusReg.byte) == false)
         return false;
 
     // Return the SINT bit from the STATUS register
@@ -345,7 +345,7 @@ bool sfDevAS7343::getSpectralChannelInterruptStatus(void)
     sfe_as7343_reg_status_t statusReg; // Create a register structure for the STATUS register
 
     // Read the STATUS register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegStatus, statusReg.byte) == false)
+    if (readRegister(ksfAS7343RegStatus, statusReg.byte) == false)
         return false;
 
     // Return the AINT bit from the STATUS register
@@ -357,7 +357,7 @@ bool sfDevAS7343::getSpectralInterruptHighStatus(void)
     sfe_as7343_reg_status3_t statusReg; // Create a register structure for the STATUS3 register
 
     // Read the STATUS3 register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegStatus3, statusReg.byte) == false)
+    if (readRegister(ksfAS7343RegStatus3, statusReg.byte) == false)
         return false;
 
     // Return the INT_SP_H bit from the STATUS3 register
@@ -369,7 +369,7 @@ bool sfDevAS7343::getSpectralTriggerErrorStatus(void)
     sfe_as7343_reg_status4_t statusReg; // Create a register structure for the STATUS4 register
 
     // Read the STATUS4 register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegStatus4, statusReg.byte) == false)
+    if (readRegister(ksfAS7343RegStatus4, statusReg.byte) == false)
         return false;
 
     // Return the SP_TRIG bit from the STATUS4 register
@@ -379,7 +379,7 @@ bool sfDevAS7343::getSpectralTriggerErrorStatus(void)
 bool sfDevAS7343::setWaitTime(uint8_t waitTime)
 {
     // Write the wait time to the WTIME register. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegWTime, waitTime))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegWTime, waitTime))
         return false;
 
     return true;
@@ -390,7 +390,7 @@ uint8_t sfDevAS7343::getWaitTime()
     uint8_t waitTime; // Create a variable to hold the wait time.
 
     // Read the WTIME register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegWTime, waitTime) == false)
+    if (readRegister(ksfAS7343RegWTime, waitTime) == false)
         return 0;
 
     return waitTime;
@@ -401,14 +401,14 @@ bool sfDevAS7343::waitTimeEnableDisable(bool enable)
     sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
 
     // Read the Enable register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegEnable, enableReg.byte) == false)
+    if (readRegister(ksfAS7343RegEnable, enableReg.byte) == false)
         return false;
 
     // Set the WEN bit according to the incoming argument
     enableReg.wen = enable ? 1 : 0;
 
     // Write the Enable register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegEnable, enableReg.byte))
         return false;
 
     return true;
@@ -429,7 +429,7 @@ bool sfDevAS7343::getSpectralValidStatus(void)
     sfe_as7343_reg_status2_t statusReg; // Create a register structure for the STATUS2 register
 
     // Read the STATUS2 register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegStatus2, statusReg.byte) == false)
+    if (readRegister(ksfAS7343RegStatus2, statusReg.byte) == false)
         return false;
 
     // Return the AVALID bit from the STATUS2 register
@@ -441,7 +441,7 @@ uint8_t sfDevAS7343::readIntEnableReg(void)
     uint8_t intEnabReg; // Create a variable to hold the INT_ENAB register value.
 
     // Read the INT_ENAB register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegIntEnab, intEnabReg) == false)
+    if (readRegister(ksfAS7343RegIntEnab, intEnabReg) == false)
         return 0;
 
     return intEnabReg;
@@ -452,7 +452,7 @@ bool sfDevAS7343::setGpioMode(sfe_as7343_gpio_mode_t gpioMode)
     sfe_as7343_reg_gpio_t gpioReg; // Create a register structure for the GPIO register
 
     // Read the GPIO register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegGpio, gpioReg.byte) == false)
+    if (readRegister(ksfAS7343RegGpio, gpioReg.byte) == false)
         return false;
 
     // Set the GPIO_IN_EN and GPIO_OUT bits according to the incoming argument
@@ -471,7 +471,7 @@ bool sfDevAS7343::setGpioMode(sfe_as7343_gpio_mode_t gpioMode)
     }
 
     // Write the GPIO register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegGpio, gpioReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegGpio, gpioReg.byte))
         return false;
 
     return true;
@@ -482,7 +482,7 @@ bool sfDevAS7343::getGpioInputStatus(void)
     sfe_as7343_reg_gpio_t gpioReg; // Create a register structure for the GPIO register
 
     // Read the GPIO register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegGpio, gpioReg.byte) == false)
+    if (readRegister(ksfAS7343RegGpio, gpioReg.byte) == false)
         return false;
 
     // Return the GPIO_IN bit from the GPIO register
@@ -494,14 +494,14 @@ bool sfDevAS7343::setGpioOutput(sfe_as7343_gpio_output_t gpioOut)
     sfe_as7343_reg_gpio_t gpioReg; // Create a register structure for the GPIO register
 
     // Read the GPIO register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegGpio, gpioReg.byte) == false)
+    if (readRegister(ksfAS7343RegGpio, gpioReg.byte) == false)
         return false;
 
     // Set the GPIO_OUT bit according to the incoming argument
     gpioReg.gpio_out = gpioOut;
 
     // Write the GPIO register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegGpio, gpioReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegGpio, gpioReg.byte))
         return false;
 
     return true;
@@ -512,14 +512,14 @@ bool sfDevAS7343::reset(void)
     sfe_as7343_reg_control_t controlReg; // Create a register structure for the CONTROL register
 
     // Read the CONTROL register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegControl, controlReg.byte) == false)
+    if (readRegister(ksfAS7343RegControl, controlReg.byte) == false)
         return false;
 
     // Set the SW_RESET bit to 1 to reset the device
     controlReg.sw_reset = 1;
 
     // Write the CONTROL register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegControl, controlReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegControl, controlReg.byte))
         return false;
 
     return true;
@@ -530,14 +530,14 @@ bool sfDevAS7343::setSpectralIntPersistence(uint8_t apers)
     sfe_as7343_reg_pers_t persReg; // Create a register structure for the PERS register
 
     // Read the PERS register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegPers, persReg.byte) == false)
+    if (readRegister(ksfAS7343RegPers, persReg.byte) == false)
         return false;
 
     // Set the PERS bits according to the incoming argument
     persReg.apers = apers;
 
     // Write the PERS register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegPers, persReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegPers, persReg.byte))
         return false;
 
     return true;
@@ -548,14 +548,14 @@ bool sfDevAS7343::clearSpectralChannelInterrupt(void)
     sfe_as7343_reg_status_t statusReg; // Create a register structure for the STATUS register
 
     // Read the STATUS register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegStatus, statusReg.byte) == false)
+    if (readRegister(ksfAS7343RegStatus, statusReg.byte) == false)
         return false;
 
     // Clear the AINT bit by writing a 1 to it
     statusReg.aint = 1;
 
     // Write the STATUS register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegStatus, statusReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegStatus, statusReg.byte))
         return false;
 
     return true;
@@ -593,14 +593,14 @@ bool sfDevAS7343::setAgain(sfe_as7343_again_t again)
     sfe_as7343_reg_cfg1_t cfg1; // Create a register structure for the CFG0 register
 
     // Read the CFG0 register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegCfg1, cfg1.byte) == false)
+    if (readRegister(ksfAS7343RegCfg1, cfg1.byte) == false)
         return false;
 
     // Set the AGC bits according to the incoming argument
     cfg1.again = again;
 
     // Write the CFG0 register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegCfg1, cfg1.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegCfg1, cfg1.byte))
         return false;
 
     return true;
@@ -611,14 +611,14 @@ bool sfDevAS7343::flickerDetectionEnableDisable(bool enable)
     sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
 
     // Read the Enable register (to retain other bit settings), if it errors then return 0.
-    if (readRegister(kSfeAS7343RegEnable, enableReg.byte) == false)
+    if (readRegister(ksfAS7343RegEnable, enableReg.byte) == false)
         return false;
 
     // Set the FLICKER_EN bit according to the incoming argument
     enableReg.fden = enable ? 1 : 0;
 
     // Write the Enable register to the device. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(kSfeAS7343RegEnable, enableReg.byte))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegEnable, enableReg.byte))
         return false;
 
     return true;
@@ -639,7 +639,7 @@ bool sfDevAS7343::getFdValidStatus(void)
     sfe_as7343_reg_fd_status_t fdStatusReg; // Create a register structure for the FD_STATUS register
 
     // Read the FD_STATUS register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegFdStatus, fdStatusReg.byte) == false)
+    if (readRegister(ksfAS7343RegFdStatus, fdStatusReg.byte) == false)
         return false;   
 
     // Return the FD_VALID bit from the FD_STATUS register
@@ -651,7 +651,7 @@ bool sfDevAS7343::getFdSaturationStatus(void)
     sfe_as7343_reg_fd_status_t fdStatusReg; // Create a register structure for the FD_STATUS register
 
     // Read the FD_STATUS register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegFdStatus, fdStatusReg.byte) == false)
+    if (readRegister(ksfAS7343RegFdStatus, fdStatusReg.byte) == false)
         return false;   
 
     // Return the FD_SAT bit from the FD_STATUS register
@@ -663,7 +663,7 @@ uint8_t sfDevAS7343::getFdFrequency(void)
     sfe_as7343_reg_fd_status_t fdStatusReg; // Create a register structure for the FD_STATUS register
 
     // Read the FD_STATUS register, if it errors then return 0.
-    if (readRegister(kSfeAS7343RegFdStatus, fdStatusReg.byte) == false)
+    if (readRegister(ksfAS7343RegFdStatus, fdStatusReg.byte) == false)
         return 0;
 
     // See which frequency bit is set (fd_100hz_det or fd_120hz_det) and check
