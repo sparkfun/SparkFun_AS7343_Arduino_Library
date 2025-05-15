@@ -267,7 +267,7 @@ bool sfDevAS7343::setSpectralIntThresholdLow(uint16_t spThL)
     return true;
 }
 
-bool sfDevAS7343::spectralIntEnableDisable(bool enable)
+bool sfDevAS7343::enableSpectralInterrupt(bool enable)
 {
     sfe_as7343_reg_intenab_t intEnabReg; // Create a register structure for the INT_ENAB register
 
@@ -285,14 +285,9 @@ bool sfDevAS7343::spectralIntEnableDisable(bool enable)
     return true;
 }
 
-bool sfDevAS7343::enableSpectralInt()
+bool sfDevAS7343::disableSpectralInterrupt()
 {
-    return spectralIntEnableDisable(true);
-}
-
-bool sfDevAS7343::disableSpectralInt()
-{
-    return spectralIntEnableDisable(false);
+    return enableSpectralInterrupt(false);
 }
 
 bool sfDevAS7343::setSpectralThresholdChannel(sfe_as7343_spectral_threshold_channel_t spThCh)

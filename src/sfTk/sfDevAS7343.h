@@ -812,19 +812,13 @@ class sfDevAS7343
     /// (ksfAS7343RegIntEnab).
     /// @param enable True to enable the spectral interrupt, false to disable.
     /// @return True if successful, false if it fails.
-    bool spectralIntEnableDisable(bool enable);
-
-    /// @brief Enable the spectral interrupt.
-    /// @details This method enables the spectral interrupt by calling the
-    /// spectralIntEnableDisable method with true.
-    /// @return True if successful, false if it fails.
-    bool enableSpectralInt(void);
+    bool enableSpectralInterrupt(bool enable =  true);
 
     /// @brief Disable the spectral interrupt.
     /// @details This method disables the spectral interrupt by calling the
-    /// spectralIntEnableDisable method with false.
+    /// enableSpectralInterrupt method with false.
     /// @return True if successful, false if it fails.
-    bool disableSpectralInt(void);
+    bool disableSpectralInterrupt(void);
 
     /// @brief Set the spectral threshold channel.
     /// @details This method sets the spectral threshold channel by writing to

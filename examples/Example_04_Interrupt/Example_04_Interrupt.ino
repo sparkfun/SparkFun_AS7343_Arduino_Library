@@ -160,7 +160,7 @@ void setup()
     Serial.println("Spectral interrupt persistence set to 1.");
 
     // Enable the spectral interrupt
-    if (mySensor.enableSpectralInt() == false)
+    if (mySensor.enableSpectralInterrupt() == false)
     {
         Serial.println("Failed to enable spectral interrupt.");
         Serial.println("Halting...");
