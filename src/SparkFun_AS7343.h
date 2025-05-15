@@ -1,4 +1,4 @@
-/*
+/**
  * @file SparkFun_AS7343.h
  * @brief Arduino-specific implementation for the SparkFun AS7343 Sensor.
  *
