@@ -376,7 +376,7 @@ uint8_t sfDevAS7343::getWaitTime()
     return waitTime;
 }
 
-bool sfDevAS7343::waitTimeEnableDisable(bool enable)
+bool sfDevAS7343::enableWaitTime(bool enable)
 {
     sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
 
@@ -394,14 +394,9 @@ bool sfDevAS7343::waitTimeEnableDisable(bool enable)
     return true;
 }
 
-bool sfDevAS7343::enableWaitTime(void)
-{
-    return waitTimeEnableDisable(true);
-}
-
 bool sfDevAS7343::disableWaitTime(void)
 {
-    return waitTimeEnableDisable(false);
+    return enableWaitTime(false);
 }
 
 bool sfDevAS7343::getSpectralValidStatus(void)

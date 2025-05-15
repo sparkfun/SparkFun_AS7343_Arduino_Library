@@ -123,10 +123,6 @@ void setup()
     }
     Serial.println("Wait time set to 5.56ms.");
 
-    // Verify Wait time was written correctly by printing it to terminal
-    Serial.print("Wait time set to: ");
-    Serial.println(mySensor.getWaitTime());
-
     // Set the spectral threshold channel to channel 0 (FZ)
     if (mySensor.setSpectralThresholdChannel(SPECTRAL_THRESHOLD_CHANNEL_0) == false)
     {

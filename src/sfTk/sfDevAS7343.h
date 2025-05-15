@@ -884,17 +884,11 @@ class sfDevAS7343
     /// clearing the WEN bit in the Enable register (ksfAS7343RegEnable).
     /// @param enable True to enable the wait time, false to disable.
     /// @return True if successful, false if it fails.
-    bool waitTimeEnableDisable(bool enable);
-
-    /// @brief Enable Wait Time.
-    /// @details This method enables the wait time by calling the
-    /// waitTimeEnableDisable method with true.
-    /// @return True if successful, false if it fails.
-    bool enableWaitTime(void);
+    bool enableWaitTime(bool enable = true);
 
     /// @brief Disable Wait Time.
     /// @details This method disables the wait time by calling the
-    /// waitTimeEnableDisable method with false.
+    /// enableWaitTime method with false.
     /// @return True if successful, false if it fails.
     bool disableWaitTime(void);
 
