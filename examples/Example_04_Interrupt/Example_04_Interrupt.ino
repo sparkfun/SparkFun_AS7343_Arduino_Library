@@ -27,6 +27,10 @@
 
 SfeAS7343ArdI2C mySensor;
 
+#define ACTIVE_CHANNELS 6 // Number of active channels
+
+uint16_t myData[ACTIVE_CHANNELS]; // Array to hold spectral data
+
 #define INT_HW_READ_PIN 4 // Pin to read the interrupt pin from the AS7343
 
 void setup()
@@ -202,11 +206,17 @@ void loop()
 
     //mySensor.ledOff();
 
+    // Get the data from the sensor (six channels)
+    // Note, we are using AutoSmux set to 6 channels
+    // and the data will be written to the myData array
+    // The size of the array is defined at the top of the sketch
+    mySensor.getData(myData, ACTIVE_CHANNELS);
+
     // Print the data from the 6 channels (note, we are using AutoSmux set to 6 channels)
     // The channels are defined in the datasheet as FZ, FY, FXL, NIR, 2xVIS, FD
-    for(int channel = 0; channel <6; channel++)
+    for(int channel = 0; channel < ACTIVE_CHANNELS; channel++)
     {
-        Serial.print(mySensor.getChannelData(channel));
+        Serial.print(myData[channel]);
         Serial.print(",");
     }
 

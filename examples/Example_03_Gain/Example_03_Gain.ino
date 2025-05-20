@@ -31,6 +31,8 @@
 
 SfeAS7343ArdI2C mySensor;
 
+uint16_t myData[ksfAS7343NumChannels]; // Array to hold spectral data
+
 // user input
 char userInput;
 
@@ -144,10 +146,16 @@ void loop()
 
     mySensor.ledOff();
 
+    // Get the data from the sensor (all channels)
+    // Note, we are using AutoSmux set to 18 channels
+    // and the data will be written to the myData array
+    // The size of the array is defined in the header file    
+    mySensor.getData(myData, ksfAS7343NumChannels);
+
     // Print the data from all the channels
-    for(int channel = 0; channel <17; channel++)
+    for(int channel = 0; channel < ksfAS7343NumChannels; channel++)
     {
-        Serial.print(mySensor.getChannelData(channel));
+        Serial.print(myData[channel]);
         Serial.print(",");
     }
 

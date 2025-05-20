@@ -146,7 +146,7 @@ bool sfDevAS7343::readSpectraDataFromSensor(void)
     return true;
 }
 
-uint16_t sfDevAS7343::getData(sfe_as7343_channel_t channel)
+uint16_t sfDevAS7343::getChannelData(sfe_as7343_channel_t channel)
 {
     // Check if the channel is valid (0-17).
     if (channel >= ksfAS7343NumChannels)
@@ -154,6 +154,24 @@ uint16_t sfDevAS7343::getData(sfe_as7343_channel_t channel)
 
     // Return the data for the specified channel.
     return _data[channel].word;
+}
+
+uint8_t sfDevAS7343::getData(uint16_t *data, size_t size)
+{
+    // Check if the data pointer is valid and the size is valid
+    if (!data || size > ksfAS7343NumChannels)
+        return 0;
+
+    uint8_t nWritten = 0; // keep track of how many data bytes were written
+
+    // Copy the data from the internal buffer to the provided array.
+    for (size_t i = 0; i < size; i++)
+    {
+        data[i] = _data[i].word;
+        nWritten++;
+    }
+
+    return nWritten;
 }
 
 bool sfDevAS7343::setAutoSmux(sfe_as7343_auto_smux_channel_t auto_smux)
@@ -222,31 +240,25 @@ bool sfDevAS7343::setLedDrive(uint8_t drive)
 uint16_t sfDevAS7343::getRed(void)
 {
     // Return the data for the red channel (F7).
-    return getData(CH_RED_F7_690NM);
+    return getChannelData(CH_RED_F7_690NM);
 }
 
 uint16_t sfDevAS7343::getGreen(void)
 {
     // Return the data for the green channel (F5).
-    return getData(CH_GREEN_F5_550NM);
+    return getChannelData(CH_GREEN_F5_550NM);
 }
 
 uint16_t sfDevAS7343::getBlue(void)
 {
     // Return the data for the blue channel (FZ).
-    return getData(CH_BLUE_FZ_450NM);
+    return getChannelData(CH_BLUE_FZ_450NM);
 }
 
 uint16_t sfDevAS7343::getNIR(void)
 {
     // Return the data for the NIR channel (NIR).
-    return getData(CH_NIR_855NM);
-}
-
-uint16_t sfDevAS7343::getChannelData(uint8_t channel)
-{
-    // Return the data for the specified channel.
-    return getData((sfe_as7343_channel_t)channel);
+    return getChannelData(CH_NIR_855NM);
 }
 
 bool sfDevAS7343::setSpectralIntThresholdHigh(uint16_t spThH)

@@ -6,7 +6,7 @@
     that can be read by the web terminal and displayed as bar graphs.
 
     Find the web terminal demo code here:
-    https://github.com/sparkfunX/WebTerminalDemo/tree/bar-graph-meters
+    https://github.com/sparkfun/SparkFun_WebSerialPlotter
 
   By: Pete Lewis
   SparkFun Electronics
