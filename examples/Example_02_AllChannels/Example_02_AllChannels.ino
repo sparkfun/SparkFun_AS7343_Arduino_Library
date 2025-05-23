@@ -97,10 +97,11 @@ void loop()
     // Note, we are using AutoSmux set to 18 channels
     // and the data will be written to the myData array
     // The size of the array is defined in the header file
-    mySensor.getData(myData, ksfAS7343NumChannels);
+    // This method returns the number of channels read
+    int channelsRead = mySensor.getData(myData);
 
-    // Print the data from all the channels
-    for(int channel = 0; channel < ksfAS7343NumChannels; channel++)
+    // Print the data from all the channels that were read
+    for (int channel = 0; channel < channelsRead; channel++)
     {
         Serial.print(myData[channel]);
         Serial.print(",");
