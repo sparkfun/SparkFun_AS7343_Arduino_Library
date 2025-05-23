@@ -1,7 +1,7 @@
 
 ![SparkFun Spectral UV Sensor - AS7331](docs/images/gh-banner-2025-as7331.png "SparkFun Spectral UV Sensor - AS7331 Sensor")
 
-# SparkFun Spectral UV Sensor - AS7331
+# SparkFun Spectral UV Sensor - AS7343
 
 Arduino Library for the SparkFun Spectral UV Sensor - AS7331 Sensor
 
