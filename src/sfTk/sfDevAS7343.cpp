@@ -26,6 +26,10 @@
  */
 #include "sfDevAS7343.h"
 
+const uint8_t ksfLEDMaxCurrentDrive = 127; // Maximum LED drive current
+
+const uint8_t ksfRegisterBank0Limit = 0x80; // start of the bank 0 registers
+
 bool sfDevAS7343::begin(sfTkIBus *theBus)
 {
     // Nullptr check.
@@ -35,6 +39,8 @@ bool sfDevAS7343::begin(sfTkIBus *theBus)
     // Set the internal bus pointer, overriding current bus if it exists.
     if (theBus != nullptr)
         setCommunicationBus(theBus);
+
+    return true; // Return true to indicate success
 }
 
 uint8_t sfDevAS7343::getDeviceID(void)
@@ -63,7 +69,7 @@ bool sfDevAS7343::setRegisterBank(sfe_as7343_reg_bank_t regBank)
         return false;
 
     // set the reg_bank bit as set by the incoming argument
-    if(regBank == REG_BANK_1)
+    if (regBank == REG_BANK_1)
         cfg0.reg_bank = 1;
     else
         cfg0.reg_bank = 0;
@@ -136,7 +142,7 @@ bool sfDevAS7343::readSpectraDataFromSensor(void)
 
     size_t nRead = 0; // Create a variable to hold the number of bytes read.
 
-    if (ksfTkErrOk != _theBus->readRegister(ksfAS7343RegData0, (uint8_t*)_data, numOfDataBytes, nRead))
+    if (ksfTkErrOk != _theBus->readRegister(ksfAS7343RegData0, (uint8_t *)_data, numOfDataBytes, nRead))
         return false;
 
     // Check if the number of bytes read is correct.
@@ -166,10 +172,9 @@ uint8_t sfDevAS7343::getData(uint16_t *data, size_t size)
 
     // Copy the data from the internal buffer to the provided array.
     for (size_t i = 0; i < size; i++)
-    {
         data[i] = _data[i].word;
-        nWritten++;
-    }
+
+    nWritten = size;
 
     return nWritten;
 }
@@ -217,8 +222,8 @@ bool sfDevAS7343::ledOff(void)
 
 bool sfDevAS7343::setLedDrive(uint8_t drive)
 {
-    // Check if the drive current is within the valid range (0-127).
-    if (drive > 127)
+    // Check if the drive current is within the valid range (0-ksfMaxCurrentDrive(127)).
+    if (drive > ksfLEDMaxCurrentDrive)
         return false;
 
     sfe_as7343_reg_led_t ledReg; // Create a register structure for the LED register
@@ -264,7 +269,7 @@ uint16_t sfDevAS7343::getNIR(void)
 bool sfDevAS7343::setSpectralIntThresholdHigh(uint16_t spThH)
 {
     // Write both LSB and MSB in the same I2C write. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegSpThH, (uint8_t*)&spThH, 2))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegSpThH, (uint8_t *)&spThH, 2))
         return false;
 
     return true;
@@ -273,7 +278,7 @@ bool sfDevAS7343::setSpectralIntThresholdHigh(uint16_t spThH)
 bool sfDevAS7343::setSpectralIntThresholdLow(uint16_t spThL)
 {
     // Write both LSB and MSB in the same I2C write. If it errors, then return false.
-    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegSpThL, (uint8_t*)&spThL, 2))
+    if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegSpThL, (uint8_t *)&spThL, 2))
         return false;
 
     return true;
@@ -443,11 +448,11 @@ bool sfDevAS7343::setGPIOMode(sfe_as7343_gpio_mode_t gpioMode)
         return false;
 
     // Check if the GPIO mode is valid (input or output).
-     if (gpioMode != AS7343_GPIO_MODE_INPUT && gpioMode != AS7343_GPIO_MODE_OUTPUT)
-          return false;
+    if (gpioMode != AS7343_GPIO_MODE_INPUT && gpioMode != AS7343_GPIO_MODE_OUTPUT)
+        return false;
 
     // Set the GPIO_IN_EN bit according to the incoming argument
-     gpioReg.gpio_in_en = (uint8_t)gpioMode;
+    gpioReg.gpio_in_en = (uint8_t)gpioMode;
 
     // Write the GPIO register to the device. If it errors, then return false.
     if (ksfTkErrOk != _theBus->writeRegister(ksfAS7343RegGpio, gpioReg.byte))
@@ -547,18 +552,12 @@ bool sfDevAS7343::readRegisterBank(uint8_t reg, uint8_t &data)
         return false;
 
     // Set the register bank as needed to access the specified register.
-    // if the desired register is equal to or greater than 0x80, set bank 0.
-    // Otherwise, set bank 1.
-    if (reg >= 0x80)
-    {
-        if (setRegisterBank(REG_BANK_0) == false)
-            return false;
-    }
-    else
-    {
-        if (setRegisterBank(REG_BANK_1) == false)
-            return false;
-    }
+    // if the desired register is equal to or greater than ksfRegisterBank0Limit (0x80),
+    // set bank 0. Otherwise, set bank 1.
+    sfe_as7343_reg_bank_t regBank = reg >= ksfRegisterBank0Limit ? REG_BANK_0 : REG_BANK_1;
+
+    if (setRegisterBank(regBank) == false)
+        return false;
 
     // Read the specified register. If it errors, then return false.
     if (ksfTkErrOk != _theBus->readRegister(reg, data))
@@ -619,7 +618,7 @@ bool sfDevAS7343::isFlickerDetectionValid(void)
 
     // Read the FD_STATUS register, if it errors then return 0.
     if (readRegisterBank(ksfAS7343RegFdStatus, fdStatusReg.byte) == false)
-        return false;   
+        return false;
 
     // Return the FD_VALID bit from the FD_STATUS register
     return fdStatusReg.fd_meas_valid;
@@ -631,7 +630,7 @@ bool sfDevAS7343::isFlickerDetectionSaturated(void)
 
     // Read the FD_STATUS register, if it errors then return 0.
     if (readRegisterBank(ksfAS7343RegFdStatus, fdStatusReg.byte) == false)
-        return false;   
+        return false;
 
     // Return the FD_SAT bit from the FD_STATUS register
     return fdStatusReg.fd_saturation;
@@ -655,4 +654,3 @@ uint8_t sfDevAS7343::getFlickerDetectionFrequency(void)
     else
         return 0; // No valid frequency detected
 }
-
