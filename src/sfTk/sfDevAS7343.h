@@ -50,7 +50,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 const uint8_t kAS7343Addr = 0x39; // I2C address for the AS7343 device.
 
-const uint8_t kDefaultAS7343DeviceID = 0x81;  // When polling the ID register, this should be returned on boot.
+const uint8_t kDefaultAS7343DeviceID = 0x81; // When polling the ID register, this should be returned on boot.
 
 ///////////////////////////////////////////////////////////////////////////////
 // Enum Definitions
@@ -73,23 +73,23 @@ typedef enum
 typedef enum
 {
     CH_BLUE_FZ_450NM = 0x00, // Blue peak wavelength 450 nanometers (cycle 1)
-    CH_GREEN_FY_555NM, // Green (wide bandwidth) peak wavelength 555 nanometers (cycle 1)
-    CH_ORANGE_FXL_600NM, // Orange peak wavelength 600 nanometers (cycle 1)
-    CH_NIR_855NM, // NIR peak wavelength 855 nanometers (cycle 1)
-    CH_VIS_1, // VIS (cycle 1)
-    CH_FD_1, // Flicker Detection (cycle 1)
-    CH_DARK_BLUE_F2_425NM, // Dark Blue peak wavelength 425 nanometers (cycle 2)
-    CH_LIGHT_BLUE_F3_475NM, // Light Blue peak wavelength 475 nanometers (cycle 2)
-    CH_BLUE_F4_515NM, // Blue peak wavelength 515 nanometers (cycle 2)
-    CH_BROWN_F6_640NM, // Brown peak wavelength 640 nanometers (cycle 2)
-    CH_VIS_2, // VIS (cycle 2)
-    CH_FD_2, // Flicker Detection (cycle 2)
-    CH_PURPLE_F1_405NM, // Purple peak wavelength 405 nanometers (cycle 3)
-    CH_RED_F7_690NM, // Red peak wavelength 690 nanometers (cycle 3)
-    CH_DARK_RED_F8_745NM, // Dark Red peak wavelength 745 nanometers (cycle 3)
-    CH_GREEN_F5_550NM, // Green (Narrow bandwidth) peak wavelength 550 nanometers (cycle 3)
-    CH_VIS_3, // VIS (cycle 3)
-    CH_FD_3, // Flicker Detection (cycle 3)
+    CH_GREEN_FY_555NM,       // Green (wide bandwidth) peak wavelength 555 nanometers (cycle 1)
+    CH_ORANGE_FXL_600NM,     // Orange peak wavelength 600 nanometers (cycle 1)
+    CH_NIR_855NM,            // NIR peak wavelength 855 nanometers (cycle 1)
+    CH_VIS_1,                // VIS (cycle 1)
+    CH_FD_1,                 // Flicker Detection (cycle 1)
+    CH_DARK_BLUE_F2_425NM,   // Dark Blue peak wavelength 425 nanometers (cycle 2)
+    CH_LIGHT_BLUE_F3_475NM,  // Light Blue peak wavelength 475 nanometers (cycle 2)
+    CH_BLUE_F4_515NM,        // Blue peak wavelength 515 nanometers (cycle 2)
+    CH_BROWN_F6_640NM,       // Brown peak wavelength 640 nanometers (cycle 2)
+    CH_VIS_2,                // VIS (cycle 2)
+    CH_FD_2,                 // Flicker Detection (cycle 2)
+    CH_PURPLE_F1_405NM,      // Purple peak wavelength 405 nanometers (cycle 3)
+    CH_RED_F7_690NM,         // Red peak wavelength 690 nanometers (cycle 3)
+    CH_DARK_RED_F8_745NM,    // Dark Red peak wavelength 745 nanometers (cycle 3)
+    CH_GREEN_F5_550NM,       // Green (Narrow bandwidth) peak wavelength 550 nanometers (cycle 3)
+    CH_VIS_3,                // VIS (cycle 3)
+    CH_FD_3,                 // Flicker Detection (cycle 3)
 } sfe_as7343_channel_t;
 
 // Sensor number of channels constant, used to determine the number of bytes
@@ -135,7 +135,7 @@ typedef enum
 } sfe_as7343_fd_gain_t;
 
 // FIFO Threshold settings
-// Sets a threshold on the FIFO level that triggers the first FIFO buffer 
+// Sets a threshold on the FIFO level that triggers the first FIFO buffer
 // interrupt (FINT).
 typedef enum
 {
@@ -146,7 +146,7 @@ typedef enum
 } sfe_as7343_fifo_threshold_t;
 
 // Spectral Threshold Channel
-// Sets the channel used for interrupts and persistence, if enabled, to 
+// Sets the channel used for interrupts and persistence, if enabled, to
 // determine device status and gain settings.
 typedef enum
 {
@@ -161,28 +161,28 @@ typedef enum
 // Automatic Channel Read-out (auto_smux setting)
 typedef enum
 {
-    AUTOSMUX_6_CHANNELS = 0x00, // 6 channel readout: FZ, FY, FXL, NIR, 2xVIS, FD
+    AUTOSMUX_6_CHANNELS = 0x00,  // 6 channel readout: FZ, FY, FXL, NIR, 2xVIS, FD
     AUTOSMUX_12_CHANNELS = 0x02, // 12 channel readout
-                           // Cycle 1: FZ, FY, FXL, NIR, 2xVIS, FD
-                            // Cycle 2: FZ, F3, F4, F6, 2xVIS, FD
+                                 // Cycle 1: FZ, FY, FXL, NIR, 2xVIS, FD
+                                 // Cycle 2: FZ, F3, F4, F6, 2xVIS, FD
     AUTOSMUX_18_CHANNELS = 0x03, // 18 channel readout
-                            // Cycle 1: FZ, FY, FXL, NIR, 2xVIS, FD
-                            // Cycle 2: F2, F3, F4, F6, 2xVIS, FD
-                            // Cycle 3: F1, F7, F8, F5, 2xVIS, FD 
+                                 // Cycle 1: FZ, FY, FXL, NIR, 2xVIS, FD
+                                 // Cycle 2: F2, F3, F4, F6, 2xVIS, FD
+                                 // Cycle 3: F1, F7, F8, F5, 2xVIS, FD
 } sfe_as7343_auto_smux_channel_t;
 
 // GPIO mode settings
 typedef enum
 {
     AS7343_GPIO_MODE_OUTPUT = 0x00, // GPIO set to output mode
-    AS7343_GPIO_MODE_INPUT, // GPIO set to input mode
+    AS7343_GPIO_MODE_INPUT,         // GPIO set to input mode
 } sfe_as7343_gpio_mode_t;
 
 // GPIO output settings
 typedef enum
 {
     AS7343_GPIO_OUTPUT_LOW = 0x00, // GPIO set to low
-    AS7343_GPIO_OUTPUT_HIGH, // GPIO set to high
+    AS7343_GPIO_OUTPUT_HIGH,       // GPIO set to high
 } sfe_as7343_gpio_output_t;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -262,7 +262,6 @@ typedef union {
     uint16_t word;
 } sfe_as7343_reg_sp_th_l_t;
 
-
 const uint8_t ksfAS7343RegSpThH = 0x86; // Register Address
 
 typedef union {
@@ -301,16 +300,16 @@ typedef union {
     uint8_t byte;
 } sfe_as7343_reg_astatus_t;
 
-const uint8_t ksfAS7343RegData0 = 0x95; // Register Address
-const uint8_t ksfAS7343RegData1 = 0x97; // Register Address
-const uint8_t ksfAS7343RegData2 = 0x99; // Register Address
-const uint8_t ksfAS7343RegData3 = 0x9B; // Register Address
-const uint8_t ksfAS7343RegData4 = 0x9D; // Register Address
-const uint8_t ksfAS7343RegData5 = 0x9F; // Register Address
-const uint8_t ksfAS7343RegData6 = 0xA1; // Register Address
-const uint8_t ksfAS7343RegData7 = 0xA3; // Register Address
-const uint8_t ksfAS7343RegData8 = 0xA5; // Register Address
-const uint8_t ksfAS7343RegData9 = 0xA7; // Register Address
+const uint8_t ksfAS7343RegData0 = 0x95;  // Register Address
+const uint8_t ksfAS7343RegData1 = 0x97;  // Register Address
+const uint8_t ksfAS7343RegData2 = 0x99;  // Register Address
+const uint8_t ksfAS7343RegData3 = 0x9B;  // Register Address
+const uint8_t ksfAS7343RegData4 = 0x9D;  // Register Address
+const uint8_t ksfAS7343RegData5 = 0x9F;  // Register Address
+const uint8_t ksfAS7343RegData6 = 0xA1;  // Register Address
+const uint8_t ksfAS7343RegData7 = 0xA3;  // Register Address
+const uint8_t ksfAS7343RegData8 = 0xA5;  // Register Address
+const uint8_t ksfAS7343RegData9 = 0xA7;  // Register Address
 const uint8_t ksfAS7343RegData10 = 0xA9; // Register Address
 const uint8_t ksfAS7343RegData11 = 0xAB; // Register Address
 const uint8_t ksfAS7343RegData12 = 0xAD; // Register Address
@@ -426,7 +425,7 @@ typedef union {
     struct
     {
         uint8_t again : 5;
-        uint8_t reserved: 3;
+        uint8_t reserved : 3;
     };
     uint8_t byte;
 } sfe_as7343_reg_cfg1_t;
@@ -436,9 +435,9 @@ const uint8_t ksfAS7343RegCfg3 = 0xC7; // Register Address
 typedef union {
     struct
     {
-        uint8_t reserved: 4;
+        uint8_t reserved : 4;
         uint8_t sai : 1;
-        uint8_t reserved2: 3;
+        uint8_t reserved2 : 3;
     };
     uint8_t byte;
 } sfe_as7343_reg_cfg3_t;
@@ -449,7 +448,7 @@ typedef union {
     struct
     {
         uint8_t reserved : 3;
-        uint8_t smux_cmd: 2;
+        uint8_t smux_cmd : 2;
         uint8_t reserved_one : 3;
     };
     uint8_t byte;
@@ -461,7 +460,7 @@ typedef union {
     struct
     {
         uint8_t reserved : 6;
-        uint8_t fifo_th: 2;
+        uint8_t fifo_th : 2;
     };
     uint8_t byte;
 } sfe_as7343_reg_cfg8_t;
@@ -472,9 +471,9 @@ typedef union {
     struct
     {
         uint8_t reserved : 5;
-        uint8_t sienc_smux: 1;
+        uint8_t sienc_smux : 1;
         uint8_t reserved_one : 1;
-        uint8_t sienc_fd: 1;
+        uint8_t sienc_fd : 1;
         uint8_t reserved_two : 1;
     };
     uint8_t byte;
@@ -649,13 +648,12 @@ typedef union {
     uint16_t word;
 } sfe_as7343_reg_fifo_data_t;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 
 class sfDevAS7343
 {
   public:
-    sfDevAS7343()
+    sfDevAS7343() : _data{0}, _theBus{nullptr}
     {
     }
 
@@ -674,10 +672,10 @@ class sfDevAS7343
     void setCommunicationBus(sfTkIBus *theBus);
 
     /// @brief Set the register bank.
-    /// In order to access registers from 0x58 to 0x66, bit REG_BANK in register 
-    /// CFG0 (0xBF) needs to be set to “1”. For register access of registers 
+    /// In order to access registers from 0x58 to 0x66, bit REG_BANK in register
+    /// CFG0 (0xBF) needs to be set to “1”. For register access of registers
     /// 0x80 and above bit REG_BANK needs to be set to “0”
-    /// @param regBank The register bank to set. 
+    /// @param regBank The register bank to set.
     /// @details Options: REG_BANK_0 (default), REG_BANK_1.
     /// @return True if successful, false if it fails.
     bool setRegisterBank(sfe_as7343_reg_bank_t regBank);
@@ -729,6 +727,12 @@ class sfDevAS7343
     /// @return The number of channel data bytes written to the desired array pointer
     uint8_t getData(uint16_t *data, size_t size);
 
+    // version that just takes an array that is of size ksfAS7343NumChannels
+    uint8_t getData(uint16_t data[ksfAS7343NumChannels])
+    {
+        return getData(data, ksfAS7343NumChannels);
+    }
+
     /// @brief Set automatic channel read-out.
     /// @details This method sets the automatic channel read-out mode. The
     /// auto_smux setting in the CFG20 register (0xD6) can be set to 6, 12, or 18
@@ -777,7 +781,7 @@ class sfDevAS7343
     uint16_t getBlue(void);
 
     /// @brief Get NIR spectrum data. (aka channel NIR, 855nm)
-    /// @return The NIR spectrum data.  
+    /// @return The NIR spectrum data.
     uint16_t getNIR(void);
 
     /// @brief Get Specific Channel of Spectrum Data
@@ -812,7 +816,7 @@ class sfDevAS7343
     /// (ksfAS7343RegIntEnab).
     /// @param enable True to enable the spectral interrupt, false to disable.
     /// @return True if successful, false if it fails.
-    bool enableSpectralInterrupt(bool enable =  true);
+    bool enableSpectralInterrupt(bool enable = true);
 
     /// @brief Disable the spectral interrupt.
     /// @details This method disables the spectral interrupt by calling the
@@ -826,7 +830,7 @@ class sfDevAS7343
     /// @param spThCh The spectral threshold channel to set.
     /// @details Options: SPECTRAL_THRESHOLD_CHANNEL_0 (default),
     /// SPECTRAL_THRESHOLD_CHANNEL_1, SPECTRAL_THRESHOLD_CHANNEL_2,
-    /// SPECTRAL_THRESHOLD_CHANNEL_3, SPECTRAL_THRESHOLD_CHANNEL_4, 
+    /// SPECTRAL_THRESHOLD_CHANNEL_3, SPECTRAL_THRESHOLD_CHANNEL_4,
     /// SPECTRAL_THRESHOLD_CHANNEL_5.
     /// @return True if successful, false if it fails.
     bool setSpectralThresholdChannel(sfe_as7343_spectral_threshold_channel_t spThCh);
@@ -907,7 +911,7 @@ class sfDevAS7343
     uint8_t readIntEnableReg(void);
 
     /// @brief Set the GPIO pin mode.
-    /// @details This method sets the GPIO pin mode by writing to the GPIO_IN_EN 
+    /// @details This method sets the GPIO pin mode by writing to the GPIO_IN_EN
     /// and GPIO_OUT bits in the GPIO register (ksfAS7343RegGpio).
     /// @param gpioMode The GPIO pin mode to set.
     /// @details Options: AS7343_GPIO_MODE_INPUT (default), AS7343_GPIO_MODE_OUTPUT.
@@ -1006,7 +1010,7 @@ class sfDevAS7343
     /// @details This method gets the flicker detection frequency detected by reading
     /// the FD_100HZ_DET and FD_120HZ_DET bits in the FD_STATUS register
     /// (ksfAS7343RegFdStatus).
-    /// @return The flicker detection frequency detected (100 or 120) 
+    /// @return The flicker detection frequency detected (100 or 120)
     /// or 0 if no frequency is detected.
     uint8_t getFlickerDetectionFrequency(void);
 
