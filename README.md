@@ -3,14 +3,14 @@
 
 # SparkFun Spectral UV Sensor - AS7343
 
-Arduino Library for the SparkFun Spectral UV Sensor - AS7331 Sensor
+Arduino Library for the SparkFun Spectral UV Sensor - AS7343 Sensor
 
-![License](https://img.shields.io/github/license/sparkfun/SparkFun_AS7331_Arduino_Library)
-![Release](https://img.shields.io/github/v/release/sparkfun/SparkFun_AS7331_Arduino_Library)
-![Release Date](https://img.shields.io/github/release-date/sparkfun/SparkFun_AS7331_Arduino_Library)
-![Documentation - build](https://img.shields.io/github/actions/workflow/status/sparkfun/SparkFun_AS7331_Arduino_Library/build-deploy-ghpages.yml?label=doc%20build)
-![Compile - Test](https://img.shields.io/github/actions/workflow/status/sparkfun/SparkFun_AS7331_Arduino_Library/compile-sketch.yml?label=compile%20test)
-![GitHub issues](https://img.shields.io/github/issues/sparkfun/SparkFun_AS7331_Arduino_Library)
+![License](https://img.shields.io/github/license/sparkfun/SparkFun_AS7343_Arduino_Library)
+![Release](https://img.shields.io/github/v/release/sparkfun/SparkFun_AS7343_Arduino_Library)
+![Release Date](https://img.shields.io/github/release-date/sparkfun/SparkFun_AS7343_Arduino_Library)
+![Documentation - build](https://img.shields.io/github/actions/workflow/status/sparkfun/SparkFun_AS7343_Arduino_Library/build-deploy-ghpages.yml?label=doc%20build)
+![Compile - Test](https://img.shields.io/github/actions/workflow/status/sparkfun/SparkFun_AS7343_Arduino_Library/compile-sketch.yml?label=compile%20test)
+![GitHub issues](https://img.shields.io/github/issues/sparkfun/SparkFun_AS7343_Arduino_Library)
 
 
 The [SparkFun Spectral UV Sensor - AS7331 (SEN-23517)](https://www.sparkfun.com/sparkfun-spectral-uv-sensor-as7331-qwiic.html) and [SEN-23518](https://www.sparkfun.com/sparkfun-mini-spectral-uv-sensor-as7331-qwiic.html) features the AS7331 UV sensor from ams OSRAM©. It measures UV radiation on three channels: UVA (320-400nm), UVB (280-320nm), and UVC (200-280nm) with high sensitivity and accuracy. The three channels on the AS7331 each have individual photodiodes with built-in interference filters. This Mini-sized breakout board is only 0.5in. by 1in. big and has three operating modes: Single Measurement (CMD), Continuous Measurement (CONT), SYNchronized Start (SYNS), and SYNchronized Start & End (SYND), with an automatic power-down sequence between measurements for low current consumption in all three modes.
