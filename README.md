@@ -1,4 +1,4 @@
-![SparkFun Spectral Sensor AS7343 Arduino Library](docs/images/gh-banner-as7343-library.png "SparkFun Spectral Sensor AS7343 Arduino Library]")
+![SparkFun Spectral Sensor AS7343 Arduino Library](docs/images/AS7343_Arduino_Banner.png "SparkFun Spectral Sensor AS7343 Arduino Library]")
 
 # SparkFun Spectral Sensor AS7343 Arduino Library
 
