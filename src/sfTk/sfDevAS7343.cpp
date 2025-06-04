@@ -584,7 +584,7 @@ bool sfDevAS7343::setAgain(sfe_as7343_again_t again)
     return true;
 }
 
-bool sfDevAS7343::flickerDetectionEnableDisable(bool enable)
+bool sfDevAS7343::enableFlickerDetection(bool enable)
 {
     sfe_as7343_reg_enable_t enableReg; // Create a register structure for the Enable register
 
@@ -602,14 +602,9 @@ bool sfDevAS7343::flickerDetectionEnableDisable(bool enable)
     return true;
 }
 
-bool sfDevAS7343::enableFlickerDetection(void)
-{
-    return flickerDetectionEnableDisable(true);
-}
-
 bool sfDevAS7343::disableFlickerDetection(void)
 {
-    return flickerDetectionEnableDisable(false);
+    return enableFlickerDetection(false);
 }
 
 bool sfDevAS7343::isFlickerDetectionValid(void)
