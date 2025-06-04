@@ -1,9 +1,8 @@
+![SparkFun Spectral Sensor AS7343 Arduino Library](docs/images/gh-banner-as7343-library.png "SparkFun Spectral Sensor AS7343 Arduino Library]")
 
-![SparkFun Spectral UV Sensor - AS7331](docs/images/gh-banner-2025-as7331.png "SparkFun Spectral UV Sensor - AS7331 Sensor")
+# SparkFun Spectral Sensor AS7343 Arduino Library
 
-# SparkFun Spectral UV Sensor - AS7343
-
-Arduino Library for the SparkFun Spectral UV Sensor - AS7343 Sensor
+Arduino Library for the SparkFun Spectral Sensor - AS7343 (QWIIC)
 
 ![License](https://img.shields.io/github/license/sparkfun/SparkFun_AS7343_Arduino_Library)
 ![Release](https://img.shields.io/github/v/release/sparkfun/SparkFun_AS7343_Arduino_Library)
@@ -13,126 +12,45 @@ Arduino Library for the SparkFun Spectral UV Sensor - AS7343 Sensor
 ![GitHub issues](https://img.shields.io/github/issues/sparkfun/SparkFun_AS7343_Arduino_Library)
 
 
-The [SparkFun Spectral UV Sensor - AS7331 (SEN-23517)](https://www.sparkfun.com/sparkfun-spectral-uv-sensor-as7331-qwiic.html) and [SEN-23518](https://www.sparkfun.com/sparkfun-mini-spectral-uv-sensor-as7331-qwiic.html) features the AS7331 UV sensor from ams OSRAM©. It measures UV radiation on three channels: UVA (320-400nm), UVB (280-320nm), and UVC (200-280nm) with high sensitivity and accuracy. The three channels on the AS7331 each have individual photodiodes with built-in interference filters. This Mini-sized breakout board is only 0.5in. by 1in. big and has three operating modes: Single Measurement (CMD), Continuous Measurement (CONT), SYNchronized Start (SYNS), and SYNchronized Start & End (SYND), with an automatic power-down sequence between measurements for low current consumption in all three modes.
+This library provides full access to the functions of the AS7343 Spectral Sensor through an I2C connection using the SparkFun Qwiic connectors and cables. Interrupt features can also be utilized by soldering tot he INT pin on the 0.1-inch PTH headers.
 
-Looking for the board that matches this library - pick up a [SparkFun Spectral UV Sensor - AS7331 (SEN-23517)](https://www.sparkfun.com/sparkfun-spectral-uv-sensor-as7331-qwiic.html) or a [SparkFun Mini Spectral UV Sensor - AS7331 (SEN-23518)](https://www.sparkfun.com/sparkfun-mini-spectral-uv-sensor-as7331-qwiic.html) at www.sparkfun.com.
+### Supported Products
+This library is intended for use with the following SparkFun Product - available at [www.sparkfun.com](https://www.sparkfun.com). 
 
-## Functionality
+| Product | Description|
+|--|--|
+|[SparkFun Spectral Sensor - AS7343 (Qwiic)](https://www.sparkfun.com/products/23220) | The SparkFun AS7343 Qwiic Spectral Sensor enables users to measure 14 channels of spectral data including both the visible spectrum (VIS) and near-infrared (NIR) ranges, all on a single IC in a compact package. The AS7343 exhibits exceptional sensitivity across its sensing spectrum (~380nm to 1000nm) and operates reliably in low-light environments, including when measuring through tinted glass.|
 
-This library provides an interface that enables the following functionality when using one of the SparkFun Spectral UV Sensor - AS7331 Sensors:
+## Documentation
 
-* Read values from the three UV channels of the sensor (UVA, UVB, UVC) separately or as a combined value
-* Adjust the sensors gain values
-* Set sensors clock speed and timing values
-* Change the operating modes of the sensor
-* Control the sensors power-down state
-* Change the I2C address of the sensor
-
-## General Use 
-
-The following outlines the general use of the library in an Arduino Sketch. 
-
-### Declaration
-
-At the start of your sketch, the library header file is included using the following statement:
-
-~~~cpp
-#include <SparkFun_AS7331.h>
-~~~
-
-Before the arduino ```setup()``` function, create a Soil Sensor object in your file with the following declaration:
-
-~~~c
-SfeAS7331ArdI2C myUVSensor // Create an instance of the sensor class
-~~~
-
-### Initialization
-
-In the Arduino ```setup()``` function, initialize the sensor by calling the begin method. This method is called after the Arduino `Wire` (I2C) library is initialized. 
-
-~~~cpp
-// Initialize sensor and run default setup.
-if (myUVSensor.begin() == false)
-{
-    Serial.println("Sensor failed to begin. Please check your wiring!");
-    Serial.println("Halting...");
-    while (1)
-            ;
-}
-~~~
-
-The begin method returns true if the sensor is connected and available, and false if it is not. If a value of *false* is returned in the above example, the  sketch execution is halted.
-
-After the sensor is initialized, any configuration values are normally set. The following demonstrates how to configure the operating mode of the sensor.
-
-~~~cpp
-// Set measurement mode and change device operating mode to measure.
-if (myUVSensor.prepareMeasurement(MEAS_MODE_CMD) == false)
-{
-    Serial.println("Sensor did not get set properly.");
-    Serial.println("Halting...");
-    while (1)
-        ;
-}
-~~~
-
-The above command sets up the sensor to operate in a *OneShot* mode.
-
-### Usage
-
-#### Read Value
-
-To read a value, the first step is to start a measurement, and wait for at least the sensors "conversion time" to expire. 
-
-~~~cpp
-// Send a start measurement command.
-if (ksfTkErrOk != myUVSensor.setStartState(true))
-    Serial.println("Error starting reading!");
-
-// Wait for a bit longer than the conversion time.
-delay(2 + myUVSensor.getConversionTimeMillis());
-~~~
-
-Once the conversion period is complete, the values are read from the device with the following command:
-
-~~~cpp
-// Read UV values.
-if (ksfTkErrOk != myUVSensor.readAllUV())
-    Serial.println("Error reading UV.");
-~~~
-
-At this point the values from the sensor are available locally in the library and accessed using the following commands:
-
-~~~cpp
-Serial.print("UVA:");
-Serial.print(myUVSensor.getUVA());
-Serial.print(" UVB:");
-Serial.print(myUVSensor.getUVB());
-Serial.print(" UVC:");
-Serial.println(myUVSensor.getUVC());
-~~~
-
-The capabilities of this library are far more that outlined in this section. For more information consult the examples that are part of this library or the libraries documentation.
+|Reference | Description |
+|---|---|
+|[Library Documentation](https://docs.sparkfun.com/SparkFun_AS7343_Arduino_Library/)| The full documentation and API for this Arduino library|
+|[SparkFun Spectral Sensor - AS7343 (Qwiic)](https://github.com/sparkfun/SparkFun_Spectral_Sensor_Breakout_AS7343_Qwiic/)| Hardware GitHub Repository|
+|[Hook Up Guide - SparkFun Spectral Sensor - AS7343 (Qwiic)](https://docs.sparkfun.com/SparkFun_Spectral_Sensor_Breakout_AS7343_Qwiic/) | Hardware Overview and Quick Start for the SparkFun Spectral Sensor - AS7343 (Qwiic)|
+|[AS7343 Datasheet](https://cdn.sparkfun.com/assets/e/f/3/6/c/AS7343_DS001046_6-00.pdf) | Datasheet for the AS7343 IC|
+|[Installing an Arduino Library Guide](https://learn.sparkfun.com/tutorials/installing-an-arduino-library)| Basic information on how to install an Arduino library|
 
 ## Examples
 
 The following examples are provided with the library
 
-- [Basic One Shot](examples/Example01_Basic_OneShot/Example01_Basic_OneShot.ino) - This example shows how operate the AS7331 in the default CMD mode.
-- [CONT Mode](examples/Example02_CONT_Mode/Example02_CONT_Mode.ino) - Shows how operate the AS7331 in CONT mode. The break time register sets the delay between measurements so that the processor can read out the results without interfering with the ADC. 
-- [SYNS Mode](examples/Example_03_LEDFlashMoisture/Example_03_LEDFlashMoisture.ino) - Shows how operate the AS7331 in SYNS mode. This uses the active low SYN pin to start the conversion and relies on an interrupt to signal the end of conversion.
-- [SYND Mode](examples/Example04_SYND_Mode/Example04_SYND_Mode.ino) - Shows how operate the AS7331 in SYND mode. This uses the active low SYN pin to both start and stop the conversion. The conversion time is calculated and stored in the `measures.outputConversionTime` field in units of number of clock cycles.
+| Example | Description |
+|---|---|
+|[Basic Readings](examples/Example_01_BasicReadings/Example_01_BasicReadings.ino)| Take basic readings from the sensor (reg/green/blue) and print them to the terminal.|
+|[All Channels](examples/Example_02_AllChannels/Example_02_AllChannels.ino)| Take readings of all channels of data from the sensor and print them to the terminal.|
+|[Gain](examples/Example_03_Gain/Example_03_Gain.ino)| Demonstrates how to adjust the gain of the sensor (making it more or less sensitive).|
+|[Interrupt](examples/Example_04_Interrupt)| Shows how to set up a threshold and trigger an interrupt when the light reading crosses that threshold.|
+|[Flicker Detection](examples/Example_05_FlickerDetection/Example_05_FlickerDetection.ino)| Demonstrates how to setup and use flicker detection. Prints status of detection to terminal. |
+|[Sleep](examples/Example_06_Sleep/Example_06_Sleep.ino)| Shows how to put the sensor into sleep while not taking a reading to save power.|
+|[Web Terminal Bar Graphs](examples/Example_07_WebTerminal_BarGraphs/Example_07_WebTerminal_BarGraphs.ino)| Outputs data in CSV to match nicely with the [SparkFun WebSerialPlotter tool](https://docs.sparkfun.com/SparkFun_WebSerialPlotter/).|
 
-## Documentation
 
-The full API and use documentation for this library is provided [here](http://docs.sparkfun.com/SparkFun_AS7331_Arduino_Library/). For a quick reference, the main methods available in the library are listed [here](https://docs.sparkfun.com/SparkFun_AS7331_Arduino_Library/class_sfe_a_s7331_ard_i2_c.html).
-
-Curious about the hardware this board works with - visit the SparkFun Spectral UV Sensor [hardware repository](https://github.com/sparkfun/SparkFun_Spectral_UV_Sensor_AS7331).
-
-The Hookup Guide for the SparkFun Spectral UV Sensor is available [here](https://sparkfun.github.io/SparkFun_Spectral_UV_Sensor_AS7331).
 
 ## License Information
 
 This product is ***open source***!
 
-This product is licensed using the [MIT Open Source License](https://opensource.org/license/mit). 
+This product is licensed using the [MIT Open Source License](https://opensource.org/license/mit).
+
+[def]: examples
