@@ -4,7 +4,7 @@
 
 Arduino Library for the SparkFun Spectral Sensor - AS7343 (QWIIC)
 
-![License](https://img.shields.io/github/license/sparkfun/SparkFun_AS7343_Arduino_Library)
+![License](https://img.shields.io/github/license/sparkfun/sparkfun_as7343_arduino_library)
 ![Release](https://img.shields.io/github/v/release/sparkfun/SparkFun_AS7343_Arduino_Library)
 ![Release Date](https://img.shields.io/github/release-date/sparkfun/SparkFun_AS7343_Arduino_Library)
 ![Documentation - build](https://img.shields.io/github/actions/workflow/status/sparkfun/SparkFun_AS7343_Arduino_Library/build-deploy-ghpages.yml?label=doc%20build)
